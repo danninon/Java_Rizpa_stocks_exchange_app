@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/DTO/DTO.iml" filepath="$PROJECT_DIR$/DTO/DTO.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JavaFXapp/JavaFXapp.iml" filepath="$PROJECT_DIR$/JavaFXapp/JavaFXapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SystemEngine/SystemEngine.iml" filepath="$PROJECT_DIR$/SystemEngine/SystemEngine.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,5 +1,7 @@
 package SystemEngine.Instruction;
 
+import SystemEngine.Exceptions.NullPriceException;
+import SystemEngine.Exceptions.NullQuantityException;
 import SystemEngine.Stock;
 import SystemEngine.Transaction;
 
@@ -88,19 +90,28 @@ public abstract class Instruction implements Serializable, Comparable {
 
     public String getOperatorName(){return operatorName; }
     Instruction(LocalDateTime time, boolean isBuy, int price, int quantity, String operatorName) throws Exception {
-
-        if (price < 0){
-            throw new Exception("Price cannot be negative!");
-        }
-        if (quantity < 0){
-            throw new Exception("Quantity cannot be negative!");
-        }
         this.time = time;
         this.isBuy = isBuy;
         this.price = price;
         this.quantity = quantity;
         this.operatorName = operatorName;
+        this.checkLegalInstruction();
+
     }
+
+    private void checkLegalInstruction() throws Exception {
+            if (price == 0)  throw new NullPriceException("Illegal operation:\nThe price cannot be zero.");
+
+            if (quantity == 0) throw new NullQuantityException("You cannot operate with the quantity of 0. u nuts?");
+
+            if (price < 0) {
+                throw new IllegalArgumentException("Price cannot be negative!");
+            }
+            if (quantity < 0) {
+                throw new IllegalArgumentException("Quantity cannot be negative!");
+            }
+    }
+
     public String getInvokersName(){return operatorName;}
 
     protected void setPrice(int price) {

@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<Tab fx:id="singleUserTab" text="Untitled Tab" xmlns="http://javafx.com/javafx/8.0.281" xmlns:fx="http://javafx.com/fxml/1" fx:controller="outputUsers.singleUserTab.SingleUserTabController">
+<Tab fx:id="singleUserTab" text="Untitled Tab" xmlns="http://javafx.com/javafx/8.0.281" xmlns:fx="http://javafx.com/fxml/1" fx:controller="users.singleUserTab.SingleUserTabController">
    <content>
       <BorderPane>
          <center>
@@ -31,21 +31,21 @@
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
                                     <Label text="User's Name:" />
-                                    <Label text="name" />
+                                    <Label fx:id="labelUserName" text="name" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                                  <children>
                                     <Label text="Market Values:" />
-                                    <Label text="Values" />
+                                    <Label fx:id="labelUserValues" text="Values" />
                                  </children>
                               </HBox>
-                              <TableView prefHeight="175.0" prefWidth="306.0">
+                              <TableView fx:id="userTableView" prefHeight="175.0" prefWidth="306.0">
                                  <columns>
-                                    <TableColumn prefWidth="75.0" text="Company" />
-                                    <TableColumn prefWidth="75.0" text="Symbol" />
-                                    <TableColumn prefWidth="75.0" text="Price" />
-                                    <TableColumn prefWidth="75.0" text="Quantity" />
+                                    <TableColumn fx:id="colUserCompany" prefWidth="75.0" text="Company" />
+                                    <TableColumn fx:id="colUserSymbol" prefWidth="75.0" text="Symbol" />
+                                    <TableColumn fx:id="colUserPrice" prefWidth="75.0" text="Price" />
+                                    <TableColumn fx:id="colUserQuantity" prefWidth="75.0" text="Quantity" />
                                  </columns>
                               </TableView>
                            </children>
@@ -71,8 +71,8 @@
                                  <children>
                                     <VBox alignment="CENTER">
                                        <children>
-                                          <Label text="Choose Stock to operate on:" />
-                                          <ComboBox fx:id="comboBoxChooseStock" onAction="#symbolTradeListener" prefWidth="150.0" promptText="Enter Symbol here" />
+                                          <Label fx:id="labelChosenStock" text="Choose Stock to operate on:" />
+                                          <ComboBox fx:id="comboBoxChooseStock" onAction="#symbolTradeListener" prefWidth="150.0" promptText="symbol" />
                                        </children>
                                     </VBox>
                                  </children>

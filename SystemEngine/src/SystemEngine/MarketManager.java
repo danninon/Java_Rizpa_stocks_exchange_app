@@ -21,11 +21,17 @@ public class MarketManager implements StocksTradeSystem{
 
     private boolean x;
 
-    //operators name -> the user that buys/sells stocks
+
 
     public CMD4ReturnBundle operateOnStocks(Instruction newInstruction, String operatorsName, String enteredSymbol) throws Exception {
+
+        //some invalid user inputs
+
+
         Stock searchedCompany = stocks.get(enteredSymbol);
         CMD4ReturnBundle retVal;
+
+
         if (searchedCompany != null) {
             if (newInstruction.isBuy()) {
                 retVal = searchedCompany.operateStocks(newInstruction, searchedCompany.getBuyInstructionList(), searchedCompany.getSaleInstructionList());
@@ -46,12 +52,12 @@ public class MarketManager implements StocksTradeSystem{
         String operatorName = newInstructionDTO.getOperatorName();
         //Do: if zero quantity was requested
         //Do: if 0 price was requested
-        if (!newInstructionDTO.getIsBuy()) { //if sell command
-           if( getUser(operatorName).getStocksInBook().get(enteredSymbol) < newInstructionDTO.getQuantity()){
-               throw new IllegalArgumentException("The user: " + operatorName + " owns only" + getUser(operatorName).getStocksInBook().get(enteredSymbol) + "" +
-                       "stocks. and does not have the requested(" + newInstructionDTO.getQuantity() + ") amount of these stocks.");
-            }
-        }
+//        if (!newInstructionDTO.getIsBuy()) { //if sell command
+//           if( getUser(operatorName).getStocksInBook().get(enteredSymbol) < newInstructionDTO.getQuantity()){
+//               throw new IllegalArgumentException("The user: " + operatorName + " owns only" + getUser(operatorName).getStocksInBook().get(enteredSymbol) + "" +
+//                       "stocks. and does not have the requested(" + newInstructionDTO.getQuantity() + ") amount of these stocks.");
+//            }
+//        }
         Stock searchedCompany = stocks.get(enteredSymbol);
         Instruction newInstruction = createInstructionFromDTO(newInstructionDTO);
         CMD4ReturnBundle retVal;
@@ -71,7 +77,15 @@ public class MarketManager implements StocksTradeSystem{
     }
     //assumes userName always exists
     //Do exception if not found
-    private User getUser(String operatorName) {
+    public UserDTO getSafeUser(String operatorName) {
+        for(String userName: users.keySet()){
+            if (userName.equals(operatorName))
+                return new UserDTO(users.get(userName), this);
+        }
+        return null;
+    }
+
+    public User getUser(String operatorName) {
         for(String userName: users.keySet()){
             if (userName.equals(operatorName))
                 return users.get(userName);
@@ -128,6 +142,7 @@ public class MarketManager implements StocksTradeSystem{
             throw new IllegalArgumentException("The symbol you've entered does not exists within the system!\n" + "Going back to menu...");
     }
 
+
     @Override
     public boolean userExist(String userName){
         return users.get(userName) != null;
@@ -178,7 +193,6 @@ public class MarketManager implements StocksTradeSystem{
     public Map<String, User> getUsers() {
        return users;
     }
-
 
     @Override
     public void checkLegalSymbol(String symbol, String userName) throws Exception {

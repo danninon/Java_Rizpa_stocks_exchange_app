@@ -14,6 +14,7 @@ public class User {
         return stocksInBook;
     }
 
+
     //replacces the vlaues
     public void setQuantity(String symbol,int newVal){ ;
         stocksInBook.put(symbol, newVal);

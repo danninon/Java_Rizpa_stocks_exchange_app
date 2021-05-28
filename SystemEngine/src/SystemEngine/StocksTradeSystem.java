@@ -1,9 +1,6 @@
 package SystemEngine;
 
-import DTO.CMD4ReturnBundle;
-import DTO.InstructionDTO;
-import DTO.StockDTO;
-import DTO.StocksBookDTO;
+import DTO.*;
 import SystemEngine.Instruction.Instruction;
 
 import java.io.IOException;
@@ -20,6 +17,8 @@ public interface StocksTradeSystem {
     public CMD4ReturnBundle operateOnStocks(InstructionDTO newInstruction, String enteredSymbol) throws Exception;
 
     public StocksBookDTO getStocksBook(String userName) throws Exception;
+
+    public UserDTO getSafeUser(String userName);
 
     public Instruction createMatchingInstruction(String instructionType, LocalDateTime time, boolean isBuy, String symbol, int price, int quantity, String userName) throws Exception;
 
@@ -50,8 +49,7 @@ public interface StocksTradeSystem {
     public void cleanStocks();
 
     public void cleanUsers();
-    Map<String, User> getUsers();
 
-
+    public Map<String, User> getUsers();
 
 }

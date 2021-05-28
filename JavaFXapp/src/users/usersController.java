@@ -1,6 +1,6 @@
-package outputUsers;
+package users;
 
-import outputUsers.singleUserTab.SingleUserTabController;
+import users.singleUserTab.SingleUserTabController;
 import appControl.ApplicationControl;
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
@@ -9,19 +9,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OutputUsersScreenController {
+public class usersController {
 
     @FXML
     private TabPane tabPaneUsers;
 
     private List<SingleUserTabController> tabList;
 
-    public void submitData() throws IOException {
-
+    public void submitData() throws Exception {
 
         tabPaneUsers.getTabs().clear();
         createUserTabs();
-      //  loadUserTabs();
 
         }
 
@@ -29,12 +27,12 @@ public class OutputUsersScreenController {
 
     }
 
-    private void createUserTabs() throws IOException {
+    private void createUserTabs() throws Exception {
         appControl.createUserTabs(tabList, tabPaneUsers);
 
     }
 
-    public OutputUsersScreenController() {
+    public usersController() {
         tabList = new ArrayList<SingleUserTabController>();
         System.out.println("OutputUsersController constructor");
     }

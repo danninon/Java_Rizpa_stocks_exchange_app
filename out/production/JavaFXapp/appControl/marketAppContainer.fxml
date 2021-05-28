@@ -18,7 +18,7 @@
 
 
       <center>
-      <fx:include fx:id="bodyComponent" source="../outputUsers/outputUsers.fxml">
+      <fx:include fx:id="bodyComponent" source="../users/users.fxml">
       </fx:include>
    </center>
    <bottom>

@@ -3,31 +3,31 @@ package appControl;
 import DTO.CMD4ReturnBundle;
 import DTO.InstructionDTO;
 import DTO.StockDTO;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TextArea;
-import menuScreen.MenuScreenController;
-
-import outputUsers.OutputUsersScreenController;
+import DTO.UserDTO;
 import SystemEngine.MarketManager;
 import SystemEngine.StocksTradeSystem;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import outputUsers.singleUserTab.SingleUserTabController;
+import menuScreen.MenuScreenController;
+import users.singleUserTab.SingleUserTabController;
+import users.usersController;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ApplicationControl {
-    @FXML private TabPane bodyComponent;
-    @FXML private OutputUsersScreenController bodyComponentController;
+    final String SINGLE_USER_TAB_FXML_RESOURCE = "../users/singleUserTab/singleUserTab2.fxml";
+    @FXML
+    private TabPane bodyComponent;
 
     @FXML private AnchorPane topComponent;
     @FXML private MenuScreenController topComponentController;
@@ -67,40 +67,17 @@ public class ApplicationControl {
         }
         return status;
     }
+    @FXML
+    private usersController bodyComponentController;
 
     private void createBody() {
         try {
             createUserTabs(new ArrayList<SingleUserTabController>(), bodyComponent);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             textUserInformationProperty.setValue(e.getMessage());
         }
 
-    }
-
-
-    public List<SingleUserTabController> createUserTabs(List<SingleUserTabController> tabList, TabPane tabPaneUsers) throws IOException {
-        for (String key : this.marketManager.getUsers().keySet()) {
-            FXMLLoader loader = new FXMLLoader();
-            URL url = getClass().getResource("../outputUsers/singleUserTab/singleUserTab2.fxml");
-            loader.setLocation(url);
-            Tab userTab = loader.load();
-          //  Tab userTab = new Tab();
-           // userTab.setContent(content);
-
-
-            SingleUserTabController singleTabController = loader.getController();
-            tabList.add(singleTabController);
-
-            singleTabController.setMainController(this);
-            userTab.setText(key);
-
-            singleTabController.wiringXMLtoTab(marketManager, key);
-
-
-            tabPaneUsers.getTabs().add(userTab);
-        }
-        return tabList;
     }
 
 
@@ -111,86 +88,141 @@ public class ApplicationControl {
         return marketManager;
     }
 
-    private MarketManager marketManager;
+    private final MarketManager marketManager;
     private Stage primaryStage;
 
-    public void setPrimaryStage(Stage primaryStage) { this.primaryStage = primaryStage; }
-    public Stage getStage() { return primaryStage; }
+    public List<SingleUserTabController> createUserTabs(List<SingleUserTabController> tabList, TabPane tabPaneUsers) throws Exception {
+        for (String key : this.marketManager.getUsers().keySet()) {
+            FXMLLoader loader = new FXMLLoader();
+            URL url = getClass().getResource(SINGLE_USER_TAB_FXML_RESOURCE);
+            loader.setLocation(url);
+            Tab userTab = loader.load();
+            //  Tab userTab = new Tab();
+            // userTab.setContent(content);
 
 
-    public void ExhibitErrorMain(String message) {
-        textUserInformationProperty.setValue(message);
+            SingleUserTabController singleTabController = loader.getController();
+            tabList.add(singleTabController);
+
+            singleTabController.setMainController(this);
+            singleTabController.setUser(this.marketManager.getSafeUser(key));
+            userTab.setText(key);
+
+
+            singleTabController.wiringXMLtoTab(marketManager, key);
+
+
+            tabPaneUsers.getTabs().add(userTab);
+        }
+        return tabList;
+    }
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
+
+    public Stage getStage() {
+        return primaryStage;
+    }
+
+    public void throwMainApplication(Exception e) {
+        textUserInformationProperty.setValue(e.getMessage());
+//       if (e.getClass().getSimpleName().equals("NullPriceException")){
+//           e.getMessage();
+//       }
+//        if (e.getClass().getSimpleName().equals("UniqueException")){
+//            e.getMessage();
+//        }
+    }
+
+    private void updateUsers() {
+//Do: reloading
     }
 
     public void TradeCommit(InstructionDTO gatherInstructionDTO, String symbol, boolean buySelected) {
         try {
             StockDTO fetchedStock = marketManager.getSafeStock(symbol);
 
-            CMD4ReturnBundle bundle =  marketManager.operateOnStocks(gatherInstructionDTO, symbol);
+            CMD4ReturnBundle bundle = marketManager.operateOnStocks(gatherInstructionDTO, symbol);
 
             updateUsers(); //Do: reloading
-            matchingActionMSG(bundle, buySelected);
+
+            String msg = StringArchitect.matchingActionMSG(bundle, buySelected);
+            textUserInformationProperty.setValue(msg);
 
         } catch (Exception e) {
             textUserInformationProperty.setValue(e.getMessage());
         }
     }
 
-    private void matchingActionMSG(CMD4ReturnBundle bundle, boolean buySelected) {
+    public UserDTO getUser(String userName) {
+        return (marketManager.getSafeUser(userName));
+    }
 
-      //  boolean isBuy = isCurrentlyBuying();
-        String retMSG = "";
-        if (bundle.getInsDTO() == null) {
+    public List<UserDTO.StockPaperDTO> getUserStocksBook(String userName) {
+        return (marketManager.getSafeUser(userName).getOwnedStocks());
+    }
 
-            if (buySelected) {
-                retMSG += "Perfect match found!\nSuccessfully acquired the full extent of the request. \n ";
+    static class StringArchitect {
+        static String matchingActionMSG(CMD4ReturnBundle bundle, boolean buySelected) {
+            //  boolean isBuy = isCurrentlyBuying();
+            String retMSG = "";
+            if (bundle.getInsDTO() == null) {
+
+                if (buySelected) {
+                    retMSG += "Perfect match found!\nSuccessfully acquired the full extent of the request. \n ";
+                } else {
+                    retMSG += "Perfect match found!\nSuccessfully sold the full extent of the request. \n ";
+                }
+
+            } else if (bundle.getTransactionsMade().size() != 0) {
+
+                if (buySelected) {
+                    retMSG += "Partially match found!\nSuccessfully bought some of the request.\n";
+                } else {
+                    retMSG += "Partially match found!\nSuccessfully sold some of the request.\n";
+                }
+
+                if (buySelected) {
+                    retMSG += "\nThis partial buy instruction was been added to the market(the reminder after partially buying some of the stocks): \n";
+                } else {
+                    retMSG += "\nThis partial sale instruction was added to the market(the reminder after partially selling some of the stock): \n";
+                }
+                retMSG += instructionTimePriceQuantity(bundle.getInsDTO()); //Do: doesn't print
             } else {
-                retMSG += "Perfect match found!\nSuccessfully sold the full extent of the request. \n ";
+                if (buySelected)
+                    retMSG += "There are no active sale instruction that matches with your request.\n";
+                else
+                    retMSG += "There are no active buy instruction that matches with your request.\n";
+                if (buySelected)
+                    retMSG += "The full buy instruction that has been added to the market. \n";
+                else
+                    retMSG += "The full sale instruction that has been added to the market. \n";
             }
-
-        } else if (bundle.getTransactionsMade().size() != 0) {
-
-            if (buySelected) {
-                retMSG += "Partially match found!\nSuccessfully bought some of the request.\n";
-            } else {
-                retMSG += "Partially match found!\nSuccessfully sold some of the request.\n";
-            }
-
-            if (buySelected) {
-                retMSG += "\nThis partial buy instruction was been added to the market(the reminder after partially buying some of the stocks): \n";
-            } else {
-                retMSG += "\nThis partial sale instruction was added to the market(the reminder after partially selling some of the stock): \n";
-            }
-            retMSG += instructionTimePriceQuantity(bundle.getInsDTO()); //Do: doesn't print
-        } else {
-            if (buySelected)
-                retMSG += "There are no active sale instruction that matches with your request.\n";
-            else
-                retMSG += "There are no active buy instruction that matches with your request.\n";
-            if (buySelected)
-                retMSG += "The full buy instruction that has been added to the market. \n";
-            else
-                retMSG += "The full sale instruction that has been added to the market. \n";
+            return retMSG;
         }
-        textUserInformationProperty.setValue(retMSG);
-    }
 
-    private void updateUsers() {
-//Do: reloading
-    }
-    public String instructionTimePriceQuantity(InstructionDTO ins) {
-        return "Time - " + ins.getTime().format(DateTimeFormatter.ofPattern("HH:mm:ss:SSS")) + "\nPrice - " + ins.getPrice() +
-                "\nQuantity - " + ins.getQuantity();
+        static public String instructionTimePriceQuantity(InstructionDTO ins) {
+            return "Time - " + ins.getTime().format(DateTimeFormatter.ofPattern("HH:mm:ss:SSS")) + "\nPrice - " + ins.getPrice() +
+                    "\nQuantity - " + ins.getQuantity();
+        }
+
+        static public void updateTextProperty(StringProperty textUserInformationProperty, Exception e) {
+            textUserInformationProperty.setValue(e.getMessage());
+        }
+
+
     }
 
 }
+
+
 //    public void updateStocksBookSearchedSymbol(String symbol) {
 //    }
 
 //    public void loadComponents() {
 //
 //    }
-
 
 
 //   currentLeftComponentController = leftComponentController;

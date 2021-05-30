@@ -12,13 +12,13 @@ public interface StocksTradeSystem {
 
     public Map<String, StockDTO> getSafeStocks();
 
-   // public CMD4ReturnBundle operateOnStocks(InstructionDTO newInstructionDTO, String operatorsName, String enteredSymbol) throws Exception
+   // public CMD4ReturnBundle operateOnMarket1(InstructionDTO newInstructionDTO, String operatorsName, String enteredSymbol) throws Exception
 
-    //public CMD4ReturnBundle operateOnStocks(Instruction newInstruction, String operatorsName, String enteredSymbol) throws Exception;
+    //public CMD4ReturnBundle operateOnMarket1(Instruction newInstruction, String operatorsName, String enteredSymbol) throws Exception;
 
-    //public CMD4ReturnBundle operateOnStocks(InstructionDTO newInstruction, String enteredSymbol) throws Exception;
+    //public CMD4ReturnBundle operateOnMarket1(InstructionDTO newInstruction, String enteredSymbol) throws Exception;
 
-    public CMD4ReturnBundle operateOnStocks(InstructionDTO newInstructionDTO, String enteredSymbol) throws Exception;
+    public CMD4ReturnBundle operateOnMarket1(InstructionDTO newInstructionDTO, String enteredSymbol) throws Exception;
 
 
     public UserDTO getSafeUser(String userName);

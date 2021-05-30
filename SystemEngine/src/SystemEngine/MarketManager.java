@@ -24,7 +24,7 @@ public class MarketManager implements StocksTradeSystem {
 
 
     //@Override
-    public CMD4ReturnBundle operateOnStocks(InstructionDTO newInstructionDTO, String enteredSymbol) throws Exception {
+    public CMD4ReturnBundle operateOnMarket1(InstructionDTO newInstructionDTO, String enteredSymbol) throws Exception {
         //some invalid user inputs
 
         Instruction newInstruction = createInstructionFromDTO(newInstructionDTO);
@@ -32,7 +32,7 @@ public class MarketManager implements StocksTradeSystem {
         CMD4ReturnBundle result = null;
 
         if (searchedStock != null) {
-            result = operateOnMarket(searchedStock, newInstruction, enteredSymbol);
+            result = operateOnMarket2(searchedStock, newInstruction, enteredSymbol);
         }
         else {
              throw new Exception("Couldn't find the required stock.");
@@ -41,7 +41,7 @@ public class MarketManager implements StocksTradeSystem {
     }
 
     //, Collection<Instruction> sameType, Collection<Instruction> oppositeType
-    private CMD4ReturnBundle operateOnMarket(Stock searchedStock, Instruction newInstruction, String searchedStockSymbol) {
+    private CMD4ReturnBundle operateOnMarket2(Stock searchedStock, Instruction newInstruction, String searchedStockSymbol) {
 
         User instructionOperator = users.get(newInstruction.getOperatorName());
 
@@ -54,20 +54,29 @@ public class MarketManager implements StocksTradeSystem {
             sameTypeCollection = searchedStock.getBuyInstructionData();
             oppositeInstructionCollection = searchedStock.getSaleInstructionData();
         }
+
+        int totalGetTotalOperations = 0;
         for (Instruction oppositeInstruction : oppositeInstructionCollection) {
-            if (!newInstruction.getOperatorName().equals(newInstruction.getOperatorName())) {
+            if (!newInstruction.getOperatorName().equals(oppositeInstruction.getOperatorName())) {
                 if (newInstruction.matchesOppositeInstruction(newInstruction)) {
 
                     Transaction tr = newInstruction.operateStock(oppositeInstruction);
                     searchedStock.getTransactionList().push(tr);
                     searchedStock.updateStock(tr.getQuantity(), tr.getPrice(), tr.getTotalPayment());
-
+                    totalGetTotalOperations += tr.getQuantity();
                     User buyer = users.get(tr.getBuyersName());
                     User seller = users.get(tr.getSellersName());
 
                     int quantityTraded = tr.getQuantity();
-                    buyer.updateUserAfterBuying(searchedStockSymbol, quantityTraded);
-                    seller.updateUserAfterSelling(searchedStockSymbol, quantityTraded); //should remove paper incase 0 remain
+                    buyer.updateUserAfterBuyingCase(searchedStockSymbol, quantityTraded);
+
+
+                    if (seller.equals(instructionOperator)){
+                        seller.updateUserAfterSellingCase(searchedStockSymbol, 0); //should remove paper incase 0 remain
+                    }
+                    else{
+                        seller.updateUserAfterSellingCase(searchedStockSymbol, 10); //should remove paper incase 0 remain
+                    }
                 }
 
                 if (oppositeInstruction.getQuantity() == 0) {
@@ -79,23 +88,30 @@ public class MarketManager implements StocksTradeSystem {
             }
         }
 
-
         if (newInstruction.getQuantity() > 0) {
-        //    newInstruction.prepareAddingRemainderToInstructionList(searchedStock);
+            if (!newInstruction.isBuy()) {
+                instructionOperator.updateUserAfterInsertingSaleInstruction(searchedStockSymbol, newInstruction.getQuantity());
+            }
             sameTypeCollection.add(newInstruction);
         }
+
         return new CMD4ReturnBundle(searchedStock.getTransactionList(), newInstruction);
     }
 
 
-
-    private void updateUser(User operator, User buyer, User seller, Transaction tr, String symbol) {
-        User.transact( operator,  buyer,  seller,  tr,  symbol);
-
+    private void updateUserInstructionCase(String searchedStockSymbol, int quantity) {
     }
-    //public CMD4ReturnBundle operateOnStocks(Instruction newInstruction, String operatorsName, String enteredSymbol) throws Exception {
 
-//    public CMD4ReturnBundle operateOnStocks(InstructionDTO newInstructionDTO, String enteredSymbol) throws Exception {
+
+
+
+//    private void updateUser(User operator, User buyer, User seller, Transaction tr, String symbol) {
+//        User.transact( operator,  buyer,  seller,  tr,  symbol);
+//
+//    }
+    //public CMD4ReturnBundle operateOnMarket1(Instruction newInstruction, String operatorsName, String enteredSymbol) throws Exception {
+
+//    public CMD4ReturnBundle operateOnMarket1(InstructionDTO newInstructionDTO, String enteredSymbol) throws Exception {
 //        String operatorName = newInstructionDTO.getOperatorName();
 //
 ////        if (!newInstructionDTO.getIsBuy()) { //if sell command
@@ -161,7 +177,7 @@ public class MarketManager implements StocksTradeSystem {
 //
 //            int quantityTraded = tr.getQuantity();
 //
-//                buyingUser.updateUserAfterBuying(symbol, quantityTraded);
+//                buyingUser.updateUserAfterBuyingCase(symbol, quantityTraded);
 //                sellingUser.getPaper(symbol).updateAfterSold(quantityTraded, symbol); //removes the paper if sold out
 //            } else
 //                {
@@ -288,16 +304,16 @@ public class MarketManager implements StocksTradeSystem {
         List<RseUser> xmlUsers = fromStocks.getRseUser();
         Map<String, User> newConvertedUsers = new HashMap<>(); //name
         for (RseUser user : xmlUsers) {
-            User newBook = new User();
+            User newUser = new User();
             if (newConvertedUsers.get(user.getName()) == null) {
 
                 for (RseItem item : user.getRseHoldings().getRseItem()) {
                     if (stocks.containsKey(item.getSymbol())) { //cannot add papers yet
-                        newBook.addPaper(item.getSymbol(), item.getQuantity());
+                        newUser.addPaper(item.getSymbol(), item.getQuantity());
                     } else
                         throw new Exception("Error! the user " + user.getName() + "contains the symbol: " + item.getSymbol() + "which is unknown to the system."); //make ExceptionSymbolNotFound
                 }
-                newConvertedUsers.put(user.getName(), newBook);
+                newConvertedUsers.put(user.getName(), newUser);
             }
             else { throw new UniqueException("User Name", user.getName()); }
 

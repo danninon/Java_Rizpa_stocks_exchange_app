@@ -9,8 +9,8 @@ public class User {
 
     }
 
-    public void addPaper(String symbol, int quanitity) throws Exception {
-        stocksInBook.put(symbol, new StockPaper(0,quanitity));
+    public void addPaper(String symbol, int idleQuantity) throws Exception {
+        stocksInBook.put(symbol, new StockPaper(0,idleQuantity));
 
     }
 
@@ -35,32 +35,40 @@ public class User {
         return stocksInBook.get(symbol);
     }
 
-    public void updateUserAfterBuying(String symbol, int quantityTraded) {
-        StockPaper buyerStockPaper = stocksInBook.get(symbol);
-        if (buyerStockPaper == null) {
-            stocksInBook.put(symbol, new StockPaper(0, quantityTraded));
-        }
-        else {
-            buyerStockPaper.idle += quantityTraded;
-        }
+    public void updateUserNewInstruction(String symbol, int buyingQuantity){
+        stocksInBook.get(symbol).atMarket += buyingQuantity;
     }
 
-    public void updateUserAfterSelling(String symbol, int quantity){
+    public void updateUserAfterBuyingCase(String symbol, int incQuantity) {
+        StockPaper buyerStockPaper = stocksInBook.get(symbol);
+        if (buyerStockPaper == null) {
+            stocksInBook.put(symbol, new StockPaper(0, incQuantity));
+        }
+        buyerStockPaper.idle += incQuantity;
+    }
+
+    public void updateUserAfterSellingCase(String symbol, int deduceQuantity){
+
         StockPaper sellerStockPaper = stocksInBook.get(symbol);
-        sellerStockPaper.atMarket -= quantity;
+        sellerStockPaper.atMarket = sellerStockPaper.atMarket - deduceQuantity;
        if (sellerStockPaper.atMarket + sellerStockPaper.idle == 0) {
            removePaper(symbol);
        }
+
+    }
+
+    public void updateUserAfterInsertingSaleInstruction(String symbol, Integer incValueToAtMarket){
+        stocksInBook.get(symbol).setAtMarket(stocksInBook.get(symbol).getAtMarket() + incValueToAtMarket);
     }
 
     public class StockPaper {
-        int atMarket;
-        int idle;
+        Integer atMarket = 0;
+        Integer idle = 0;
 
         public int getTotalAmount(){return atMarket + idle; }
         public StockPaper(int atMarket, int idle) {
             this.idle = idle; //total has
-            this.atMarket = atMarket; //sold atm at market
+            this.atMarket = +atMarket; //sold atm at market
             //this means inbag equals inpossetion - at market
         }
 
@@ -75,7 +83,7 @@ public class User {
             }
         }
 
-        public int getAtMarket() {
+        public Integer getAtMarket() {
             return atMarket;
         }
 
@@ -83,7 +91,7 @@ public class User {
             this.atMarket = atMarket;
         }
 
-        public int getIdle() {
+        public Integer getIdle() {
             return idle;
         }
 

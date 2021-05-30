@@ -15,8 +15,8 @@ public class UserDTO {
             for (String symbol :user.getStocksInBook().keySet()){
                 try {
                     User.StockPaper stockPaper = user.getStocksInBook().get(symbol);
-                    stocksOwnedByUser.add(new StockPaperDTO(system.getSafeStock(symbol).
-                            getPrice(),stockPaper.getIdle(),stockPaper.getAtMarket(),
+                    stocksOwnedByUser.add(new StockPaperDTO(system.getSafeStock(symbol).getPrice(),
+                            stockPaper.getAtMarket(),stockPaper.getIdle(),
                             system.getSafeStock(symbol).getCompanyName(), symbol));
                 } catch (Exception e) {
                     e.printStackTrace();

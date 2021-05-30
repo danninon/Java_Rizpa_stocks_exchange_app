@@ -59,7 +59,7 @@ public class ApplicationControl {
         try {
             marketManager.loadXML(path);
             textUserInformationProperty.setValue("File loaded successfully.");
-            createNewBody();
+            loadCurrentUsersState();
             status = true;
         } catch (Exception e) {
             //textUserInformationProperty.setValue("There was a problem with the chosen xml. Please retry with a valid one.");
@@ -70,9 +70,10 @@ public class ApplicationControl {
     @FXML
     private usersController bodyComponentController;
 
-    private void createNewBody() {
+    private void loadCurrentUsersState() {
         try {
-            createUserTabs(new ArrayList<SingleUserTabController>(), bodyComponent);
+
+            createUserTabs(new ArrayList<SingleUserTabController>());
 
         } catch (Exception e) {
             textUserInformationProperty.setValue(e.getMessage());
@@ -87,10 +88,10 @@ public class ApplicationControl {
     private final MarketManager marketManager;
     private Stage primaryStage;
 
-    public List<SingleUserTabController> createUserTabs(List<SingleUserTabController> tabList, TabPane tabPaneUsers) throws Exception {
+    public List<SingleUserTabController> createUserTabs(List<SingleUserTabController> tabList) throws Exception {
 
-        int savedSelectedIndex = tabPaneUsers.getSelectionModel().getSelectedIndex();
-        tabPaneUsers.getTabs().clear();
+        int savedSelectedIndex = bodyComponent.getSelectionModel().getSelectedIndex();
+        bodyComponent.getTabs().clear();
         for (String key : this.marketManager.getUsers().keySet()) {
             int ctr = 0;
             FXMLLoader loader = new FXMLLoader();
@@ -112,9 +113,9 @@ public class ApplicationControl {
             singleTabController.wiringXMLtoTab(marketManager, key);
 
 
-            tabPaneUsers.getTabs().add(userTab);
+            bodyComponent.getTabs().add(userTab);
             if (ctr==savedSelectedIndex)
-                tabPaneUsers.setSelectionModel(userTab.getTabPane().getSelectionModel());
+                bodyComponent.setSelectionModel(userTab.getTabPane().getSelectionModel());
              //   savedSelectedTab = userTab;
         }
       //  tabPaneUsers.setSelectionModel(savedSelectedIndex);
@@ -138,20 +139,18 @@ public class ApplicationControl {
     public void TradeCommit(InstructionDTO gatherInstructionDTO, String symbol, boolean buySelected) {
         try {
             StockDTO fetchedStock = marketManager.getSafeStock(symbol);
-//public CMD4ReturnBundle operateOnStocks(Instruction newInstruction, String operatorsName, String enteredSymbol) throws Exception;
+            CMD4ReturnBundle bundle = marketManager.operateOnMarket1(gatherInstructionDTO, symbol);
+
+                loadCurrentUsersState(); //Do: reloading
 
 
-            CMD4ReturnBundle bundle = marketManager.operateOnStocks(gatherInstructionDTO, symbol);
+        String msg = StringArchitect.matchingActionMSG(bundle, buySelected);
+        textUserInformationProperty.setValue(msg);
 
-            if (bundle.getTransactionsMade().size() != 0)
+    } catch (Exception e)
+        {
+        textUserInformationProperty.setValue(e.getMessage());
 
-                createNewBody(); //Do: reloading
-
-            String msg = StringArchitect.matchingActionMSG(bundle, buySelected);
-            textUserInformationProperty.setValue(msg);
-
-        } catch (Exception e) {
-            textUserInformationProperty.setValue(e.getMessage());
         }
     }
 
@@ -167,44 +166,43 @@ public class ApplicationControl {
         static String matchingActionMSG(CMD4ReturnBundle bundle, boolean buySelected) {
             //  boolean isBuy = isCurrentlyBuying();
             String retMSG = "";
-            if (bundle.getInsDTO() == null) {
+            if (bundle.getInsDTO() == null) { //instruction wasn't made
 
                 if (buySelected) {
                     retMSG += "Perfect match found!\nSuccessfully acquired the full extent of the request. \n ";
                 } else {
                     retMSG += "Perfect match found!\nSuccessfully sold the full extent of the request. \n ";
                 }
-
-            } else if (bundle.getTransactionsMade().size() != 0) {
-
-                if (buySelected) {
-                    retMSG += "Partially match found!\nSuccessfully bought some of the request.\n";
-                } else {
-                    retMSG += "Partially match found!\nSuccessfully sold some of the request.\n";
-                }
-
-                if (buySelected) {
-                    retMSG += "\nThis partial updateUserAfterBuying instruction was been added to the market(the reminder after partially buying some of the stocks): \n";
-                } else {
-                    retMSG += "\nThis partial sale instruction was added to the market(the reminder after partially selling some of the stock): \n";
-                }
+            }//theres an instruction
+              else if (bundle.getTransactionsMade() != null){ //transactions were made
+                  if (bundle.getTransactionsMade().size() != 0) {
+                      if (buySelected) {
+                          retMSG += "Partially match found!\nSuccessfully bought some of the request.\n";
+                          retMSG += "\nThis partial updateUserAfterBuyingCase instruction was been added to the market(the reminder after partially buying some of the stocks): \n";
+                      } else {
+                          retMSG += "Partially match found!\nSuccessfully sold some of the request.\n";
+                          retMSG += "\nThis partial sale instruction was added to the market(the reminder after partially selling some of the stock): \n";
+                      }
+                  }
                 retMSG += instructionTimePriceQuantity(bundle.getInsDTO()); //Do: doesn't print
-            } else {
-                if (buySelected)
-                    retMSG += "There are no active sale instruction that matches with your request.\n";
-                else
-                    retMSG += "There are no active updateUserAfterBuying instruction that matches with your request.\n";
-                if (buySelected)
-                    retMSG += "The full updateUserAfterBuying instruction that has been added to the market. \n";
-                else
-                    retMSG += "The full sale instruction that has been added to the market. \n";
+                    }
+                else { //new instruction and no transaction - no transaction has been made
+                    if (buySelected) {
+                        retMSG += "There are no active sale instruction that matches with your request.\n";
+                        retMSG += "The full  instruction has been added to the market. \n";
+                    }
+                    else{
+                        retMSG += "The full sale instruction that has been added to the market. \n";
+                         retMSG += "There are no active instruction that matches with your request.\n";
+                    }
+                retMSG += instructionTimePriceQuantity(bundle.getInsDTO()); //Do: doesn't print
+                }
+                return retMSG;
             }
-            return retMSG;
         }
-
         static public String instructionTimePriceQuantity(InstructionDTO ins) {
             return "Time - " + ins.getTime().format(DateTimeFormatter.ofPattern("HH:mm:ss:SSS")) + "\nPrice - " + ins.getPrice() +
-                    "\nQuantity - " + ins.getQuantity();
+                    " NIS\nQuantity - " + ins.getQuantity() + "\nFor a total price of:" + ins.getQuantity()*ins.getPrice() + " NIS";
         }
 
         static public void updateTextProperty(StringProperty textUserInformationProperty, Exception e) {
@@ -214,7 +212,7 @@ public class ApplicationControl {
 
     }
 
-}
+
 
 
 //    public void updateStocksBookSearchedSymbol(String symbol) {

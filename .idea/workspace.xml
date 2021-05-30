@@ -3,54 +3,21 @@
   <component name="ChangeListManager">
     <list default="true" id="5ac6d1ff-9bb7-4675-ad9a-ead6051c4bb6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DTO/src/DTO/CMD4ReturnBundle.java" beforeDir="false" afterPath="$PROJECT_DIR$/DTO/src/DTO/CMD4ReturnBundle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DTO/src/DTO/MarketDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/DTO/src/DTO/MarketDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DTO/src/DTO/StockDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/DTO/src/DTO/StockDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DTO/src/DTO/StocksBookDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DTO/src/DTO/TransactionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/DTO/src/DTO/TransactionDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DTO/src/DTO/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/DTO/src/DTO/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/JavaFXapp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/JavaFXapp.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/Components/inputScreen/tradeInputScreen/TradeInputScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/Components/inputScreen/tradeInputScreen/TradeInputScreenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/Components/outputScreen/outputStocks/OutputScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/Components/outputScreen/outputStocks/OutputScreenController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFXapp/src/users/singleUserTab/SingleUserTabController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/users/singleUserTab/SingleUserTabController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFXapp/src/users/singleUserTab/singleUserTab2.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/users/singleUserTab/singleUserTab2.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFXapp/src/users/usersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/users/usersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Instruction/Instruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Instruction/Instruction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Instruction/LMT.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Instruction/LMT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Instruction/MKT.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Instruction/MKT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Stock.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Stock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/StocksTradeSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/StocksTradeSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Transaction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DTO/DTO/CMD4ReturnBundle.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DTO/DTO/CMD4ReturnBundle.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DTO/DTO/MarketDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DTO/DTO/MarketDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DTO/DTO/StockDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DTO/DTO/StockDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DTO/DTO/StocksBookDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DTO/DTO/TransactionDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DTO/DTO/TransactionDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DTO/DTO/UserDTO$StockPaperDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DTO/DTO/UserDTO$StockPaperDTO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/DTO/DTO/UserDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DTO/DTO/UserDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/Components/activeUsersScreen/ActiveUsersScreenControl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/Components/activeUsersScreen/activeUsersScreen.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/Components/inputScreen/stocksBookInputScreen/StocksBookInputScreenController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/Components/inputScreen/stocksBookInputScreen/stocksBookInputScreen.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/Components/inputScreen/tradeInputScreen/TradeInputScreenController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/Components/inputScreen/tradeInputScreen/tradeInputScreen.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/Components/outputScreen/outputStocks/outputScreen.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/Components/outputScreen/outputStocks/outputScreen2.fxml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/Users/singleUserTab/SingleUserTabController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/Users/singleUserTab/SingleUserTabController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/Users/singleUserTab/singleUserTab2.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/Users/singleUserTab/singleUserTab2.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/Users/usersController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/Users/usersController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl$StringArchitect.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl$StringArchitect.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Instruction/Instruction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Instruction/Instruction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Instruction/LMT.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Instruction/LMT.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Instruction/MKT.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Instruction/MKT.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/MarketManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/MarketManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Stock.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Stock.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/StocksTradeSystem.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/StocksTradeSystem.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Transaction.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/User.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -137,7 +104,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1622185602735</updated>
-      <workItem from="1622185603785" duration="50752000" />
+      <workItem from="1622185603785" duration="60526000" />
     </task>
     <task id="LOCAL‎00001" summary="first use of this git repository.&#10;fill users data information from xml">
       <created>1622199911701</created>
@@ -157,7 +124,13 @@
       <option name="presentableId" value="LOCAL‎00003" />
       <updated>1622214331143</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL‎00004" summary="upgraded the relationship of the engine and DTO">
+      <created>1622375436658</created>
+      <option name="number" value="LOCAL‎00004" />
+      <option name="presentableId" value="LOCAL‎00004" />
+      <updated>1622375436659</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -166,7 +139,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first use of this git repository.&#10;fill users data information from xml" />
     <MESSAGE value="added Exceptions to user input. revolving mostly the BodyComponent" />
-    <option name="LAST_COMMIT_MESSAGE" value="added Exceptions to user input. revolving mostly the BodyComponent" />
+    <MESSAGE value="upgraded the relationship of the engine and DTO" />
+    <option name="LAST_COMMIT_MESSAGE" value="upgraded the relationship of the engine and DTO" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -178,22 +152,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/SystemEngine/src/SystemEngine/Stock.java</url>
-          <line>59</line>
-          <option name="timeStamp" value="74" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SystemEngine/src/SystemEngine/Instruction/LMT.java</url>
-          <line>33</line>
-          <option name="timeStamp" value="76" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SystemEngine/src/SystemEngine/Stock.java</url>
           <line>32</line>
           <option name="timeStamp" value="79" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java</url>
-          <line>110</line>
+          <line>126</line>
           <option name="timeStamp" value="80" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -203,8 +167,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java</url>
-          <line>173</line>
+          <line>189</line>
           <option name="timeStamp" value="83" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java</url>
+          <line>27</line>
+          <option name="timeStamp" value="118" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="125" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java</url>
+          <line>92</line>
+          <option name="timeStamp" value="138" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java</url>
+          <line>143</line>
+          <option name="timeStamp" value="141" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

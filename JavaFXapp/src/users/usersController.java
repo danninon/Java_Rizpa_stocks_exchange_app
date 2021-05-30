@@ -28,7 +28,7 @@ public class usersController {
     }
 
     private void createUserTabs() throws Exception {
-        appControl.createUserTabs(tabList, tabPaneUsers);
+        appControl.createUserTabs(tabList);
 
     }
 

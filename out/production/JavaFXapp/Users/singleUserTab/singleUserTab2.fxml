@@ -45,7 +45,12 @@
                                     <TableColumn fx:id="colUserCompany" prefWidth="75.0" text="Company" />
                                     <TableColumn fx:id="colUserSymbol" prefWidth="75.0" text="Symbol" />
                                     <TableColumn fx:id="colUserPrice" prefWidth="75.0" text="Price" />
-                                    <TableColumn fx:id="colUserQuantity" prefWidth="75.0" text="Quantity" />
+                                    <TableColumn fx:id="colUserQuantity" prefWidth="75.0" text="Quantity">
+                                       <columns>
+                                          <TableColumn prefWidth="75.0" text="In The Market" />
+                                          <TableColumn prefWidth="75.0" text="Idle" />
+                                          <TableColumn prefWidth="75.0" text="Total" />
+                                       </columns></TableColumn>
                                  </columns>
                               </TableView>
                            </children>

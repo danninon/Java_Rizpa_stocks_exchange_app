@@ -12,69 +12,115 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class MarketManager implements StocksTradeSystem{
+public class MarketManager implements StocksTradeSystem {
 
     private boolean x;
 
 
-
-    public CMD4ReturnBundle operateOnStocks(Instruction newInstruction, String operatorsName, String enteredSymbol) throws Exception {
-
+    //@Override
+    public CMD4ReturnBundle operateOnStocks(InstructionDTO newInstructionDTO, String enteredSymbol) throws Exception {
         //some invalid user inputs
 
-
-        Stock searchedCompany = stocks.get(enteredSymbol);
-        CMD4ReturnBundle retVal;
-
-
-        if (searchedCompany != null) {
-            if (newInstruction.isBuy()) {
-                retVal = searchedCompany.operateStocks(newInstruction, searchedCompany.getBuyInstructionList(), searchedCompany.getSaleInstructionList());
-            } else {
-                retVal = searchedCompany.operateStocks(newInstruction, searchedCompany.getSaleInstructionList(), searchedCompany.getBuyInstructionList());
-            }
-            updateUsers(retVal, enteredSymbol, newInstruction);
-            return retVal;
-        }
-        else{
-            throw new IllegalArgumentException("The symbol you've entered does not exists within the system!\n" + "Going back to menu...");
-
-        }
-    }
-
-    @Override
-    public CMD4ReturnBundle operateOnStocks(InstructionDTO newInstructionDTO, String enteredSymbol) throws Exception {
-        String operatorName = newInstructionDTO.getOperatorName();
-        //Do: if zero quantity was requested
-        //Do: if 0 price was requested
-//        if (!newInstructionDTO.getIsBuy()) { //if sell command
-//           if( getUser(operatorName).getStocksInBook().get(enteredSymbol) < newInstructionDTO.getQuantity()){
-//               throw new IllegalArgumentException("The user: " + operatorName + " owns only" + getUser(operatorName).getStocksInBook().get(enteredSymbol) + "" +
-//                       "stocks. and does not have the requested(" + newInstructionDTO.getQuantity() + ") amount of these stocks.");
-//            }
-//        }
-        Stock searchedCompany = stocks.get(enteredSymbol);
         Instruction newInstruction = createInstructionFromDTO(newInstructionDTO);
-        CMD4ReturnBundle retVal;
-        if (searchedCompany != null) {
-            if (newInstruction.isBuy()) {
-                retVal = searchedCompany.operateStocks(newInstruction, searchedCompany.getBuyInstructionList(), searchedCompany.getSaleInstructionList());
-            } else {
-                retVal = searchedCompany.operateStocks(newInstruction, searchedCompany.getSaleInstructionList(), searchedCompany.getBuyInstructionList());
-            }
-            updateUsers(retVal, enteredSymbol, newInstruction);
-            return retVal;
-        }
-        else{
-            throw new IllegalArgumentException("The symbol you've entered does not exists within the system!\n" + "Going back to menu...");
+        Stock searchedStock = stocks.get(enteredSymbol);
+        CMD4ReturnBundle result = null;
 
+        if (searchedStock != null) {
+            result = operateOnMarket(searchedStock, newInstruction, enteredSymbol);
         }
+        else {
+             throw new Exception("Couldn't find the required stock.");
+            }
+        return result;
     }
+
+    //, Collection<Instruction> sameType, Collection<Instruction> oppositeType
+    private CMD4ReturnBundle operateOnMarket(Stock searchedStock, Instruction newInstruction, String searchedStockSymbol) {
+
+        User instructionOperator = users.get(newInstruction.getOperatorName());
+
+        //defaults to sell
+        Collection<Instruction> sameTypeCollection = searchedStock.getSaleInstructionData();
+        Collection<Instruction> oppositeInstructionCollection = searchedStock.getBuyInstructionData();
+
+        //if buy
+        if (newInstruction.isBuy()) {
+            sameTypeCollection = searchedStock.getBuyInstructionData();
+            oppositeInstructionCollection = searchedStock.getSaleInstructionData();
+        }
+        for (Instruction oppositeInstruction : oppositeInstructionCollection) {
+            if (!newInstruction.getOperatorName().equals(newInstruction.getOperatorName())) {
+                if (newInstruction.matchesOppositeInstruction(newInstruction)) {
+
+                    Transaction tr = newInstruction.operateStock(oppositeInstruction);
+                    searchedStock.getTransactionList().push(tr);
+                    searchedStock.updateStock(tr.getQuantity(), tr.getPrice(), tr.getTotalPayment());
+
+                    User buyer = users.get(tr.getBuyersName());
+                    User seller = users.get(tr.getSellersName());
+
+                    int quantityTraded = tr.getQuantity();
+                    buyer.updateUserAfterBuying(searchedStockSymbol, quantityTraded);
+                    seller.updateUserAfterSelling(searchedStockSymbol, quantityTraded); //should remove paper incase 0 remain
+                }
+
+                if (oppositeInstruction.getQuantity() == 0) {
+                    oppositeInstructionCollection.remove(oppositeInstruction);
+                }
+                if (newInstruction.getQuantity() == 0) {
+                    break;
+                }
+            }
+        }
+
+
+        if (newInstruction.getQuantity() > 0) {
+        //    newInstruction.prepareAddingRemainderToInstructionList(searchedStock);
+            sameTypeCollection.add(newInstruction);
+        }
+        return new CMD4ReturnBundle(searchedStock.getTransactionList(), newInstruction);
+    }
+
+
+
+    private void updateUser(User operator, User buyer, User seller, Transaction tr, String symbol) {
+        User.transact( operator,  buyer,  seller,  tr,  symbol);
+
+    }
+    //public CMD4ReturnBundle operateOnStocks(Instruction newInstruction, String operatorsName, String enteredSymbol) throws Exception {
+
+//    public CMD4ReturnBundle operateOnStocks(InstructionDTO newInstructionDTO, String enteredSymbol) throws Exception {
+//        String operatorName = newInstructionDTO.getOperatorName();
+//
+////        if (!newInstructionDTO.getIsBuy()) { //if sell command
+////           if( getUser(operatorName).getStocksInBook().get(enteredSymbol) < newInstructionDTO.getQuantity()){
+////               throw new IllegalArgumentException("The user: " + operatorName + " owns only" + getUser(operatorName).getStocksInBook().get(enteredSymbol) + "" +
+////                       "stocks. and does not have the requested(" + newInstructionDTO.getQuantity() + ") amount of these stocks.");
+////            }
+////        }
+//        Stock searchedCompany = stocks.get(enteredSymbol);
+//        Instruction newInstruction = createInstructionFromDTO(newInstructionDTO);
+//        CMD4ReturnBundle retVal;
+//        if (searchedCompany != null) {
+//            if (newInstruction.isBuy()) {
+//                retVal = searchedCompany.operate(this, newInstruction, searchedCompany.getBuyInstructionData(), searchedCompany.getSaleInstructionData());
+//            } else {
+//                retVal = searchedCompany.perate(newInstruction, searchedCompany.getSaleInstructionData(), searchedCompany.getBuyInstructionData());
+//            }
+//            updateUsers(retVal, enteredSymbol, newInstruction);
+//            return retVal;
+//        }
+//        else{
+//            throw new IllegalArgumentException("The symbol you've entered does not exists within the system!\n" + "Going back to menu...");
+//
+//        }
+//    }
     //assumes userName always exists
     //Do exception if not found
     public UserDTO getSafeUser(String operatorName) {
@@ -103,22 +149,46 @@ public class MarketManager implements StocksTradeSystem{
         return createdInstruction;
     }
 
-    private void updateUsers(CMD4ReturnBundle bundle, String symbol, Instruction newInstruction) throws Exception {
-        int totalQuantityOperated = 0;
+    //this is always legal, throws b4 if not
+//    private void updateUsers(CMD4ReturnBundle bundle, String symbol, Instruction newInstruction) throws Exception {
+//        int totalQuantityOperated = 0;
+//
+//
+//        for (TransactionDTO tr : bundle.getTransactionsMade()) {
+//
+//            User buyingUser = users.get(tr.getBuyerName());
+//            User sellingUser = users.get(tr.getSellerName());
+//
+//            int quantityTraded = tr.getQuantity();
+//
+//                buyingUser.updateUserAfterBuying(symbol, quantityTraded);
+//                sellingUser.getPaper(symbol).updateAfterSold(quantityTraded, symbol); //removes the paper if sold out
+//            } else
+//                {
+//                buyingUser.getPaper(symbol).updateAfterBought(quantityTraded);
+//                sellingUser.getPaper(symbol).updateAfterSold(quantityTraded, symbol); //removes the paper if sold out
+//            }
+//        }
+//        }
 
-            for (TransactionDTO tr : bundle.getTransactionsMade()) {
-                String name = tr.getInvokedName();
-                int quantityByDir = tr.getQuantity();
-                if (!newInstruction.isBuy()) { quantityByDir = -tr.getQuantity(); }
-                int newVal = users.get(name).getQuantity(symbol) - quantityByDir;
-                users.get(name).setQuantity(symbol, newVal);
-                totalQuantityOperated += quantityByDir;
-                //delete 0 values
-            }
+//                    quantityTraded = -quantityTraded; }
+//                int newQuantity = users.get(invokersName).getQuantity(symbol) + quantityTraded;
+//                users.get(invokersName).setQuantity(symbol, newQuantity);
+//
+//                User invokingUser = users.get(invokersName);
+//                if (invokingUser.getStocksInBook().get(symbol).equals(0)){
+//                    users.get(invokersName).removePaper(symbol);
+//                }
 
-        String operatorsName = newInstruction.getInvokersName();
-        users.get(operatorsName).setQuantity(symbol, users.get(operatorsName).getQuantity(symbol) + totalQuantityOperated);
-    }
+//                totalQuantityOperated += quantityTraded;
+//                //delete 0 values
+//            }
+//
+//        String operatorsName = newInstruction.getInvokersName();
+
+//        users.get(operatorsName).setQuantity(symbol, users.get(operatorsName).getQuantity(symbol) + totalQuantityOperated);
+
+
 
 
     public Instruction createMatchingInstruction(String instructionType, LocalDateTime time, boolean isBuy, String symbol, int price, int quantity, String operatorName) throws Exception {
@@ -151,31 +221,23 @@ public class MarketManager implements StocksTradeSystem{
     @Override
     public int getUserTotalVal(String userName) throws Exception {
         int sum = 0;
-       User book = users.get(userName);
-       for (String symbol: book.getStocksInBook().keySet()){
-           sum = stocks.get(symbol).getPrice()*users.get(userName).getQuantity(symbol)+ sum;
+       User user = users.get(userName);
+       for (String symbol: user.getStocksInBook().keySet()){
+           sum = (stocks.get(symbol).getPrice() * users.get(userName).getStocksInBook().get(symbol).getTotalAmount()) + sum;
        }
        return sum;
     }
 
     public int getQuantityOfStockByUser(String userName, String symbol) throws Exception {
-        return users.get(userName).getQuantity(symbol);
+        return users.get(userName).getPaper(symbol).getTotalAmount();
     }
 
-    @Override
-    public StocksBookDTO getStocksBook(String userName) throws IllegalArgumentException {
-        User book = users.get(userName);
-        if (book != null) {
-            return new StocksBookDTO(book);
-        }
-        else{
-            throw new IllegalArgumentException("The user: " + userName + "cannot be found in the system!");
-        }
-    }
+
 
     public Map<String, StockDTO> getSafeStocks() {
         return new MarketDTO(stocks).getSafeStocks();
     }
+
 
     public void prepNextAction() throws InterruptedException {
 
@@ -298,7 +360,7 @@ public class MarketManager implements StocksTradeSystem{
             throw new IllegalArgumentException("quantity must be a positive number. " + "price entered: " + quantity);
         }
         if (!isBuy) {
-            int stockOwnedByUserOfGivenSymbol = users.get(userName).getQuantity(symbol);
+            int stockOwnedByUserOfGivenSymbol = users.get(userName).getPaper(symbol).getTotalAmount();
                 if (stockOwnedByUserOfGivenSymbol < quantity) {
                     throw new IllegalArgumentException("The user: " + userName + " has asked to sell: " +
                             quantity + " stocks of Symbol: " + symbol + ".But has only: " + stockOwnedByUserOfGivenSymbol + " in possetion."); //make insufficient stocks exception

@@ -8,19 +8,22 @@ import java.util.List;
 
 public class UserDTO {
 
+    private List<StockPaperDTO> stocksOwnedByUser;
+
         public UserDTO(User user, StocksTradeSystem system) {
             stocksOwnedByUser = new ArrayList<>();
             for (String symbol :user.getStocksInBook().keySet()){
                 try {
+                    User.StockPaper stockPaper = user.getStocksInBook().get(symbol);
                     stocksOwnedByUser.add(new StockPaperDTO(system.getSafeStock(symbol).
-                            getPrice(),user.getQuantity(symbol),system.getSafeStock(symbol).getCompanyName(), symbol));
+                            getPrice(),stockPaper.getIdle(),stockPaper.getAtMarket(),
+                            system.getSafeStock(symbol).getCompanyName(), symbol));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
 
-        List<StockPaperDTO> stocksOwnedByUser;
 
     public List<StockPaperDTO> getOwnedStocks() {
             return stocksOwnedByUser;
@@ -28,20 +31,31 @@ public class UserDTO {
 
     public class StockPaperDTO {
             private Integer currentPrice;
-            private Integer quantity;
+            private Integer idleQuantity;
+
+        public void setIdleQuantity(Integer idleQuantity) { this.idleQuantity = idleQuantity; }
+        public void setAtMarketQuantity(Integer atMarketQuantity) { this.atMarketQuantity = atMarketQuantity; }
+
+        private Integer atMarketQuantity;
             private String companyName;
             private String symbol;
 
-        public StockPaperDTO(Integer currentPrice, Integer quantity, String companyName, String symbol) {
+        public int getTotalAmount(){return currentPrice+idleQuantity; }
+
+        public StockPaperDTO(Integer currentPrice, Integer atMarketQuantity, Integer idleQuantity, String companyName, String symbol) {
             this.currentPrice = currentPrice;
-            this.quantity = quantity;
+            this.atMarketQuantity = atMarketQuantity;
+            this.idleQuantity = idleQuantity;
             this.companyName = companyName;
             this.symbol = symbol;
         }
 
-        public Integer getQuantity() {
-                return quantity;
+        public Integer getIdleQuantity() {
+                return idleQuantity;
             }
+        public Integer getAtMarketQuantity() {
+            return atMarketQuantity;
+        }
 
             public String getSymbol() {
                 return symbol;
@@ -60,7 +74,7 @@ public class UserDTO {
         }
 
         public void setQuantity(Integer quantity) {
-            this.quantity = quantity;
+            this.idleQuantity = quantity;
         }
 
         public void setCompanyName(String companyName) {

@@ -78,9 +78,10 @@ public abstract class Instruction implements Serializable, Comparable {
     protected boolean isNew = true;
     protected String operatorName;
 
-    public abstract Transaction operate(Instruction newBuyInstruction);
+    public abstract Transaction operateStock(Instruction newBuyInstruction);
 
     public abstract boolean matchesOppositeInstruction(Instruction newBuyInstruction);
+    public abstract void prepareAddingRemainderToInstructionList(Stock addedTo);
 
     public boolean checkIfNew (){return isNew;}
 
@@ -102,7 +103,7 @@ public abstract class Instruction implements Serializable, Comparable {
     private void checkLegalInstruction() throws Exception {
             if (price == 0)  throw new NullPriceException("Illegal operation:\nThe price cannot be zero.");
 
-            if (quantity == 0) throw new NullQuantityException("You cannot operate with the quantity of 0. u nuts?");
+            if (quantity == 0) throw new NullQuantityException("You cannot operateStock with the quantity of 0. u nuts?");
 
             if (price < 0) {
                 throw new IllegalArgumentException("Price cannot be negative!");
@@ -119,7 +120,7 @@ public abstract class Instruction implements Serializable, Comparable {
     }
     final int NOT_INIT = 0;
 
-    public abstract void prepAddingToOpList(Stock addedTo);
+
 
     @Override
     public int compareTo(Object o1) {

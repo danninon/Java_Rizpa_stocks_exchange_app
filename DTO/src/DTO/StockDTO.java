@@ -12,10 +12,10 @@ public class StockDTO {
         this.companyName = stock.getCompanyName();
         this.price = stock.getPrice();
         this.fullCycle = stock.getCycle();
-        for (Instruction originalInstruction: stock.getSaleInstructionList()){
+        for (Instruction originalInstruction: stock.getSaleInstructionData()){
             saleListDTO.add(new InstructionDTO(originalInstruction)) ;
         }
-        for (Instruction originalInstruction: stock.getBuyInstructionList()){
+        for (Instruction originalInstruction: stock.getBuyInstructionData()){
             buyListDTO.add(new InstructionDTO(originalInstruction)) ;
         }
         for (Transaction originalTransaction: stock.getTransactionList()){

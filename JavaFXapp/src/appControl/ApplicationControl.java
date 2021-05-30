@@ -59,7 +59,7 @@ public class ApplicationControl {
         try {
             marketManager.loadXML(path);
             textUserInformationProperty.setValue("File loaded successfully.");
-            createBody();
+            createNewBody();
             status = true;
         } catch (Exception e) {
             //textUserInformationProperty.setValue("There was a problem with the chosen xml. Please retry with a valid one.");
@@ -70,7 +70,7 @@ public class ApplicationControl {
     @FXML
     private usersController bodyComponentController;
 
-    private void createBody() {
+    private void createNewBody() {
         try {
             createUserTabs(new ArrayList<SingleUserTabController>(), bodyComponent);
 
@@ -80,10 +80,6 @@ public class ApplicationControl {
 
     }
 
-
-
-
-
     public StocksTradeSystem getMarketManager() {
         return marketManager;
     }
@@ -92,7 +88,11 @@ public class ApplicationControl {
     private Stage primaryStage;
 
     public List<SingleUserTabController> createUserTabs(List<SingleUserTabController> tabList, TabPane tabPaneUsers) throws Exception {
+
+        int savedSelectedIndex = tabPaneUsers.getSelectionModel().getSelectedIndex();
+        tabPaneUsers.getTabs().clear();
         for (String key : this.marketManager.getUsers().keySet()) {
+            int ctr = 0;
             FXMLLoader loader = new FXMLLoader();
             URL url = getClass().getResource(SINGLE_USER_TAB_FXML_RESOURCE);
             loader.setLocation(url);
@@ -113,7 +113,11 @@ public class ApplicationControl {
 
 
             tabPaneUsers.getTabs().add(userTab);
+            if (ctr==savedSelectedIndex)
+                tabPaneUsers.setSelectionModel(userTab.getTabPane().getSelectionModel());
+             //   savedSelectedTab = userTab;
         }
+      //  tabPaneUsers.setSelectionModel(savedSelectedIndex);
         return tabList;
     }
 
@@ -127,25 +131,21 @@ public class ApplicationControl {
 
     public void throwMainApplication(Exception e) {
         textUserInformationProperty.setValue(e.getMessage());
-//       if (e.getClass().getSimpleName().equals("NullPriceException")){
-//           e.getMessage();
-//       }
-//        if (e.getClass().getSimpleName().equals("UniqueException")){
-//            e.getMessage();
-//        }
+
     }
 
-    private void updateUsers() {
-//Do: reloading
-    }
 
     public void TradeCommit(InstructionDTO gatherInstructionDTO, String symbol, boolean buySelected) {
         try {
             StockDTO fetchedStock = marketManager.getSafeStock(symbol);
+//public CMD4ReturnBundle operateOnStocks(Instruction newInstruction, String operatorsName, String enteredSymbol) throws Exception;
+
 
             CMD4ReturnBundle bundle = marketManager.operateOnStocks(gatherInstructionDTO, symbol);
 
-            updateUsers(); //Do: reloading
+            if (bundle.getTransactionsMade().size() != 0)
+
+                createNewBody(); //Do: reloading
 
             String msg = StringArchitect.matchingActionMSG(bundle, buySelected);
             textUserInformationProperty.setValue(msg);
@@ -184,7 +184,7 @@ public class ApplicationControl {
                 }
 
                 if (buySelected) {
-                    retMSG += "\nThis partial buy instruction was been added to the market(the reminder after partially buying some of the stocks): \n";
+                    retMSG += "\nThis partial updateUserAfterBuying instruction was been added to the market(the reminder after partially buying some of the stocks): \n";
                 } else {
                     retMSG += "\nThis partial sale instruction was added to the market(the reminder after partially selling some of the stock): \n";
                 }
@@ -193,9 +193,9 @@ public class ApplicationControl {
                 if (buySelected)
                     retMSG += "There are no active sale instruction that matches with your request.\n";
                 else
-                    retMSG += "There are no active buy instruction that matches with your request.\n";
+                    retMSG += "There are no active updateUserAfterBuying instruction that matches with your request.\n";
                 if (buySelected)
-                    retMSG += "The full buy instruction that has been added to the market. \n";
+                    retMSG += "The full updateUserAfterBuying instruction that has been added to the market. \n";
                 else
                     retMSG += "The full sale instruction that has been added to the market. \n";
             }

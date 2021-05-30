@@ -5,7 +5,8 @@ import java.util.*;
 
 public class MarketDTO {
     private Map<String, StockDTO> safeStocks;
-    private Map<String, StocksBookDTO> userDB;
+    private Map<String, UserDTO> userDB;
+
     public MarketDTO(Map stocks) {
         safeStocks = new HashMap<>();
         safeStocks.putAll(stocks);

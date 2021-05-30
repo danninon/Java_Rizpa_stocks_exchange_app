@@ -78,19 +78,35 @@ public class SingleUserTabController {
     private final StringProperty userNameProperty;
     private final StringProperty userValueProperty;
     private final StringProperty symbolChosenProperty;
+//    private final StringProperty priceFieldProperty;
+//    private final StringProperty quantityFieldProperty;
+
+
+
     private UserDTO user;
     private StocksTradeSystem marketManager;
     private ApplicationControl appControl;
+    private final String ENTER_SYMBOL_HERE ="Enter Symbol here";
+
     public SingleUserTabController() {
         userNameProperty = new SimpleStringProperty("");
         userValueProperty = new SimpleStringProperty("0");
-        symbolChosenProperty = new SimpleStringProperty("Enter Symbol here");
+        symbolChosenProperty = new SimpleStringProperty(ENTER_SYMBOL_HERE);
+//        priceFieldProperty = new SimpleStringProperty("1234");
+//        quantityFieldProperty = new SimpleStringProperty("12");
     }
 
     public void initialize() {
+//        textFieldUserOffer.textProperty().bind(priceFieldProperty);
+//        textFieldUserOffer.setEditable(true);
+//        textFieldUserQuantityText.textProperty().bind(quantityFieldProperty);
+//        textFieldUserQuantityText.setEditable(true);
+        textFieldUserOffer.setText("1234");
+        textFieldUserQuantityText.setText("12");
+        comboBoxChooseStock.promptTextProperty().bind(symbolChosenProperty);
         labelUserName.textProperty().bind(userNameProperty);
         labelUserValues.textProperty().bind(userValueProperty);
-        labelChosenStock.textProperty().bind(symbolChosenProperty);
+//        labelChosenStock.textProperty().bind(symbolChosenProperty);
     }
 
     public void setUser(UserDTO user) {
@@ -103,6 +119,7 @@ public class SingleUserTabController {
         try {
             checkSystematicLegalInput();
             InstructionDTO gatheredInstruction = gatherInstructionDTO();
+
             appControl.TradeCommit(gatheredInstruction, comboBoxChooseStock.getSelectionModel().getSelectedItem(), RBBuyer.isSelected()); // (instruction,symbol)
         } catch (Exception e) {
             appControl.throwMainApplication(e);
@@ -116,8 +133,8 @@ public class SingleUserTabController {
 
         String chosenStock = comboBoxChooseStock.getSelectionModel().getSelectedItem();
         //symbol
-        if (chosenStock.equals("Enter symbol here"))
-            throw new Exception("Illegal operation:\nYou haven't chosen a stock to operate on.");
+        if (chosenStock == null)
+            throw new Exception("Illegal operation:\nYou haven't chosen a stock to operateStock on.");
 
 
         //price
@@ -133,20 +150,21 @@ public class SingleUserTabController {
         UserDTO.StockPaperDTO searchedPaper = null;
         List<UserDTO.StockPaperDTO> userStocksBook = appControl.getUserStocksBook(labelUserName.getText());
 
-        for (UserDTO.StockPaperDTO paper : user.getOwnedStocks()) { //finds right paper to search for possetions
+        for (UserDTO.StockPaperDTO paper : userStocksBook) { //finds right paper to search for possetions
             if (paper.getSymbol().equals(chosenStock)) {
                 searchedPaper = paper;
                 break;
             }
         }
-        if (searchedPaper == null) {
+        if (!RBBuyer.isSelected()) {
+            if (searchedPaper == null) {
             throw new Exception("Stock not found Error: " + userNameProperty.getValue() + " has no stocks of type - " +
                     comboBoxChooseStock.getSelectionModel().getSelectedItem() + " at his possetion. Lmao.");
-        } else {
-            if (!RBBuyer.isSelected()) {
-                if (enteredQuantity > searchedPaper.getQuantity()) {
-                    throw new Exception("Insufficient Quantity Error: " + userNameProperty.getValue() + " has only " + searchedPaper.getQuantity() + " stocks" +
-                            " Whilst has tried to sell " + enteredQuantity + ". Lol."); //Insuffisient (not empty)
+           } else {
+                if (enteredQuantity > searchedPaper.getIdleQuantity()) {
+                    throw new Exception("Insufficient Quantity Error: " + userNameProperty.getValue()
+                            + " has only " + searchedPaper.getIdleQuantity() + " stocks" +
+                            " Whilst has" + enteredQuantity + " idle shares of this stock. Lol."); //Insuffisient (not empty)
                 }
             }
         }

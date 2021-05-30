@@ -18,7 +18,7 @@ public class usersController {
 
     public void submitData() throws Exception {
 
-        tabPaneUsers.getTabs().clear();
+
         createUserTabs();
 
         }

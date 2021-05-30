@@ -144,7 +144,7 @@
 //            }
 //
 //            if (isBuy) {
-//                textAreaInfo.appendText("\nThis partial buy instruction was been added to the market(the reminder after partially buying some of the stocks): \n");
+//                textAreaInfo.appendText("\nThis partial updateUserAfterBuying instruction was been added to the market(the reminder after partially buying some of the stocks): \n");
 //            } else {
 //                textAreaInfo.appendText("\nThis partial sale instruction was added to the market(the reminder after partially selling some of the stock): \n");
 //            }
@@ -153,9 +153,9 @@
 //            if (isBuy)
 //                textAreaInfo.appendText("There are no active sale instruction that matches with your request.\n");
 //            else
-//                textAreaInfo.appendText("There are no active buy instruction that matches with your request.\n");
+//                textAreaInfo.appendText("There are no active updateUserAfterBuying instruction that matches with your request.\n");
 //            if (isBuy)
-//                textAreaInfo.appendText("The full buy instruction that has been added to the market. \n");
+//                textAreaInfo.appendText("The full updateUserAfterBuying instruction that has been added to the market. \n");
 //            else
 //                textAreaInfo.appendText("The full sale instruction that has been added to the market. \n");
 //        }

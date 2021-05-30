@@ -6,6 +6,22 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class TransactionDTO {
+    public String getBuyerName() {
+        return buyer;
+    }
+
+    public void setBuyer(String buyer) {
+        this.buyer = buyer;
+    }
+
+    public String getSellerName() {
+        return seller;
+    }
+
+    public void setSeller(String seller) {
+        this.seller = seller;
+    }
+
     public TransactionDTO(Transaction originalTransaction) {
         this.isNew = originalTransaction.getIfNew();
         this.time = originalTransaction.getTime();
@@ -13,9 +29,9 @@ public class TransactionDTO {
         this.price = originalTransaction.getPrice();
         this.quantity = originalTransaction.getQuantity();
         this.instructionType = originalTransaction.getInstructionType();
-        this.invokedName = originalTransaction.getInvokedName();
-        this.buyer = originalTransaction.getBuyer();
-        this.seller = originalTransaction.getSeller();
+        this.invokersName = originalTransaction.getInvokedName();
+        this.buyer = originalTransaction.getBuyersName();
+        this.seller = originalTransaction.getSellersName();
 
     }
 
@@ -49,10 +65,10 @@ public class TransactionDTO {
     private final int price;
     private final int quantity;
     private final String instructionType;
-    String invokedName;
+    String invokersName;
     String buyer, seller;
-    public String getInvokedName() {
-        return invokedName;
+    public String getInvokersName() {
+        return invokersName;
     }
 
 

@@ -39,6 +39,7 @@ public class TradeInputScreenController implements SubController {
         StockDTO fetchedStock = marketManager.getSafeStock(symbol);
         InstructionDTO newInstruction = gatherInstructionDTO();
         //if everything is okay, commit.
+        appControl.TradeCommit();
         CMD4ReturnBundle bundle =  marketManager.operateOnStocks(newInstruction, symbol);
 //        appControl.requestUpdateTradeOutput(bundle);
 //        appControl.requestUpdateStocksBook(symbol);

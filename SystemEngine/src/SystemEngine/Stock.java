@@ -19,46 +19,46 @@ public class Stock implements Serializable {
 
 
 
-    public CMD4ReturnBundle operateStocks(Instruction newInstruction, Collection<Instruction> sameType, Collection<Instruction> oppositeType) throws ActivateFailedException {
-        CMD4ReturnBundle rb = new CMD4ReturnBundle();
-        for (Instruction currentIns : oppositeType) {
-            if (!newInstruction.getOperatorName().equals(currentIns.getOperatorName())) {
-                if (newInstruction.matchesOppositeInstruction(currentIns)) {
-                    Transaction tr = currentIns.operate(newInstruction);
-                    pastTransactions.push(tr);
-                    updateStock(tr.getPrice(), tr.getTotalPayment());
-                    updateUsers(newInstruction, currentIns, tr);
-                    rb.add(new TransactionDTO(tr));
-                    if (newInstruction.getQuantity() == 0)
-                        break;
-                }
-            }
-        }
-        boolean status = true;
-        if (newInstruction.getQuantity() > 0) {
-            newInstruction.prepAddingToOpList(this);
-            status = sameType.add(newInstruction);
-             rb.setInsDTO(new InstructionDTO(newInstruction));
-        }
-        if (status == false){
-            throw new ActivateFailedException("Error loading to instruction list! This may be caused by various technical reasons. Call a technician");
-        }
-        return rb;
+//    public CMD4ReturnBundle operate(Instruction newInstruction, Collection<Instruction> sameType, Collection<Instruction> oppositeType) throws ActivateFailedException {
+//        CMD4ReturnBundle rb = new CMD4ReturnBundle();
+//        for (Instruction oppositeInstrucion : oppositeType) {
+//            if (!newInstruction.getOperatorName().equals(oppositeInstrucion.getOperatorName())) {
+//                if (newInstruction.matchesOppositeInstruction(oppositeInstrucion)) {
+//                    Transaction tr = oppositeInstrucion.operateStock(newInstruction);
+//                    pastTransactions.push(tr);
+//                    updateStock(tr.getQuantity(), tr.getPrice(), tr.getTotalPayment());
+//               //     updateUsers(newInstruction, oppositeInstrucion, tr);
+//                    rb.add(new TransactionDTO(tr));
+//
+//                    if (oppositeInstrucion.getQuantity() == 0){
+//                        oppositeType.remove(oppositeInstrucion);
+//                    }
+//                    if (newInstruction.getQuantity() == 0) {
+//                        break;
+//                    }
+//                }
+//            }
+//        }
+//        boolean status = true;
+//        if (newInstruction.getQuantity() > 0) {
+//            newInstruction.prepareAddingRemainderToInstructionList(this);
+//            status = sameType.add(newInstruction);
+//             rb.setInsDTO(new InstructionDTO(newInstruction));
+//        }
+//        if (status == false){
+//            throw new ActivateFailedException("Error loading to instruction list! This may be caused by various technical reasons. Call a technician");
+//        }
+//        return rb;
+//    }
+
+    private void updateUsers(Instruction newInstruction, Instruction oppositeInstruction, Transaction tr) {
+
     }
 
-    private void updateUsers(Instruction newInstruction, Instruction currentIns, Transaction tr) {
-        if (newInstruction.isBuy()){
 
-        }
-        else{
-
-        }
-    }
-
-
-    private void updateStock(int newPrice, int addToCycleSum){
+    public void updateStock(int quantity, int newPrice, int addToCycleSum){
     this.stockPrice = newPrice;
-        this.fullCycle += addToCycleSum;
+    this.fullCycle += addToCycleSum;
     }
 
 
@@ -113,15 +113,15 @@ public class Stock implements Serializable {
         return fullCycle;
     }
 
-    public Collection<Transaction> getTransactionList() {
+    public LinkedList<Transaction> getTransactionList() {
         return pastTransactions;
     }
 
-    public Collection<Instruction> getSaleInstructionList() {
+    public Collection<Instruction> getSaleInstructionData() {
         return SaleInstructions;
     }
 
-    public Collection<Instruction> getBuyInstructionList() {
+    public Collection<Instruction> getBuyInstructionData() {
         return BuyInstructions;
     }
 

@@ -58,7 +58,7 @@ public class Transaction implements Serializable {
     public void setIsNew(boolean b){isNew = b;}
     private String instructionType;
 
-    public String getBuyer() { return buyer; }
+    public String getBuyersName() { return buyer; }
 
-    public String getSeller() { return seller; }
+    public String getSellersName() { return seller; }
 }

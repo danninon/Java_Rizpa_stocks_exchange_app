@@ -11,13 +11,13 @@ public class MKT extends LMT {
     }
 
     //return status?
-    public void prepAddingToOpList(Stock addedTo) {
+    public void prepareAddingRemainderToInstructionList(Stock addedTo) {
         boolean status;
-        price = addedTo.getPrice();
+  //      price = addedTo.getPrice();
 //        if (isBuy)
-//            status = addedTo.getBuyInstructionList().add(this);
+//            status = addedTo.getBuyInstructionData().add(this);
 //        else
-//            status = addedTo.getSaleInstructionList().add(this);
+//            status = addedTo.getSaleInstructionData().add(this);
     }
 
     @Override
@@ -31,9 +31,9 @@ public class MKT extends LMT {
     }
 
     @Override
-    public Transaction operate(Instruction newInstruction) {
+    public Transaction operateStock(Instruction newInstruction) {
         newInstruction.setPrice(this.price);
-        return super.operate(newInstruction);
+        return super.operateStock(newInstruction);
     }
 
     @Override

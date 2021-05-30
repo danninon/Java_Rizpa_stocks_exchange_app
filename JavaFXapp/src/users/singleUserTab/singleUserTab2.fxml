@@ -119,7 +119,7 @@
                                     <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="372.0">
                                        <children>
                                           <Label prefHeight="17.0" prefWidth="152.0" text="Manually enter offer:" />
-                                          <TextField fx:id="textFieldUserOffer" text="0" />
+                                          <TextField fx:id="textFieldUserOffer" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="372.0">

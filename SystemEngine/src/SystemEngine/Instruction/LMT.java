@@ -15,7 +15,7 @@ public class LMT extends Instruction {
     }
 
     @Override
-    public void prepAddingToOpList(Stock addedTo) {
+    public void prepareAddingRemainderToInstructionList(Stock addedTo) {
 
     }
 
@@ -30,8 +30,7 @@ public class LMT extends Instruction {
     }
 
     @Override
-    public Transaction operate(Instruction newInstruction) {
-
+    public Transaction operateStock(Instruction newInstruction) {
         int legalQuantity = min(quantity, newInstruction.getQuantity());
         this.reduceQuantity(legalQuantity);
         newInstruction.reduceQuantity(legalQuantity);

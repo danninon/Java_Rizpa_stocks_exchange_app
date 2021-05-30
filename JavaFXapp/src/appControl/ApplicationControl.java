@@ -1,9 +1,6 @@
 package appControl;
 
-import DTO.CMD4ReturnBundle;
-import DTO.InstructionDTO;
-import DTO.StockDTO;
-import DTO.UserDTO;
+import DTO.*;
 import SystemEngine.MarketManager;
 import SystemEngine.StocksTradeSystem;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,12 +9,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import menuScreen.MenuScreenController;
-import users.singleUserTab.SingleUserTabController;
-import users.usersController;
+import usersTabPane.adminTab.AdminTabController;
+import usersTabPane.singleUserTab.SingleUserTabController;
+import usersTabPane.UsersController;
 
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
@@ -25,7 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ApplicationControl {
-    final String SINGLE_USER_TAB_FXML_RESOURCE = "../users/singleUserTab/singleUserTab2.fxml";
+    final String SINGLE_USER_TAB_FXML_RESOURCE = "../usersTabPane/singleUserTab/singleUserTab2.fxml";
+    final String ADMIN_TAB_FXML_RESOURCE = "../usersTabPane/adminTab/admin.fxml";
+
     @FXML
     private TabPane bodyComponent;
 
@@ -36,6 +37,7 @@ public class ApplicationControl {
 
     StringProperty activeStockInBook = null;
     StringProperty textUserInformationProperty;
+    private boolean systemBootFinish;
 
     public ApplicationControl() {
         System.out.println("in ApplicationControl ctor");
@@ -59,20 +61,22 @@ public class ApplicationControl {
         try {
             marketManager.loadXML(path);
             textUserInformationProperty.setValue("File loaded successfully.");
-            loadCurrentUsersState();
+            loadTabPane();
             status = true;
         } catch (Exception e) {
             //textUserInformationProperty.setValue("There was a problem with the chosen xml. Please retry with a valid one.");
             textUserInformationProperty.setValue(e.getMessage());
         }
+        systemBootFinish = true;
         return status;
     }
     @FXML
-    private usersController bodyComponentController;
+    private UsersController bodyComponentController;
 
-    private void loadCurrentUsersState() {
+    private void loadTabPane() {
         try {
-
+            bodyComponent.getTabs().clear();
+            addAdminTab();
             createUserTabs(new ArrayList<SingleUserTabController>());
 
         } catch (Exception e) {
@@ -88,10 +92,30 @@ public class ApplicationControl {
     private final MarketManager marketManager;
     private Stage primaryStage;
 
+    public void addAdminTab() throws Exception {
+        FXMLLoader loader = new FXMLLoader();
+        URL url = getClass().getResource(ADMIN_TAB_FXML_RESOURCE);
+        loader.setLocation(url);
+        AnchorPane adminAP = loader.load();
+        Tab adminTab = new Tab();
+        adminTab.setContent(adminAP);
+        AdminTabController adminController = loader.getController();
+        adminController.setMainController(this);
+        bodyComponent.getTabs().add(adminTab);
+        adminTab.setText("Admin Tab");
+        adminController.wiringXMLtoTab(marketManager);
+    }
+
+
+    public void loadStockTables(String stockSymbol, TableView<InstructionDTO> tableViewBuyBook, TableView<InstructionDTO> tableViewSaleBook, TableView<TransactionDTO> tableViewTransactionBook) {
+
+    }
+
     public List<SingleUserTabController> createUserTabs(List<SingleUserTabController> tabList) throws Exception {
 
         int savedSelectedIndex = bodyComponent.getSelectionModel().getSelectedIndex();
-        bodyComponent.getTabs().clear();
+       // bodyComponent.getTabs().clear();
+
         for (String key : this.marketManager.getUsers().keySet()) {
             int ctr = 0;
             FXMLLoader loader = new FXMLLoader();
@@ -108,10 +132,7 @@ public class ApplicationControl {
             singleTabController.setMainController(this);
             singleTabController.setUser(this.marketManager.getSafeUser(key));
             userTab.setText(key);
-
-
             singleTabController.wiringXMLtoTab(marketManager, key);
-
 
             bodyComponent.getTabs().add(userTab);
             if (ctr==savedSelectedIndex)
@@ -121,6 +142,8 @@ public class ApplicationControl {
       //  tabPaneUsers.setSelectionModel(savedSelectedIndex);
         return tabList;
     }
+
+
 
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -140,8 +163,7 @@ public class ApplicationControl {
         try {
             StockDTO fetchedStock = marketManager.getSafeStock(symbol);
             CMD4ReturnBundle bundle = marketManager.operateOnMarket1(gatherInstructionDTO, symbol);
-
-                loadCurrentUsersState(); //Do: reloading
+            loadTabPane(); //Do: reloading
 
 
         String msg = StringArchitect.matchingActionMSG(bundle, buySelected);
@@ -162,11 +184,16 @@ public class ApplicationControl {
         return (marketManager.getSafeUser(userName).getOwnedStocks());
     }
 
+    public boolean systemBootFinish() {
+        return systemBootFinish;
+    }
+
+
     static class StringArchitect {
         static String matchingActionMSG(CMD4ReturnBundle bundle, boolean buySelected) {
             //  boolean isBuy = isCurrentlyBuying();
             String retMSG = "";
-            if (bundle.getInsDTO() == null) { //instruction wasn't made
+            if (bundle.getInsDTO().getQuantity() == 0) { //instruction wasn't made
 
                 if (buySelected) {
                     retMSG += "Perfect match found!\nSuccessfully acquired the full extent of the request. \n ";
@@ -174,43 +201,43 @@ public class ApplicationControl {
                     retMSG += "Perfect match found!\nSuccessfully sold the full extent of the request. \n ";
                 }
             }//theres an instruction
-              else if (bundle.getTransactionsMade() != null){ //transactions were made
-                  if (bundle.getTransactionsMade().size() != 0) {
-                      if (buySelected) {
-                          retMSG += "Partially match found!\nSuccessfully bought some of the request.\n";
-                          retMSG += "\nThis partial updateUserAfterBuyingCase instruction was been added to the market(the reminder after partially buying some of the stocks): \n";
-                      } else {
-                          retMSG += "Partially match found!\nSuccessfully sold some of the request.\n";
-                          retMSG += "\nThis partial sale instruction was added to the market(the reminder after partially selling some of the stock): \n";
-                      }
-                  }
-                retMSG += instructionTimePriceQuantity(bundle.getInsDTO()); //Do: doesn't print
+            else if (bundle.getTransactionsMade().size() != 0)  //transactions were made
+            {
+                    if (buySelected) {
+                        retMSG += "Partially match found!\nSuccessfully bought some of the request.\n";
+                        retMSG += "\nThis partial updateUserAfterBuyingCase instruction was been added to the market(the reminder after partially buying some of the stocks): \n";
+                    } else {
+                        retMSG += "Partially match found!\nSuccessfully sold some of the request.\n";
+                        retMSG += "\nThis partial sale instruction was added to the market(the reminder after partially selling some of the stock): \n";
                     }
-                else { //new instruction and no transaction - no transaction has been made
+                    retMSG += instructionTimePriceQuantity(bundle.getInsDTO()); //Do: doesn't print
+
+            }
+            else { //new instruction and no transaction - no transaction has been made
                     if (buySelected) {
                         retMSG += "There are no active sale instruction that matches with your request.\n";
                         retMSG += "The full  instruction has been added to the market. \n";
-                    }
-                    else{
+                    } else {
                         retMSG += "The full sale instruction that has been added to the market. \n";
-                         retMSG += "There are no active instruction that matches with your request.\n";
+                        retMSG += "There are no active instruction that matches with your request.\n";
                     }
-                retMSG += instructionTimePriceQuantity(bundle.getInsDTO()); //Do: doesn't print
+                    retMSG += instructionTimePriceQuantity(bundle.getInsDTO()); //Do: doesn't print
                 }
                 return retMSG;
             }
         }
+
         static public String instructionTimePriceQuantity(InstructionDTO ins) {
             return "Time - " + ins.getTime().format(DateTimeFormatter.ofPattern("HH:mm:ss:SSS")) + "\nPrice - " + ins.getPrice() +
-                    " NIS\nQuantity - " + ins.getQuantity() + "\nFor a total price of:" + ins.getQuantity()*ins.getPrice() + " NIS";
+                    " NIS\nQuantity - " + ins.getQuantity() + "\nFor a total price of:" + ins.getQuantity() * ins.getPrice() + " NIS";
         }
 
         static public void updateTextProperty(StringProperty textUserInformationProperty, Exception e) {
             textUserInformationProperty.setValue(e.getMessage());
         }
 
-
     }
+
 
 
 

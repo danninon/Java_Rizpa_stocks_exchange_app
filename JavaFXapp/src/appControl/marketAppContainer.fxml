@@ -18,7 +18,7 @@
 
 
       <center>
-      <fx:include fx:id="bodyComponent" source="../users/users.fxml">
+      <fx:include fx:id="bodyComponent" source="../usersTabPane/users.fxml">
       </fx:include>
    </center>
    <bottom>

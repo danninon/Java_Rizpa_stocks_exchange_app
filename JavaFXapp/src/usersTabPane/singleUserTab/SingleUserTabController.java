@@ -1,4 +1,4 @@
-package users.singleUserTab;
+package usersTabPane.singleUserTab;
 
 import DTO.InstructionDTO;
 import DTO.UserDTO;
@@ -21,7 +21,13 @@ import java.util.List;
 public class SingleUserTabController {
     private final StringProperty userNameProperty;
     private final StringProperty userValueProperty;
+
+
+
     private final StringProperty symbolChosenProperty;
+
+
+
     private final String ENTER_SYMBOL_HERE = "Enter Symbol here";
     List<User> userList;
     @FXML
@@ -73,7 +79,12 @@ public class SingleUserTabController {
     private TableColumn<UserDTO.StockPaperDTO, Integer> colUserQuantity;
     @FXML
     private Label labelChosenStock;
-
+    @FXML
+    private TableColumn<UserDTO.StockPaperDTO, Integer> colAtMarket;
+    @FXML
+    private TableColumn<UserDTO.StockPaperDTO, Integer> colIdle;
+    @FXML
+    private TableColumn<UserDTO.StockPaperDTO, Integer> colTotal;
 //    private final StringProperty priceFieldProperty;
 //    private final StringProperty quantityFieldProperty;
     @FXML
@@ -81,6 +92,10 @@ public class SingleUserTabController {
     @FXML
     private Label labelUserName;
     private UserDTO user;
+
+
+
+
     private StocksTradeSystem marketManager;
     private ApplicationControl appControl;
     @FXML
@@ -118,8 +133,8 @@ public class SingleUserTabController {
         try {
             checkSystematicLegalInput();
             InstructionDTO gatheredInstruction = gatherInstructionDTO();
-
             appControl.TradeCommit(gatheredInstruction, comboBoxChooseStock.getSelectionModel().getSelectedItem(), RBBuyer.isSelected()); // (instruction,symbol)
+
         } catch (Exception e) {
             appControl.throwMainApplication(e);
         }
@@ -218,9 +233,14 @@ public class SingleUserTabController {
     private void loadUserStocksTable(StocksTradeSystem system, String userName) {
 
         colUserSymbol.setCellValueFactory(new PropertyValueFactory<UserDTO.StockPaperDTO, String>("symbol"));
-        colUserQuantity.setCellValueFactory(new PropertyValueFactory<UserDTO.StockPaperDTO, Integer>("quantity"));
         colUserCompany.setCellValueFactory(new PropertyValueFactory<UserDTO.StockPaperDTO, String>("companyName"));
         colUserPrice.setCellValueFactory(new PropertyValueFactory<UserDTO.StockPaperDTO, Integer>("currentPrice"));
+        colIdle.setCellValueFactory(new PropertyValueFactory<UserDTO.StockPaperDTO, Integer>("idleQuantity"));
+        colAtMarket.setCellValueFactory(new PropertyValueFactory<UserDTO.StockPaperDTO, Integer>("atMarketQuantity"));
+        colTotal.setCellValueFactory(new PropertyValueFactory<UserDTO.StockPaperDTO, Integer>("totalQuantity"));
+
+
+
         userTableView.getItems().setAll(FXCollections.observableArrayList(system.getSafeUser(userName).getOwnedStocks()));
     }
 

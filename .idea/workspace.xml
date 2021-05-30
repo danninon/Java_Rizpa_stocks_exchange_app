@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5ac6d1ff-9bb7-4675-ad9a-ead6051c4bb6" name="Default Changelist" comment="">
+    <list default="true" id="5ac6d1ff-9bb7-4675-ad9a-ead6051c4bb6" name="Default Changelist" comment="upgraded the relationship of the engine and DTO">
+      <change afterPath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/AdminTabController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/admin.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DTO/src/DTO/CMD4ReturnBundle.java" beforeDir="false" afterPath="$PROJECT_DIR$/DTO/src/DTO/CMD4ReturnBundle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DTO/src/DTO/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/DTO/src/DTO/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/Components/outputScreen/outputStocks/OutputScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/Components/outputScreen/outputStocks/OutputScreenController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/users/singleUserTab/SingleUserTabController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/users/singleUserTab/SingleUserTabController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/users/singleUserTab/singleUserTab2.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/users/singleUserTab/singleUserTab2.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/users/usersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/users/usersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/appControl/marketAppContainer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/appControl/marketAppContainer.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/users/singleUserTab/SingleUserTabController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/singleUserTab/SingleUserTabController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/users/singleUserTab/singleUserTab.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/singleUserTab/singleUserTab.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/users/singleUserTab/singleUserTab2.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/singleUserTab/singleUserTab2.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/users/users.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/users.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/users/usersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/UsersController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/StocksTradeSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/StocksTradeSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DTO/DTO/CMD4ReturnBundle.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DTO/DTO/CMD4ReturnBundle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DTO/DTO/UserDTO$StockPaperDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DTO/DTO/UserDTO$StockPaperDTO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/DTO/DTO/UserDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DTO/DTO/UserDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/Users/singleUserTab/SingleUserTabController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/Users/singleUserTab/SingleUserTabController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/Users/usersController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/Users/usersController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/Users/singleUserTab/SingleUserTabController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/Users/singleUserTab/singleUserTab.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/Users/singleUserTab/singleUserTab2.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/Users/users.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/Users/usersController.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl$StringArchitect.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl$StringArchitect.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/marketAppContainer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/marketAppContainer.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/MarketManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/MarketManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/StocksTradeSystem.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/StocksTradeSystem.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/User.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +39,7 @@
       <list>
         <option value="Enum" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -58,6 +68,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15017065" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
@@ -104,7 +115,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1622185602735</updated>
-      <workItem from="1622185603785" duration="60526000" />
+      <workItem from="1622185603785" duration="75534000" />
     </task>
     <task id="LOCAL‎00001" summary="first use of this git repository.&#10;fill users data information from xml">
       <created>1622199911701</created>
@@ -130,7 +141,13 @@
       <option name="presentableId" value="LOCAL‎00004" />
       <updated>1622375436659</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL‎00005" summary="upgraded the relationship of the engine and DTO">
+      <created>1622385160734</created>
+      <option name="number" value="LOCAL‎00005" />
+      <option name="presentableId" value="LOCAL‎00005" />
+      <updated>1622385160734</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -145,11 +162,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java</url>
-          <line>65</line>
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/SystemEngine/src/SystemEngine/Stock.java</url>
           <line>32</line>
@@ -182,15 +194,55 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java</url>
-          <line>92</line>
-          <option name="timeStamp" value="138" />
+          <line>93</line>
+          <option name="timeStamp" value="150" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java</url>
-          <line>143</line>
-          <option name="timeStamp" value="141" />
+          <line>67</line>
+          <option name="timeStamp" value="175" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/AdminTabController.java</url>
+          <line>63</line>
+          <option name="timeStamp" value="176" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/AdminTabController.java</url>
+          <line>69</line>
+          <option name="timeStamp" value="179" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/AdminTabController.java</url>
+          <line>120</line>
+          <option name="timeStamp" value="182" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java</url>
+          <line>164</line>
+          <option name="timeStamp" value="185" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="186" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="187" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/DTO/src/DTO/CMD4ReturnBundle.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="189" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/RizpaStocksExchangeV2_15$ApplicationMain.ic" NAME="ApplicationMain Coverage Results" MODIFIED="1622394111420" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>appControl.*</FILTER>
+    </SUITE>
   </component>
 </project>

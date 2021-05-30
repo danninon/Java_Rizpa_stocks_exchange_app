@@ -7,12 +7,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CMD4ReturnBundle {
-    private LinkedList<TransactionDTO> transactionList;
-    private InstructionDTO newInstruction = null;
+    private LinkedList<TransactionDTO> transactionList = new LinkedList<>();
+    private InstructionDTO newInstruction;
 
     public CMD4ReturnBundle(LinkedList<Transaction> transactionList, Instruction newInstruction) {
-         transactionList.forEach((tr)->this.transactionList.add(new TransactionDTO(tr)));
-         this.newInstruction = new InstructionDTO(newInstruction);
+        if (transactionList != null) {
+            if (transactionList.size() != 0) {
+                transactionList.forEach((tr) -> this.transactionList.add(new TransactionDTO(tr)));
+            }
+        }
+        if (newInstruction.getQuantity() != 0) {
+            this.newInstruction = new InstructionDTO(newInstruction);
+        }
     }
 
     public void setInsDTO(InstructionDTO instruction) {

@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<Tab fx:id="singleUserTab" text="Untitled Tab" xmlns="http://javafx.com/javafx/8.0.281" xmlns:fx="http://javafx.com/fxml/1" fx:controller="users.singleUserTab.SingleUserTabController">
+<Tab fx:id="singleUserTab" text="Untitled Tab" xmlns="http://javafx.com/javafx/8.0.281" xmlns:fx="http://javafx.com/fxml/1" fx:controller="usersTabPane.singleUserTab.SingleUserTabController">
    <content>
       <BorderPane>
          <center>
@@ -47,9 +47,9 @@
                                     <TableColumn fx:id="colUserPrice" prefWidth="75.0" text="Price" />
                                     <TableColumn fx:id="colUserQuantity" prefWidth="75.0" text="Quantity">
                                        <columns>
-                                          <TableColumn prefWidth="75.0" text="In The Market" />
-                                          <TableColumn prefWidth="75.0" text="Idle" />
-                                          <TableColumn prefWidth="75.0" text="Total" />
+                                          <TableColumn fx:id="colIdle" prefWidth="75.0" text="Idle" />
+                                          <TableColumn fx:id="colAtMarket" prefWidth="75.0" text="In The Market" />
+                                          <TableColumn fx:id="colTotal" prefWidth="75.0" text="Total" />
                                        </columns></TableColumn>
                                  </columns>
                               </TableView>

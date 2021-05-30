@@ -1,38 +1,25 @@
-package users;
+package usersTabPane;
 
-import users.singleUserTab.SingleUserTabController;
+import usersTabPane.singleUserTab.SingleUserTabController;
 import appControl.ApplicationControl;
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class usersController {
+public class UsersController {
 
     @FXML
     private TabPane tabPaneUsers;
 
     private List<SingleUserTabController> tabList;
 
-    public void submitData() throws Exception {
-
-
-        createUserTabs();
-
-        }
-
     private void loadUserTabs() {
 
     }
 
-    private void createUserTabs() throws Exception {
-        appControl.createUserTabs(tabList);
-
-    }
-
-    public usersController() {
+    public UsersController() {
         tabList = new ArrayList<SingleUserTabController>();
         System.out.println("OutputUsersController constructor");
     }

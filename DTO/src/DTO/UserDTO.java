@@ -8,16 +8,22 @@ import java.util.List;
 
 public class UserDTO {
 
-    private List<StockPaperDTO> stocksOwnedByUser;
+    private final List<StockPaperDTO> stocksOwnedByUser;
 
         public UserDTO(User user, StocksTradeSystem system) {
             stocksOwnedByUser = new ArrayList<>();
             for (String symbol :user.getStocksInBook().keySet()){
                 try {
+
                     User.StockPaper stockPaper = user.getStocksInBook().get(symbol);
+
+                    Integer totalQuantity = new Integer(stockPaper.getIdle()+ stockPaper.getAtMarket());
+
                     stocksOwnedByUser.add(new StockPaperDTO(system.getSafeStock(symbol).getPrice(),
-                            stockPaper.getAtMarket(),stockPaper.getIdle(),
-                            system.getSafeStock(symbol).getCompanyName(), symbol));
+                            stockPaper.getAtMarket(),
+                            stockPaper.getIdle(),
+                            system.getSafeStock(symbol).getCompanyName(),
+                            symbol, totalQuantity));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -30,24 +36,29 @@ public class UserDTO {
     }
 
     public class StockPaperDTO {
-            private Integer currentPrice;
-            private Integer idleQuantity;
+        private  Integer totalQuantity;
+        private Integer atMarketQuantity;
+        private Integer currentPrice;
+        private Integer idleQuantity;
+        private String companyName;
+        private String symbol;
+
 
         public void setIdleQuantity(Integer idleQuantity) { this.idleQuantity = idleQuantity; }
         public void setAtMarketQuantity(Integer atMarketQuantity) { this.atMarketQuantity = atMarketQuantity; }
 
-        private Integer atMarketQuantity;
-            private String companyName;
-            private String symbol;
+
+
 
         public int getTotalAmount(){return currentPrice+idleQuantity; }
 
-        public StockPaperDTO(Integer currentPrice, Integer atMarketQuantity, Integer idleQuantity, String companyName, String symbol) {
+        public StockPaperDTO(Integer currentPrice, Integer atMarketQuantity, Integer idleQuantity, String companyName, String symbol, Integer totalQuantity) {
             this.currentPrice = currentPrice;
             this.atMarketQuantity = atMarketQuantity;
             this.idleQuantity = idleQuantity;
             this.companyName = companyName;
             this.symbol = symbol;
+            this.totalQuantity = totalQuantity;
         }
 
         public Integer getIdleQuantity() {
@@ -57,7 +68,7 @@ public class UserDTO {
             return atMarketQuantity;
         }
 
-            public String getSymbol() {
+        public String getSymbol() {
                 return symbol;
             }
 

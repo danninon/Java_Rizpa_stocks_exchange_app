@@ -68,6 +68,7 @@ public class MarketManager implements StocksTradeSystem {
                     User seller = users.get(tr.getSellersName());
 
                     int quantityTraded = tr.getQuantity();
+
                     buyer.updateUserAfterBuyingCase(searchedStockSymbol, quantityTraded);
 
 
@@ -75,15 +76,14 @@ public class MarketManager implements StocksTradeSystem {
                         seller.updateUserAfterSellingCase(searchedStockSymbol, 0); //should remove paper incase 0 remain
                     }
                     else{
-                        seller.updateUserAfterSellingCase(searchedStockSymbol, 10); //should remove paper incase 0 remain
+                        seller.updateUserAfterSellingCase(searchedStockSymbol, quantityTraded); //should remove paper incase 0 remain
                     }
-                }
-
-                if (oppositeInstruction.getQuantity() == 0) {
-                    oppositeInstructionCollection.remove(oppositeInstruction);
-                }
-                if (newInstruction.getQuantity() == 0) {
-                    break;
+                    if (oppositeInstruction.getQuantity() == 0) {
+                        oppositeInstructionCollection.remove(oppositeInstruction);
+                    }
+                    if (newInstruction.getQuantity() == 0) {
+                        break;
+                    }
                 }
             }
         }

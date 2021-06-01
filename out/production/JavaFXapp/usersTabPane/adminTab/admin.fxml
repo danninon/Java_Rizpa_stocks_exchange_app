@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.281" xmlns:fx="http://javafx.com/fxml/1" fx:controller="usersTabPane.adminTab.AdminTabController">
    <children>
       <GridPane alignment="CENTER" hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" vgap="5.0">
@@ -38,7 +37,7 @@
                   <Label text="Searched stock:" />
                   <ComboBox fx:id="comboBoxChooseStock2" prefWidth="150.0" promptText="Choose stock here" />
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
-                  <Button mnemonicParsing="false" text="Search!" />
+                  <Button mnemonicParsing="false" onAction="#loadAdminChosenStock" text="Search!" />
                </children>
             </HBox>
             <TableView fx:id="tableViewBuyBook" prefHeight="318.0" prefWidth="601.0" GridPane.rowIndex="2">

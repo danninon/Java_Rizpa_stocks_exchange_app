@@ -38,7 +38,7 @@
                   <Label text="Searched stock:" />
                   <ComboBox fx:id="comboBoxChooseStock2" prefWidth="150.0" promptText="Choose stock here" />
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
-                  <Button mnemonicParsing="false" onAction="#adminSearchStockListener" text="Search!" />
+                  <Button mnemonicParsing="false" text="Search!" />
                </children>
             </HBox>
             <TableView fx:id="tableViewBuyBook" prefHeight="318.0" prefWidth="601.0" GridPane.rowIndex="2">
@@ -73,6 +73,17 @@
                   <TableColumn fx:id="tabTransactionOriginal" prefWidth="75.0" text="Original Type" />
                   <TableColumn fx:id="tabTransactionBuyer" prefWidth="75.0" text="Buyer" />
                   <TableColumn fx:id="tabTransactionSeller" prefWidth="75.0" text="Seller" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <Label text="Actions History" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TableView fx:id="tableActionsHistory" prefHeight="318.0" prefWidth="601.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <columns>
+                  <TableColumn fx:id="colHistoryActionNumber" prefWidth="75.0" text="Action No'" />
+                  <TableColumn fx:id="colHistoryMessage" prefWidth="75.0" text="Message" />
+                  <TableColumn fx:id="colHistoryTime" prefWidth="75.0" text="Time" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

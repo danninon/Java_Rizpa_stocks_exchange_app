@@ -128,12 +128,12 @@ public class SingleUserTabController {
     }
 
     @FXML
-    private void commitTradeListener() throws Exception {
+    private void commitTradeListener(ActionEvent event) throws Exception {
 
         try {
             checkSystematicLegalInput();
             InstructionDTO gatheredInstruction = gatherInstructionDTO();
-            appControl.TradeCommit(gatheredInstruction, comboBoxChooseStock.getSelectionModel().getSelectedItem(), RBBuyer.isSelected()); // (instruction,symbol)
+            appControl.TradeCommit(gatheredInstruction, comboBoxChooseStock.getSelectionModel().getSelectedItem(), RBBuyer.isSelected(), event); // (instruction,symbol)
 
         } catch (Exception e) {
             appControl.throwMainApplication(e);
@@ -219,17 +219,7 @@ public class SingleUserTabController {
     }
 
 
-    public void wireNewUser(User user, String key) {
-    }
 
-
-    //tabTransactionPrice.setCellValueFactory(new PropertyValueFactory<TransactionDTO, Integer>("price"));
-    //        tabTransactionQuantity.setCellValueFactory(new PropertyValueFactory<TransactionDTO, Integer>("quantity"));
-//        tabTransactionDate.setCellValueFactory(new PropertyValueFactory<TransactionDTO, String>("strTime"));
-//        tabTransactionOriginal.setCellValueFactory(new PropertyValueFactory<TransactionDTO, String>("instructionType"));
-//        tabTransactionSeller.setCellValueFactory(new PropertyValueFactory<TransactionDTO, String>("seller"));
-//        tabTransactionBuyer.setCellValueFactory(new PropertyValueFactory<TransactionDTO, String>("buyer"));
-//        tableViewTransactionBook.getItems().setAll(FXCollections.observableArrayList(stock.getTransactionList()));
     private void loadUserStocksTable(StocksTradeSystem system, String userName) {
 
         colUserSymbol.setCellValueFactory(new PropertyValueFactory<UserDTO.StockPaperDTO, String>("symbol"));

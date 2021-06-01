@@ -2,9 +2,11 @@ package SystemEngine;
 
 import DTO.*;
 import SystemEngine.Instruction.Instruction;
+import appControl.ApplicationControl;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 public interface StocksTradeSystem {
@@ -54,5 +56,6 @@ public interface StocksTradeSystem {
     public void cleanUsers();
 
     public Map<String, User> getUsers();
+
 
 }

@@ -7,15 +7,13 @@ import SystemEngine.Instruction.Instruction;
 import SystemEngine.Instruction.LMT;
 import SystemEngine.Instruction.MKT;
 import SystemEngine.generated.*;
+import appControl.ApplicationControl;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class MarketManager implements StocksTradeSystem {
@@ -48,7 +46,7 @@ public class MarketManager implements StocksTradeSystem {
         //defaults to sell
         Collection<Instruction> sameTypeCollection = searchedStock.getSaleInstructionData();
         Collection<Instruction> oppositeInstructionCollection = searchedStock.getBuyInstructionData();
-
+        LinkedList<Transaction> transactionsMade = new LinkedList();
         //if buy
         if (newInstruction.isBuy()) {
             sameTypeCollection = searchedStock.getBuyInstructionData();
@@ -62,6 +60,7 @@ public class MarketManager implements StocksTradeSystem {
 
                     Transaction tr = newInstruction.operateStock(oppositeInstruction);
                     searchedStock.getTransactionList().push(tr);
+                    transactionsMade.push(tr);
                     searchedStock.updateStock(tr.getQuantity(), tr.getPrice(), tr.getTotalPayment());
                     totalGetTotalOperations += tr.getQuantity();
                     User buyer = users.get(tr.getBuyersName());
@@ -69,14 +68,14 @@ public class MarketManager implements StocksTradeSystem {
 
                     int quantityTraded = tr.getQuantity();
 
-                    buyer.updateUserAfterBuyingCase(searchedStockSymbol, quantityTraded);
+                    buyer.updateBuyer(searchedStockSymbol, quantityTraded);
 
 
                     if (seller.equals(instructionOperator)){
-                        seller.updateUserAfterSellingCase(searchedStockSymbol, 0); //should remove paper incase 0 remain
+                        seller.updateSeller(searchedStockSymbol, 0); //should remove paper incase 0 remain
                     }
                     else{
-                        seller.updateUserAfterSellingCase(searchedStockSymbol, quantityTraded); //should remove paper incase 0 remain
+                        seller.updateSeller(searchedStockSymbol, quantityTraded); //should remove paper incase 0 remain
                     }
                     if (oppositeInstruction.getQuantity() == 0) {
                         oppositeInstructionCollection.remove(oppositeInstruction);
@@ -94,8 +93,13 @@ public class MarketManager implements StocksTradeSystem {
             }
             sameTypeCollection.add(newInstruction);
         }
-
-        return new CMD4ReturnBundle(searchedStock.getTransactionList(), newInstruction);
+        if (transactionsMade.size() == 0){
+            transactionsMade = null;
+        }
+        if (newInstruction.getQuantity() ==0){
+            newInstruction = null;
+        }
+        return new CMD4ReturnBundle(transactionsMade, newInstruction);
     }
 
 
@@ -177,7 +181,7 @@ public class MarketManager implements StocksTradeSystem {
 //
 //            int quantityTraded = tr.getQuantity();
 //
-//                buyingUser.updateUserAfterBuyingCase(symbol, quantityTraded);
+//                buyingUser.updateBuyer(symbol, quantityTraded);
 //                sellingUser.getPaper(symbol).updateAfterSold(quantityTraded, symbol); //removes the paper if sold out
 //            } else
 //                {
@@ -271,6 +275,8 @@ public class MarketManager implements StocksTradeSystem {
     public Map<String, User> getUsers() {
        return users;
     }
+
+
 
     @Override
     public void checkLegalSymbol(String symbol, String userName) throws Exception {

@@ -1,10 +1,6 @@
 package menuScreen;
 
-import SystemEngine.StocksTradeSystem;
 import appControl.ApplicationControl;
-import appControl.SubController;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -35,6 +31,7 @@ public class MenuScreenController {
 
     @FXML
     void virtualizationRequestListener(ActionEvent event) throws Exception {
+        mainController.loadXMLFile(XML_FILE_NAME1, event);
 
     }
 
@@ -58,7 +55,7 @@ public class MenuScreenController {
         }
         else {
             if (!labelSystemStatus.getText().equals("System's status: " + TRUE)) {
-             if(mainController.loadXMLFile(selectedFile.getPath())) {
+             if(mainController.loadXMLFile(selectedFile.getPath(), event)) {
                  loadXMLLocal(selectedFile);
              }
             }

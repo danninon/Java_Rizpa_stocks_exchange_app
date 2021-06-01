@@ -3,14 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="5ac6d1ff-9bb7-4675-ad9a-ead6051c4bb6" name="Default Changelist" comment="upgraded the relationship of the engine and DTO">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/appControl/MessengerArchitect.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/appControl/MessengerArchitect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/AdminTabController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/AdminTabController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/admin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/admin.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl$UserAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl$UserAction.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/MessengerArchitect.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/MessengerArchitect.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/usersTabPane/adminTab/AdminTabController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/usersTabPane/adminTab/AdminTabController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/usersTabPane/adminTab/admin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/usersTabPane/adminTab/admin.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -38,6 +32,7 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="ProjectId" id="1tLVtAu9DgZhMTsZ0o6o5BbQzNm" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
@@ -78,13 +73,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -103,7 +100,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1622185602735</updated>
-      <workItem from="1622185603785" duration="128781000" />
+      <workItem from="1622185603785" duration="129008000" />
+      <workItem from="1622548573014" duration="12912000" />
     </task>
     <task id="LOCAL‎00001" summary="first use of this git repository.&#10;fill users data information from xml">
       <created>1622199911701</created>
@@ -147,7 +145,19 @@
       <option name="presentableId" value="LOCAL‎00007" />
       <updated>1622535812341</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL‎00008" summary="SingleSelectedItem by Engine's logic for:&#10;1. operating tab (user or admin)&#10;2. viewed stock">
+      <created>1622548448784</created>
+      <option name="number" value="LOCAL‎00008" />
+      <option name="presentableId" value="LOCAL‎00008" />
+      <updated>1622548448784</updated>
+    </task>
+    <task id="LOCAL‎00009" summary="SingleSelectedItem by Engine's logic for:&#10;1. operating tab (user or admin)&#10;2. viewed stock">
+      <created>1622548498094</created>
+      <option name="number" value="LOCAL‎00009" />
+      <option name="presentableId" value="LOCAL‎00009" />
+      <updated>1622548498094</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -159,82 +169,27 @@
     <MESSAGE value="upgraded the relationship of the engine and DTO" />
     <MESSAGE value="update" />
     <MESSAGE value="Updates:&#10;1. loading admin log successfully&#10;2. saved chosenStockSuccessfully" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updates:&#10;1. loading admin log successfully&#10;2. saved chosenStockSuccessfully" />
+    <MESSAGE value="SingleSelectedItem by Engine's logic for:&#10;1. operating tab (user or admin)&#10;2. viewed stock" />
+    <option name="LAST_COMMIT_MESSAGE" value="SingleSelectedItem by Engine's logic for:&#10;1. operating tab (user or admin)&#10;2. viewed stock" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SystemEngine/src/SystemEngine/Stock.java</url>
-          <line>32</line>
-          <option name="timeStamp" value="79" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java</url>
-          <line>130</line>
-          <option name="timeStamp" value="80" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SystemEngine/src/SystemEngine/Stock.java</url>
-          <line>22</line>
-          <option name="timeStamp" value="81" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java</url>
-          <line>193</line>
-          <option name="timeStamp" value="83" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java</url>
-          <line>25</line>
-          <option name="timeStamp" value="118" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java</url>
-          <line>49</line>
-          <option name="timeStamp" value="125" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java</url>
-          <line>92</line>
-          <option name="timeStamp" value="150" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java</url>
-          <line>152</line>
-          <option name="timeStamp" value="202" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java</url>
-          <line>150</line>
-          <option name="timeStamp" value="203" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java</url>
-          <line>122</line>
-          <option name="timeStamp" value="261" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java</url>
-          <line>268</line>
-          <option name="timeStamp" value="263" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/AdminTabController.java</url>
-          <line>184</line>
-          <option name="timeStamp" value="264" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java</url>
-          <line>285</line>
-          <option name="timeStamp" value="265" />
+          <url>file://$PROJECT_DIR$/JavaFXapp/src/menuScreen/MenuScreenController.java</url>
+          <line>33</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/RizpaStocksExchangeV2_15$ApplicationMain.ic" NAME="ApplicationMain Coverage Results" MODIFIED="1622466234267" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>appControl.*</FILTER>
+    <SUITE FILE_PATH="coverage/RizpaStocksExchangeV2_15$ApplicationMain.ic" NAME="ApplicationMain Coverage Results" MODIFIED="1622550559596" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>appControl.MessengerArchitect</FILTER>
     </SUITE>
   </component>
 </project>

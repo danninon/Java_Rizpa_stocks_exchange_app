@@ -1,0 +1,19 @@
+<changelist name="Uncommitted_changes_before_Update_at_01_06_2021_14_54_[Default_Changelist]" date="1622548474846" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_01_06_2021_14_54_[Default_Changelist]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 01/06/2021 14:54 [Default Changelist]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/JavaFXapp/appControl/MessengerArchitect.class" />
+    <option name="AFTER_PATH" value="out/production/JavaFXapp/appControl/MessengerArchitect.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_01_06_2021_14_54_[Default_Changelist]/MessengerArchitect.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/JavaFXapp/appControl/ApplicationControl.class" />
+    <option name="AFTER_PATH" value="out/production/JavaFXapp/appControl/ApplicationControl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_01_06_2021_14_54_[Default_Changelist]/ApplicationControl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/JavaFXapp/appControl/ApplicationControl$UserAction.class" />
+    <option name="AFTER_PATH" value="out/production/JavaFXapp/appControl/ApplicationControl$UserAction.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_01_06_2021_14_54_[Default_Changelist]/ApplicationControl$UserAction.class" />
+  </binary>
+</changelist>

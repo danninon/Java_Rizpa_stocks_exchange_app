@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<Tab fx:id="singleUserTab" text="Untitled Tab" xmlns="http://javafx.com/javafx/8.0.281" xmlns:fx="http://javafx.com/fxml/1" fx:controller="usersTabPane.singleUserTab.SingleUserTabController">
+   <content>
+      <BorderPane>
+         <center>
+            <ScrollPane>
+               <content>
+                  <HBox>
+                     <children>
+                        <VBox>
+                           <children>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="User's Name:" />
+                                    <Label fx:id="labelUserName" text="name" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                 <children>
+                                    <Label text="Market Values:" />
+                                    <Label fx:id="labelUserValues" text="Values" />
+                                 </children>
+                              </HBox>
+                              <TableView fx:id="userTableView" prefHeight="175.0" prefWidth="306.0">
+                                 <columns>
+                                    <TableColumn fx:id="colUserCompany" prefWidth="75.0" text="Company" />
+                                    <TableColumn fx:id="colUserSymbol" prefWidth="75.0" text="Symbol" />
+                                    <TableColumn fx:id="colUserPrice" prefWidth="75.0" text="Price" />
+                                    <TableColumn fx:id="colUserQuantity" prefWidth="75.0" text="Quantity">
+                                       <columns>
+                                          <TableColumn fx:id="colIdle" prefWidth="75.0" text="Idle" />
+                                          <TableColumn fx:id="colAtMarket" prefWidth="75.0" text="In The Market" />
+                                          <TableColumn fx:id="colTotal" prefWidth="75.0" text="Total" />
+                                       </columns></TableColumn>
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </content>
+            </ScrollPane>
+         </center>
+         <right>
+            <AnchorPane fx:id="anchorTradeControl" prefHeight="695.0" prefWidth="247.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER" layoutY="-30.0">
+                     <children>
+                        <Label alignment="CENTER" text="Trade Menu" />
+                        <Separator prefWidth="200.0" />
+                        <VBox alignment="CENTER" prefHeight="401.0" prefWidth="250.0" spacing="3.0">
+                           <children>
+                              <VBox>
+                                 <children>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label fx:id="labelChosenStock" text="Choose Stock to operate on:" />
+                                          <ComboBox fx:id="comboBoxChooseStock" onAction="#symbolTradeListener" prefWidth="150.0" promptText="symbol" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                              <Separator prefWidth="200.0" />
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <Label text="Choose Trade Direction" />
+                                    <HBox alignment="CENTER" prefHeight="29.0" prefWidth="600.0" spacing="5.0">
+                                       <children>
+                                          <RadioButton fx:id="RBBuyer" contentDisplay="CENTER" lineSpacing="5.0" mnemonicParsing="false" selected="true" text="Buyer">
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="tgTradeDirection" />
+                                             </toggleGroup>
+                                          </RadioButton>
+                                          <RadioButton fx:id="RBSeller" contentDisplay="CENTER" mnemonicParsing="false" text="Seller" toggleGroup="$tgTradeDirection" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="3.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <Separator prefWidth="200.0" />
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="375.0" text="Choose action: " />
+                                    <HBox alignment="CENTER" prefHeight="22.0" prefWidth="599.0">
+                                       <children>
+                                          <RadioButton fx:id="RBLMT" mnemonicParsing="false" selected="true" text="LMT">
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="tgInstructionType" />
+                                             </toggleGroup>
+                                          </RadioButton>
+                                          <RadioButton fx:id="RBMKT" mnemonicParsing="false" text="MKT" toggleGroup="$tgInstructionType" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <Separator prefWidth="200.0" />
+                              <VBox alignment="CENTER" prefHeight="67.0" prefWidth="326.0">
+                                 <children>
+                                    <Label alignment="CENTER" text="Price Offer" />
+                                    <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="372.0">
+                                       <children>
+                                          <Label prefHeight="17.0" prefWidth="152.0" text="Manually enter offer:" />
+                                          <TextField fx:id="textFieldUserOffer" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="372.0">
+                                       <children>
+                                          <Label text="Or via slider: " />
+                                          <Slider />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <Separator prefWidth="200.0" />
+                              <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="326.0">
+                                 <children>
+                                    <Label alignment="CENTER" text="Quantity" />
+                                    <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="372.0">
+                                       <children>
+                                          <Label text="Manually enter offer:" />
+                                          <TextField fx:id="textFieldUserQuantityText" text="0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="372.0">
+                                       <children>
+                                          <Label text="Or via slider: " />
+                                          <Slider />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <Button mnemonicParsing="false" onAction="#commitTradeListener" text="Commit Entered Instruction" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </right>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </BorderPane>
+   </content>
+</Tab>

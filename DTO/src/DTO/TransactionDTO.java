@@ -7,19 +7,19 @@ import java.time.format.DateTimeFormatter;
 
 public class TransactionDTO {
     public String getBuyerName() {
-        return buyer;
+        return buyerName;
     }
 
-    public void setBuyer(String buyer) {
-        this.buyer = buyer;
+    public void setBuyerName(String buyerName) {
+        this.buyerName = buyerName;
     }
 
     public String getSellerName() {
-        return seller;
+        return sellerName;
     }
 
-    public void setSeller(String seller) {
-        this.seller = seller;
+    public void setSellerName(String sellerName) {
+        this.sellerName = sellerName;
     }
 
     public TransactionDTO(Transaction originalTransaction) {
@@ -30,8 +30,8 @@ public class TransactionDTO {
         this.quantity = originalTransaction.getQuantity();
         this.instructionType = originalTransaction.getInstructionType();
         this.invokersName = originalTransaction.getInvokedName();
-        this.buyer = originalTransaction.getBuyersName();
-        this.seller = originalTransaction.getSellersName();
+        this.buyerName = originalTransaction.getBuyersName().substring(0,1).toUpperCase() + originalTransaction.getBuyersName().substring(1);
+        this.sellerName = originalTransaction.getSellersName().substring(0,1).toUpperCase() + originalTransaction.getSellersName().substring(1);
 
     }
 
@@ -65,8 +65,9 @@ public class TransactionDTO {
     private final int price;
     private final int quantity;
     private final String instructionType;
-    String invokersName;
-    String buyer, seller;
+    private String invokersName;
+    private String buyerName, sellerName;
+
     public String getInvokersName() {
         return invokersName;
     }

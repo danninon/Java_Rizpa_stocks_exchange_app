@@ -24,7 +24,7 @@
    <bottom>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Label" />
+            <Label text="Dave the messenger:       **Just remember &quot;no one loves the messenger who brings bad news&quot;. Dave can be quite nice too." />
             <TextArea fx:id="textAreaInformingUser" prefHeight="200.0" prefWidth="200.0" />
          </children>
          <BorderPane.margin>

@@ -11,14 +11,15 @@ public class CMD4ReturnBundle {
     private InstructionDTO newInstruction;
 
     public CMD4ReturnBundle(LinkedList<Transaction> transactionList, Instruction newInstruction) {
-        if (transactionList != null) {
-            if (transactionList.size() != 0) {
-                transactionList.forEach((tr) -> this.transactionList.add(new TransactionDTO(tr)));
-            }
-        }
-        if (newInstruction.getQuantity() != 0) {
+        if (transactionList != null)
+            transactionList.forEach((tr) -> this.transactionList.add(new TransactionDTO(tr)));
+        else
+            this.transactionList = null;
+
+        if (newInstruction != null)
             this.newInstruction = new InstructionDTO(newInstruction);
-        }
+        else
+            this.newInstruction = null;
     }
 
     public void setInsDTO(InstructionDTO instruction) {

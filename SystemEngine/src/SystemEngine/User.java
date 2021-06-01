@@ -39,7 +39,7 @@ public class User {
         stocksInBook.get(symbol).atMarket += buyingQuantity;
     }
 
-    public void updateUserAfterBuyingCase(String symbol, int incQuantity) {
+    public void updateBuyer(String symbol, int incQuantity) {
         StockPaper buyerStockPaper = stocksInBook.get(symbol);
         if (buyerStockPaper == null) {
             stocksInBook.put(symbol, new StockPaper(0, incQuantity));
@@ -47,7 +47,7 @@ public class User {
         buyerStockPaper.idle += incQuantity;
     }
 
-    public void updateUserAfterSellingCase(String symbol, int deduceQuantity){
+    public void updateSeller(String symbol, int deduceQuantity){
 
         StockPaper sellerStockPaper = stocksInBook.get(symbol);
         sellerStockPaper.atMarket = sellerStockPaper.atMarket - deduceQuantity;

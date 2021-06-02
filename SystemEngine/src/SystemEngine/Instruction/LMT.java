@@ -1,6 +1,7 @@
 package SystemEngine.Instruction;
 
 import SystemEngine.Stock;
+import SystemEngine.StockTradingSystem;
 import SystemEngine.Transaction;
 
 import java.time.LocalDateTime;
@@ -9,6 +10,8 @@ import static java.lang.Integer.parseInt;
 import static java.lang.Math.min;
 
 public class LMT extends Instruction {
+
+    private Stock addedTo;
 
     public LMT(LocalDateTime time, boolean isBuy, int price, int quantity, String operatorName) throws Exception {
         super(time, isBuy, price, quantity, operatorName);
@@ -19,22 +22,19 @@ public class LMT extends Instruction {
 
     }
 
+
+
     @Override
-    public void buyStocks() {
+    public void setPriceAfterNoTransaction(Stock searchedStock) {
 
     }
 
     @Override
-    public void sellStocks() {
-
-    }
-
-    @Override
-    public Transaction operateStock(Instruction newInstruction) {
-        int legalQuantity = min(quantity, newInstruction.getQuantity());
+    public Transaction operateStock(Instruction oppositeInstruction) {
+        int legalQuantity = min(quantity, oppositeInstruction.getQuantity());
         this.reduceQuantity(legalQuantity);
-        newInstruction.reduceQuantity(legalQuantity);
-        return new Transaction(newInstruction.time, price, legalQuantity, newInstruction.getClass().getSimpleName(), newInstruction.getOperatorName(), newInstruction.isBuy(), this.getOperatorName());
+        oppositeInstruction.reduceQuantity(legalQuantity);
+        return new Transaction(oppositeInstruction.time, oppositeInstruction.getPrice(), legalQuantity, oppositeInstruction.getClass().getSimpleName(), oppositeInstruction.getOperatorName(), oppositeInstruction.isBuy(), this.getOperatorName());
     }
 
 
@@ -52,6 +52,7 @@ public class LMT extends Instruction {
                 return false;
         }
     }
+
 
 
 }

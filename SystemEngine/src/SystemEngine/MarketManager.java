@@ -7,16 +7,14 @@ import SystemEngine.Instruction.Instruction;
 import SystemEngine.Instruction.LMT;
 import SystemEngine.Instruction.MKT;
 import SystemEngine.generated.*;
-import appControl.ApplicationControl;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
-public class MarketManager implements StocksTradeSystem {
+public class MarketManager implements StockTradingSystem {
 
     private boolean x;
 
@@ -26,11 +24,11 @@ public class MarketManager implements StocksTradeSystem {
         //some invalid user inputs
 
         Instruction newInstruction = createInstructionFromDTO(newInstructionDTO);
-        Stock searchedStock = stocks.get(enteredSymbol);
+        Stock stock = stocks.get(enteredSymbol);
         CMD4ReturnBundle result = null;
 
-        if (searchedStock != null) {
-            result = operateOnMarket2(searchedStock, newInstruction, enteredSymbol);
+        if (stock != null) {
+            result = operateOnMarket2(stock, newInstruction, enteredSymbol);
         }
         else {
              throw new Exception("Couldn't find the required stock.");
@@ -39,30 +37,30 @@ public class MarketManager implements StocksTradeSystem {
     }
 
     //, Collection<Instruction> sameType, Collection<Instruction> oppositeType
-    private CMD4ReturnBundle operateOnMarket2(Stock searchedStock, Instruction newInstruction, String searchedStockSymbol) throws InterruptedException {
+    private CMD4ReturnBundle operateOnMarket2(Stock stock, Instruction newInstruction, String searchedStockSymbol) throws InterruptedException {
 
         User instructionOperator = users.get(newInstruction.getOperatorName());
 
         //defaults to sell
-        Collection<Instruction> sameTypeCollection = searchedStock.getSaleInstructionData();
-        Collection<Instruction> oppositeInstructionCollection = searchedStock.getBuyInstructionData();
+        Collection<Instruction> sameTypeCollection = stock.getSaleInstructionData();
+        Collection<Instruction> oppositeInstructionCollection = stock.getBuyInstructionData();
         LinkedList<Transaction> newTransactionsMade = new LinkedList();
         //if buy
         if (newInstruction.isBuy()) {
-            sameTypeCollection = searchedStock.getBuyInstructionData();
-            oppositeInstructionCollection = searchedStock.getSaleInstructionData();
+            sameTypeCollection = stock.getBuyInstructionData();
+            oppositeInstructionCollection = stock.getSaleInstructionData();
         }
 
-        int totalGetTotalOperations = 0; //safe delete
+     //   int totalGetTotalOperations = 0; //safe delete
         for (Instruction oppositeInstruction : oppositeInstructionCollection) {
             if (!newInstruction.getOperatorName().equals(oppositeInstruction.getOperatorName())) {
-                if (newInstruction.matchesOppositeInstruction(newInstruction)) {
+                if (newInstruction.matchesOppositeInstruction(oppositeInstruction)) {
 
                     Transaction tr = newInstruction.operateStock(oppositeInstruction);
-                    searchedStock.getTransactionList().push(tr);
+                    stock.getTransactionList().push(tr);
                     newTransactionsMade.push(tr);
-                    searchedStock.updateStock(tr.getQuantity(), tr.getPrice(), tr.getTotalPayment());
-                    totalGetTotalOperations += tr.getQuantity();
+                    stock.updateStock(tr.getQuantity(), tr.getPrice(), tr.getTotalPayment());
+                  //  totalGetTotalOperations += tr.getQuantity();
                     User buyer = users.get(tr.getBuyersName());
                     User seller = users.get(tr.getSellersName());
 
@@ -95,11 +93,13 @@ public class MarketManager implements StocksTradeSystem {
         }
         if (newTransactionsMade.size() == 0){
             newTransactionsMade = null;
+
         }
         if (newInstruction.getQuantity() ==0) {
             newInstruction = null;
         }
         clearCache(searchedStockSymbol);
+
         return new CMD4ReturnBundle(newTransactionsMade, newInstruction);
     }
 
@@ -120,8 +120,8 @@ public class MarketManager implements StocksTradeSystem {
                 itr2.remove();
         }
     }
-    private void updateUserInstructionCase(String searchedStockSymbol, int quantity) {
-    }
+//    private void updateUserInstructionCase(String searchedStockSymbol, int quantity) {
+//    }
 
 
 
@@ -340,21 +340,21 @@ public class MarketManager implements StocksTradeSystem {
         List<RseStock> xmlStocks = fromStocks.getRseStock();
         Map<String, Stock> dataToBeChecked = new HashMap<>();
         for (RseStock stock : xmlStocks) {
-            Stock addedStock = new Stock(stock.getRseCompanyName(), stock.getRsePrice()); //throws if not by format of name, symbol or price., toUpper was instructed by Aviad.
+            Stock addedStockTradingSystem = new Stock(stock.getRseCompanyName(), stock.getRsePrice()); //throws if not by format of name, symbol or price., toUpper was instructed by Aviad.
             checkDoubles(dataToBeChecked, stock);
 
             if (dataToBeChecked.containsKey(stock.getRseSymbol()))
                 throw new UniqueException("Symbol", stock.getRseSymbol());
-            dataToBeChecked.put(stock.getRseSymbol(), addedStock);
+            dataToBeChecked.put(stock.getRseSymbol(), addedStockTradingSystem);
         }
         return dataToBeChecked;
     }
 
     private void checkDoubles(Map<String, Stock> dataArr, RseStock newData) throws UniqueException {
 
-        for (Stock stockInArr : dataArr.values()) {
-            if (stockInArr.getCompanyName().equals(newData.getRseCompanyName()))
-                throw new UniqueException("company's name", stockInArr.getCompanyName());
+        for (Stock stock : dataArr.values()) {
+            if (stock.getCompanyName().equals(newData.getRseCompanyName()))
+                throw new UniqueException("company's name", stock.getCompanyName());
         }
     }
 
@@ -425,7 +425,7 @@ public class MarketManager implements StocksTradeSystem {
 
     public void loadDataForTesting() throws Exception {
 
-        Stock stock1 = new Stock("Google", 100);
+        Stock stock = new Stock("Google", 100);
 
     }
 

@@ -2,6 +2,7 @@ package DTO;
 
 import SystemEngine.Instruction.Instruction;
 import SystemEngine.Stock;
+import SystemEngine.StockTradingSystem;
 import SystemEngine.Transaction;
 
 import java.util.*;

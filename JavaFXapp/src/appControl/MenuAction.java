@@ -1,12 +1,6 @@
 package appControl;
 
-import DTO.CMD4ReturnBundle;
-import DTO.InstructionDTO;
-import DTO.StockDTO;
-import SystemEngine.Instruction.Instruction;
-import SystemEngine.StocksTradeSystem;
-import appControl.ApplicationControl;
-import javafx.application.Application;
+import SystemEngine.StockTradingSystem;
 
 import java.io.IOException;
 
@@ -74,8 +68,8 @@ public enum MenuAction {
     static ApplicationControl applicationControl;
 
     public static void setApplicationControl(ApplicationControl applicationControl){    MenuAction.applicationControl = applicationControl;}
-    static StocksTradeSystem marketManager;
-    public static void setMarketManager(StocksTradeSystem marketManager){ MenuAction.marketManager = marketManager;}
+    static StockTradingSystem marketManager;
+    public static void setMarketManager(StockTradingSystem marketManager){ MenuAction.marketManager = marketManager;}
 
     public static MenuAction findAction(MenuAction currentAction) {
         for(MenuAction menuAction : MenuAction.values()) {

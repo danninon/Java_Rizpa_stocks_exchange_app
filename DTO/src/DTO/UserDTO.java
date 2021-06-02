@@ -1,6 +1,6 @@
 package DTO;
 
-import SystemEngine.StocksTradeSystem;
+import SystemEngine.StockTradingSystem;
 import SystemEngine.User;
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ public class UserDTO {
 
     private final List<StockPaperDTO> stocksOwnedByUser;
 
-        public UserDTO(User user, StocksTradeSystem system) {
+        public UserDTO(User user, StockTradingSystem system) {
             stocksOwnedByUser = new ArrayList<>();
             for (String symbol :user.getStocksInBook().keySet()){
                 try {

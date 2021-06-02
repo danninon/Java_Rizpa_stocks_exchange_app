@@ -64,10 +64,10 @@
                <columns>
                   <TableColumn fx:id="colUserCompany" prefWidth="75.0" text="Company" />
                   <TableColumn fx:id="colUserSymbol" prefWidth="75.0" text="Symbol" />
-                  <TableColumn fx:id="colUserPrice" prefWidth="75.0" text="Price" />
-                  <TableColumn fx:id="colUserQuantity" prefWidth="75.0" text="Quantity">
+                  <TableColumn fx:id="colUserPrice" prefWidth="75.0" text="Price per share" />
+                  <TableColumn fx:id="colUserQuantity" prefWidth="75.0" text=" Quantity">
                      <columns>
-                        <TableColumn fx:id="colIdle" prefWidth="75.0" text="Idle" />
+                        <TableColumn fx:id="colIdle" prefWidth="75.0" text="Idle " />
                         <TableColumn fx:id="colAtMarket" prefWidth="75.0" text="In The Market" />
                         <TableColumn fx:id="colTotal" prefWidth="75.0" text="Total" />
                      </columns>
@@ -85,7 +85,7 @@
                </children>
             </VBox>
             <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="6" GridPane.rowIndex="8" />
-            <Label text="Transaction:" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <Label text="Operetion Results:" GridPane.columnIndex="2" GridPane.rowIndex="6" />
             <TabPane tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="8">
               <tabs>
                 <Tab text="Transaction">
@@ -117,21 +117,28 @@
                                     <VBox alignment="CENTER">
                                        <children>
                                           <Label text="Price offered per share: " />
-                                          <Label fx:id="labelPriceNewInstruction" text="DEC" />
+                                          <Label fx:id="labelPriceNewInstruction" text="---" />
                                        </children>
                                     </VBox>
                                     <Separator orientation="VERTICAL" prefHeight="200.0" />
                                     <VBox alignment="CENTER">
                                        <children>
                                           <Label text="Quantity:" />
-                                          <Label fx:id="labelQuantityNewInstruction" text="DEC" />
+                                          <Label fx:id="labelQuantityNewInstruction" text="---" />
+                                       </children>
+                                    </VBox>
+                                    <Separator orientation="VERTICAL" prefHeight="200.0" />
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label text="Total sum:" />
+                                          <Label fx:id="labelNewInstructionTotal" text="---" />
                                        </children>
                                     </VBox>
                                     <Separator orientation="VERTICAL" prefHeight="200.0" />
                                     <VBox alignment="CENTER">
                                        <children>
                                           <Label text="Instruction Type:" />
-                                          <Label fx:id="labelTypeNewInstruction1" text="STRING" />
+                                          <Label fx:id="labelTypeNewInstruction1" text="---" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -149,7 +156,7 @@
                <children>
                   <Label text="Link to " />
                   <Label fx:id="labelChosenStock" text="current symbol:" />
-                  <Hyperlink prefHeight="77.0" prefWidth="59.0" text="Hyperlink" />
+                  <Hyperlink onAction="#openAdminStock" prefHeight="77.0" prefWidth="59.0" text="Hyperlink" />
                </children>
                <GridPane.margin>
                   <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
@@ -193,23 +200,23 @@
                   <Separator prefWidth="200.0" />
                   <VBox alignment="CENTER">
                      <children>
-                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="375.0" text="Choose action: " />
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="375.0" text="Choose action:  " />
                         <HBox alignment="CENTER" prefHeight="22.0" prefWidth="599.0">
                            <children>
-                              <RadioButton fx:id="RBLMT" mnemonicParsing="false" selected="true" text="LMT">
+                              <RadioButton fx:id="RBLMT" mnemonicParsing="false" onAction="#priceOfferVisibleListener" selected="true" text="LMT">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="tgInstructionType" />
                                  </toggleGroup>
                               </RadioButton>
-                              <RadioButton fx:id="RBMKT" mnemonicParsing="false" text="MKT" toggleGroup="$tgInstructionType" />
+                              <RadioButton fx:id="RBMKT" mnemonicParsing="false" onAction="#priceOfferInvisibleListener" text="MKT" toggleGroup="$tgInstructionType" />
                            </children>
                         </HBox>
                      </children>
                   </VBox>
                   <Separator prefWidth="200.0" />
-                  <VBox alignment="CENTER" prefHeight="67.0" prefWidth="326.0">
+                  <VBox fx:id="VboxPriceOffer" alignment="CENTER" prefHeight="67.0" prefWidth="326.0">
                      <children>
-                        <Label alignment="CENTER" text="Price Offer" />
+                        <Label alignment="CENTER" text="Price Offer - LMT only" />
                         <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="372.0">
                            <children>
                               <Label prefHeight="17.0" prefWidth="117.0" text="Manually enter:" />

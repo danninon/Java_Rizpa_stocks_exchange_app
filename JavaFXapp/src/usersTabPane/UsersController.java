@@ -1,7 +1,5 @@
 package usersTabPane;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
-import javafx.beans.property.*;
 import javafx.scene.control.SelectionModel;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
@@ -11,7 +9,6 @@ import appControl.ApplicationControl;
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UsersController {
@@ -26,6 +23,8 @@ public class UsersController {
     private ApplicationControl appControl;
     private Tab tabAdmin;
     private AdminTabController adminTabController;
+
+    private List<SingleUserTabController> userTabsControllers;
 
     public void setUserByIndex(int index) {
         Tab tab = new Tab();
@@ -46,13 +45,13 @@ public class UsersController {
 
     }
 
-    public void setTabSelectionProperty(Tab lastSelectedUserName){
-        mainTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)->{
-            newValue = lastSelectedUserName;
-        });
-
-
-        }
+//    public void setTabSelectionProperty(Tab lastSelectedUserName){
+//        mainTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)->{
+//            newValue = lastSelectedUserName;
+//        });
+//
+//
+//        }
 
 
     public void setMainController(ApplicationControl applicationController) {
@@ -101,5 +100,29 @@ public class UsersController {
             retName = selectedItem.getText();
         }
         return retName;
+    }
+
+    public void setTabControllerList(List<SingleUserTabController> userTabs) {
+        this.userTabsControllers = userTabs;
+    }
+
+
+    public List<SingleUserTabController> getCurrentSingleUserController() {
+        return userTabsControllers;
+    }
+
+    public SingleUserTabController getCurrentUserController(String currentlySelectedTabName) {
+        SingleUserTabController retController = null;
+        for (SingleUserTabController control: userTabsControllers){
+            if (control.getUserName().equals(currentlySelectedTabName)){
+                retController = control;
+                break;
+            }
+        }
+        return retController;
+    }
+
+    public Tab getAdminTab() {
+        return tabAdmin;
     }
 }

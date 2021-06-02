@@ -3,10 +3,8 @@ package appControl;
 import DTO.CMD4ReturnBundle;
 import DTO.InstructionDTO;
 import DTO.UserDTO;
-import SystemEngine.Instruction.Instruction;
-import SystemEngine.Instruction.LMT;
 import SystemEngine.MarketManager;
-import SystemEngine.StocksTradeSystem;
+import SystemEngine.StockTradingSystem;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -29,8 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ApplicationControl {
-    final String SINGLE_USER_TAB_FXML_RESOURCE = "../usersTabPane/singleUserTab/singleUserTab3.fxml";
-    final String ADMIN_TAB_FXML_RESOURCE = "../usersTabPane/adminTab/admin.fxml";
+;
 
     @FXML
     private TabPane bodyComponent;
@@ -43,6 +40,10 @@ public class ApplicationControl {
     @FXML
     private TextArea textAreaInformingUser;
 
+    final String SINGLE_USER_TAB_FXML_RESOURCE = "../usersTabPane/singleUserTab/singleUserTab3.fxml";
+    final String ADMIN_TAB_FXML_RESOURCE = "../usersTabPane/adminTab/admin.fxml";
+    private String currentlySelectedTabName = null;
+    private String currentSelectedStock = null;
     private final MarketManager marketManager;
     private Stage primaryStage;
     private MessengerArchitect messenger;
@@ -73,6 +74,15 @@ public class ApplicationControl {
         return XMLloadedStatus;
     }
 
+    public CMD4ReturnBundle getLatestBundle() {
+        return latestBundle;
+    }
+
+    private CMD4ReturnBundle latestBundle;
+
+    public void openAdminStock(ActionEvent event) {
+//      dddddddmponentController.getAdminController().loadAdminStocks(marketManager, currentSelectedStock, event);
+    }
 
     public class UserAction {
         public UserAction(int actionNum, boolean status, String details, LocalDateTime time) {
@@ -88,6 +98,9 @@ public class ApplicationControl {
         private final String details;
         private final String strTime;
         private final LocalDateTime time;
+
+
+
 
         public boolean isStatus() {
             return status;
@@ -114,7 +127,6 @@ public class ApplicationControl {
 
         reloadTabsToTabsPane(event);
         userActionLog.add(new UserAction(actionCounter, status, textUserInformationProperty.getValue(), getTimeMark()));
-
         bodyComponentController.getAdminController().updateAdminLog();
         ++actionCounter;
     }
@@ -268,18 +280,17 @@ public class ApplicationControl {
 
     private void reloadTabsToTabsPane(ActionEvent event) {
         try {
-            String currentlySelectedTabName = null;
-            String currentSelectedStock = null;
+             currentlySelectedTabName = null;
+             currentSelectedStock = null;
             if (XMLloadedStatus) {
                 currentlySelectedTabName = bodyComponentController.getOpenTab();
                 currentSelectedStock = bodyComponentController.getOpenStockAtAdmin();
             }
             bodyComponent.getTabs().clear();
             addAdminTab(currentSelectedStock, event);
-            createUserTabs(new ArrayList<SingleUserTabController>());
-//for (String symbol : comboBoxChooseStock2.getItems()) {
-//                if (symbol.equals(currentlySelectedStock)){
-//                    comboBoxChooseStock2.setValue(currentlySelectedStock);
+
+            List<SingleUserTabController> tabListControlllers = formAndAddNewUserTabs(new ArrayList<SingleUserTabController>(), currentlySelectedTabName);
+            bodyComponentController.setTabControllerList(tabListControlllers);
 
             if (XMLloadedStatus) {
                 for (Tab tab : bodyComponent.getTabs()) {
@@ -299,7 +310,7 @@ public class ApplicationControl {
 
     }
 
-    public StocksTradeSystem getMarketManager() {
+    public StockTradingSystem getMarketManager() {
         return marketManager;
     }
 
@@ -321,6 +332,7 @@ public class ApplicationControl {
 
         adminController.loadAdminStocks(marketManager, previouslySelectedStock, event);
 
+
         bodyComponent.getTabs().add(adminTab);
         adminTab.setText("Admin Tab");
 
@@ -329,12 +341,13 @@ public class ApplicationControl {
 
 
 
-    public List<SingleUserTabController> createUserTabs(List<SingleUserTabController> tabList) throws Exception {
+    public List<SingleUserTabController> formAndAddNewUserTabs(List<SingleUserTabController> tabList, String currentlySelectedTabName) throws Exception {
 
 //        int savedSelectedIndex = bodyComponent.getSelectionModel().getSelectedIndex();
         // bodyComponent.getTabs().clear();
 
         for (String key : this.marketManager.getUsers().keySet()) {
+
             int ctr = 0;
             FXMLLoader loader = new FXMLLoader();
             URL url = getClass().getResource(SINGLE_USER_TAB_FXML_RESOURCE);
@@ -346,14 +359,14 @@ public class ApplicationControl {
 
             //  Tab userTab = new Tab();
             // userTab.setContent(content);
-
-
             SingleUserTabController singleTabController = loader.getController();
+
             tabList.add(singleTabController);
 
             singleTabController.setMainController(this);
             singleTabController.setUser(this.marketManager.getSafeUser(key));
             userTab.setText(key);
+
             singleTabController.wiringXMLtoTab(marketManager, key);
 
             bodyComponent.getTabs().add(userTab);
@@ -361,6 +374,7 @@ public class ApplicationControl {
 //                bodyComponent.setSelectionModel(userTab.getTabPane().getSelectionModel());
 //             //   savedSelectedTab = userTab;
         }
+
       //  tabPaneUsers.setSelectionModel(savedSelectedIndex);
         return tabList;
     }
@@ -381,19 +395,35 @@ public class ApplicationControl {
     }
 
 
-    public void tradeCommit(InstructionDTO gatherInstructionDTO, String symbol, boolean buySelected, ActionEvent event) {
+    public CMD4ReturnBundle tradeCommit(InstructionDTO gatherInstructionDTO, String symbol, boolean buySelected, ActionEvent event) {
         try {
 
-            CMD4ReturnBundle bundle = marketManager.operateOnMarket1(gatherInstructionDTO, symbol);
-            String msg = messenger.matchingActionMSG(bundle, buySelected);
+            latestBundle = marketManager.operateOnMarket1(gatherInstructionDTO, symbol);
+            String msg = messenger.matchingActionMSG(latestBundle, buySelected);
             textUserInformationProperty.setValue(msg);
+
+
             userActionViaTextUserInformation(true, event);
+            SingleUserTabController controller = bodyComponentController.getCurrentUserController(currentlySelectedTabName);
+
+           controller.setSearchStockLabel(symbol);
+
+            if (latestBundle.getInsDTO() != null){
+                controller.loadInstructionTab(latestBundle.getInsDTO());
+            }
+
+            if (latestBundle.getTransactionsMade() != null){
+                controller.getTranscationTable().getItems().clear();
+                controller.loadTransactionsTab(latestBundle.getTransactionsMade());
+            }
+
 
     } catch (Exception e)
         {
            textUserInformationProperty.setValue(e.getMessage());
             userActionViaGivenString(false, e.getMessage(), event);
         }
+        return latestBundle;
     }
 
     public UserDTO getUser(String userName) {
@@ -410,15 +440,9 @@ public class ApplicationControl {
 
 
 
-
-
-
-
     public void testInputFunc(ActionEvent event) throws Exception {
         loadXMLFile(XML_FILE_NAME1, event);
-        tradeCommit(new InstructionDTO(new LMT(LocalDateTime.now(), false, 100, 20, bodyComponentController.getOpenTab())), "MSFT", false, event);
-        tradeCommit(new InstructionDTO(new LMT(LocalDateTime.now(), false, 110, 10, bodyComponentController.getOpenTab())), "MSFT", false, event);
-        tradeCommit(new InstructionDTO(new LMT(LocalDateTime.now(), false, 90, 10, bodyComponentController.getOpenTab())), "MSFT", false, event);
+
     }
     final static String XML_FILE_NAME1 = "C:\\ex2-small.xml"; //C:/Users/Z490/RSE/
 }

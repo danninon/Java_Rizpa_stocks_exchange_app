@@ -3,6 +3,7 @@ package SystemEngine.Instruction;
 import SystemEngine.Exceptions.NullPriceException;
 import SystemEngine.Exceptions.NullQuantityException;
 import SystemEngine.Stock;
+import SystemEngine.StockTradingSystem;
 import SystemEngine.Transaction;
 
 import java.io.Serializable;
@@ -13,9 +14,7 @@ import java.util.Objects;
 
 public abstract class Instruction implements Serializable, Comparable {
 
-    public abstract void buyStocks();
-
-    public abstract void sellStocks();
+    abstract public void setPriceAfterNoTransaction(Stock newPrice);
 
     public void setQuantity(int _quantity) {
         quantity = _quantity;
@@ -81,6 +80,7 @@ public abstract class Instruction implements Serializable, Comparable {
     public abstract Transaction operateStock(Instruction newBuyInstruction);
 
     public abstract boolean matchesOppositeInstruction(Instruction newBuyInstruction);
+
     public abstract void prepareAddingRemainderToInstructionList(Stock addedTo);
 
     public boolean checkIfNew (){return isNew;}
@@ -101,8 +101,9 @@ public abstract class Instruction implements Serializable, Comparable {
     }
 
     private void checkLegalInstruction() throws Exception {
-            if (price == 0)  throw new NullPriceException("Illegal operation:\nThe price cannot be zero.");
-
+        if (this.getClass() != MKT.class) {
+            if (price == 0) throw new NullPriceException("Illegal operation:\nThe price cannot be zero.");
+        }
             if (quantity == 0) throw new NullQuantityException("You cannot operateStock with the quantity of 0. u nuts?");
 
             if (price < 0) {
@@ -137,4 +138,6 @@ public abstract class Instruction implements Serializable, Comparable {
 
 
     }
+
+
 }

@@ -21,11 +21,11 @@
 	<xs:element name="rse-stocks">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="rse-stock" maxOccurs="unbounded"/>
+				<xs:element ref="rse-stockTradingSystem" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="rse-stock">
+	<xs:element name="rse-stockTradingSystem">
 		<xs:complexType>
 			<xs:all>
 				<xs:element ref="rse-symbol"/>
@@ -49,7 +49,7 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="rse-company-name" type="xs:string"/>
-	<xs:element name="rizpa-stock-exchange-descriptor">
+	<xs:element name="rizpa-stockTradingSystem-exchange-descriptor">
 		<xs:complexType>
 			<xs:all>
 				<xs:element ref="rse-stocks"/>

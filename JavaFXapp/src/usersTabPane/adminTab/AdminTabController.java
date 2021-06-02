@@ -3,7 +3,7 @@ package usersTabPane.adminTab;
 import DTO.InstructionDTO;
 import DTO.StockDTO;
 import DTO.TransactionDTO;
-import SystemEngine.StocksTradeSystem;
+import SystemEngine.StockTradingSystem;
 import appControl.ApplicationControl;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -143,7 +143,7 @@ public class AdminTabController {
     }
 
 
-    private void setForm(StocksTradeSystem system) {
+    private void setForm(StockTradingSystem system) {
         comboBoxChooseStock2.getItems().addAll(system.getSafeStocks().keySet());
     }
 
@@ -175,7 +175,7 @@ public class AdminTabController {
         this.currentStockValue.set(previousStockSymbol);
     }
 
-    public void loadAdminStocks(StocksTradeSystem system, String currentlySelectedStock, ActionEvent event) throws Exception {
+    public void loadAdminStocks(StockTradingSystem system, String currentlySelectedStock, ActionEvent event) throws Exception {
         setForm(system);
         if (currentlySelectedStock != null) {
         StockDTO stock = system.getSafeStock(currentlySelectedStock);

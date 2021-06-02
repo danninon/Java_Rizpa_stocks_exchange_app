@@ -1,6 +1,7 @@
 package SystemEngine.Instruction;
 
 import SystemEngine.Stock;
+import SystemEngine.StockTradingSystem;
 import SystemEngine.Transaction;
 
 import java.time.LocalDateTime;
@@ -10,30 +11,24 @@ public class MKT extends LMT {
         super(_time, _isBuy, 0, _quantity, operatorName);
     }
 
+
     //return status?
-    public void prepareAddingRemainderToInstructionList(Stock addedTo) {
+    @Override
+    public void prepareAddingRemainderToInstructionList(Stock stock) {
         boolean status;
-  //      price = addedTo.getPrice();
-//        if (isBuy)
-//            status = addedTo.getBuyInstructionData().add(this);
-//        else
-//            status = addedTo.getSaleInstructionData().add(this);
+        price = stock.getPrice();
+        if (isBuy)
+            status = stock.getBuyInstructionData().add(this);
+        else
+            status = stock.getSaleInstructionData().add(this);
     }
 
-    @Override
-    public void buyStocks() {
 
-    }
 
     @Override
-    public void sellStocks() {
-
-    }
-
-    @Override
-    public Transaction operateStock(Instruction newInstruction) {
-        newInstruction.setPrice(this.price);
-        return super.operateStock(newInstruction);
+    public Transaction operateStock(Instruction oppositeInstruction) {
+       this.price = oppositeInstruction.price;
+        return super.operateStock(oppositeInstruction);
     }
 
     @Override

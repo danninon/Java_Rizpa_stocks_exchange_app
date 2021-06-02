@@ -1,10 +1,10 @@
 package usersTabPane.singleUserTab;
 
+import DTO.CMD4ReturnBundle;
 import DTO.InstructionDTO;
 import DTO.TransactionDTO;
 import DTO.UserDTO;
-import SystemEngine.StocksTradeSystem;
-import SystemEngine.Transaction;
+import SystemEngine.StockTradingSystem;
 import SystemEngine.User;
 import appControl.ApplicationControl;
 import javafx.beans.property.SimpleStringProperty;
@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -53,7 +54,11 @@ public class SingleUserTabController {
     private Label labelQuantityNewInstruction;
 
     @FXML
+    private Label labelNewInstructionTotal;
+
+    @FXML
     private Label labelTypeNewInstruction1;
+
 
     @FXML
     private Label labelChosenStock;
@@ -117,15 +122,48 @@ public class SingleUserTabController {
     @FXML
     private ComboBox<String> CBSymbolTrade;
 
+    @FXML
+    private VBox VboxPriceOffer;
 
     private UserDTO user;
-    private StocksTradeSystem marketManager;
+    private StockTradingSystem marketManager;
     private ApplicationControl appControl;
+    private StringProperty totalSumProperty;
+    private StringProperty offeredPriceProperty;
+    private StringProperty quantityProperty;
+    private StringProperty instructionTypeProperty;
+    private StringProperty stockNameSymbolProperty;
+    private StringProperty linkSymbolProperty;
+
+    @FXML
+    void priceOfferVisibleListener(ActionEvent event) {
+        VboxPriceOffer.setOpacity(1);
+        textFieldUserOffer.setEditable(true);
+    }
+    @FXML
+    void priceOfferInvisibleListener(ActionEvent event){
+        VboxPriceOffer.setOpacity(0.2);
+        textFieldUserOffer.setEditable(false);
+    }
+
+//Do if there's time:
+    @FXML
+    void openAdminStock(ActionEvent event) {
+    appControl.openAdminStock(event);
+    }
 
     public SingleUserTabController() {
+
         userNameProperty = new SimpleStringProperty("");
         userValueProperty = new SimpleStringProperty("0");
         symbolChosenProperty = new SimpleStringProperty(ENTER_SYMBOL_HERE);
+
+        offeredPriceProperty = new SimpleStringProperty("---");
+        quantityProperty = new SimpleStringProperty("---");
+        instructionTypeProperty = new SimpleStringProperty("---");
+        totalSumProperty = new SimpleStringProperty("---");
+        stockNameSymbolProperty = new SimpleStringProperty("symbol");
+        linkSymbolProperty = new SimpleStringProperty("Press here to jump to searched stock.");
 //        priceFieldProperty = new SimpleStringProperty("1234");
 //        quantityFieldProperty = new SimpleStringProperty("12");
     }
@@ -141,6 +179,12 @@ public class SingleUserTabController {
         comboBoxChooseStock.promptTextProperty().bind(symbolChosenProperty);
         labelUserName.textProperty().bind(userNameProperty);
         labelUserValues.textProperty().bind(userValueProperty);
+        labelPriceNewInstruction.textProperty().bind(offeredPriceProperty);
+        labelQuantityNewInstruction.textProperty().bind(quantityProperty);
+        labelNewInstructionTotal.textProperty().bind(totalSumProperty);
+        labelTypeNewInstruction1.textProperty().bind(instructionTypeProperty);
+
+      //  textFieldUserOffer.setEditable(false);
 //        labelChosenStock.textProperty().bind(symbolChosenProperty);
     }
 
@@ -154,13 +198,28 @@ public class SingleUserTabController {
         try {
             checkSystematicLegalInput();
             InstructionDTO gatheredInstruction = gatherInstructionDTO();
-            appControl.tradeCommit(gatheredInstruction, comboBoxChooseStock.getSelectionModel().getSelectedItem(), RBBuyer.isSelected(), event); // (instruction,symbol)
+            CMD4ReturnBundle latestBundle = appControl.tradeCommit(gatheredInstruction, comboBoxChooseStock.getSelectionModel().getSelectedItem(), RBBuyer.isSelected(), event); // (instruction,symbol)
+
+
 
         } catch (Exception e) {
             appControl.throwMainApplication(e);
         }
 
 
+    }
+
+
+    public void loadInstructionTab(InstructionDTO insDTO) {
+        String offeredPriceTest = Integer.toString(insDTO.getPrice())+ " NIS";
+        offeredPriceProperty.setValue(Integer.toString(insDTO.getPrice())+ " NIS");
+        quantityProperty.setValue(Integer.toString(insDTO.getQuantity()));
+        totalSumProperty.setValue(Integer.toString(insDTO.getPrice() * insDTO.getQuantity()) + " NIS");
+        instructionTypeProperty.setValue(insDTO.getInstructionType());
+
+    }
+
+    private void load() {
     }
 
     private void checkSystematicLegalInput() throws Exception {
@@ -234,7 +293,7 @@ public class SingleUserTabController {
     }
 
 
-    private void loadResultTable(List<TransactionDTO> list) {
+    public void loadTransactionsTab(List<TransactionDTO> list) {
         colSharedPrice.setCellValueFactory(new PropertyValueFactory<TransactionDTO, Integer>("price"));
         colQuantity.setCellValueFactory(new PropertyValueFactory<TransactionDTO, Integer>("quantity"));
         colTotal1.setCellValueFactory(new PropertyValueFactory<TransactionDTO, Integer>("totalPayment"));
@@ -243,7 +302,7 @@ public class SingleUserTabController {
         tableOperationResult.getItems().setAll(FXCollections.observableArrayList(list));
     }
 
-    private void loadUserStocksTable(StocksTradeSystem system, String userName) {
+    private void loadUserStocksTable(StockTradingSystem system, String userName) {
 
         colUserSymbol.setCellValueFactory(new PropertyValueFactory<UserDTO.StockPaperDTO, String>("symbol"));
         colUserCompany.setCellValueFactory(new PropertyValueFactory<UserDTO.StockPaperDTO, String>("companyName"));
@@ -254,16 +313,34 @@ public class SingleUserTabController {
         userTableView.getItems().setAll(FXCollections.observableArrayList(system.getSafeUser(userName).getOwnedStocks()));
     }
 
-    public void wiringXMLtoTab(StocksTradeSystem system, String userName) throws Exception {
+    public void wiringXMLtoTab(StockTradingSystem system, String userName) throws Exception {
         setForm(system);
         userNameProperty.setValue(userName);
         userValueProperty.setValue(Integer.toString(system.getUserTotalVal(userName)));
         loadUserStocksTable(system, userName);
     }
 
-    private void setForm(StocksTradeSystem system) {
+    private void setForm(StockTradingSystem system) {
         comboBoxChooseStock.getItems().addAll(system.getSafeStocks().keySet());
     }
 
 
+    public String getUserName() {
+        return userNameProperty.getValue();
+    }
+
+    public String getOpenChosenStock() {
+        return comboBoxChooseStock.getSelectionModel().getSelectedItem();
+    }
+
+    public TableView<TransactionDTO> getTranscationTable() {
+        return tableOperationResult;
+    }
+
+    public void setSearchStockLabel(String symbol) {
+        this.stockNameSymbolProperty.setValue(symbol);
+    }
+
+    public void setStockLink() {
+    }
 }

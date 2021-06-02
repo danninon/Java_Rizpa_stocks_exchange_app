@@ -1,9 +1,9 @@
 package appControl;
 
-import SystemEngine.StocksTradeSystem;
+import SystemEngine.StockTradingSystem;
 
 public interface SubController {
-    public void setManager(StocksTradeSystem manager);
+    public void setManager(StockTradingSystem manager);
 
     public void setMainController(ApplicationControl applicationController);
 

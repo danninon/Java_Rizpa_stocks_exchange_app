@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
-public interface StocksTradeSystem {
+public interface StockTradingSystem {
     public StockDTO getSafeStock(String symbol) throws Exception;
 
     public Map<String, StockDTO> getSafeStocks();

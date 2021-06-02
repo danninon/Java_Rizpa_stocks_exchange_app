@@ -1,11 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5ac6d1ff-9bb7-4675-ad9a-ead6051c4bb6" name="Default Changelist" comment="upgraded the relationship of the engine and DTO">
+    <list default="true" id="5ac6d1ff-9bb7-4675-ad9a-ead6051c4bb6" name="Default Changelist" comment="updated user tab to have more features.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DTO/src/DTO/StockDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/DTO/src/DTO/StockDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DTO/src/DTO/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/DTO/src/DTO/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/appControl/MenuAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/appControl/MenuAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/appControl/SubController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/appControl/SubController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/UsersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/AdminTabController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/AdminTabController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/admin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/admin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/singleUserTab/SingleUserTabController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/singleUserTab/SingleUserTabController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/singleUserTab/singleUserTab3.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/singleUserTab/singleUserTab3.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Instruction/Instruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Instruction/Instruction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Instruction/LMT.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Instruction/LMT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Instruction/MKT.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Instruction/MKT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Stock.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Stock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/StocksTradeSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/StockTradingSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SystemEngine/src/resources/RSE-V2.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/resources/RSE-V2.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SystemEngine/src/resources/ex2-error-2.1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/resources/ex2-error-2.1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SystemEngine/src/resources/ex2-error-2.2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/resources/ex2-error-2.2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SystemEngine/src/resources/ex2-small.xml" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/resources/ex2-small.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SystemEngine/src/resources/market.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/resources/market.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DTO/DTO/StockDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DTO/DTO/StockDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DTO/DTO/UserDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DTO/DTO/UserDTO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl$UserAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl$UserAction.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/MenuAction$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/MenuAction$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/MenuAction$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/MenuAction$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/MenuAction$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/MenuAction$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/MenuAction$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/MenuAction$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/MenuAction$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/MenuAction$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/MenuAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/MenuAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/SubController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/SubController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/usersTabPane/UsersController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/usersTabPane/UsersController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/usersTabPane/adminTab/AdminTabController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/usersTabPane/adminTab/AdminTabController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/usersTabPane/adminTab/admin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/usersTabPane/adminTab/admin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/usersTabPane/singleUserTab/SingleUserTabController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/usersTabPane/singleUserTab/SingleUserTabController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Instruction/Instruction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Instruction/Instruction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Instruction/LMT.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Instruction/LMT.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Instruction/MKT.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Instruction/MKT.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/MarketManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/MarketManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Stock.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Stock.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/StocksTradeSystem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/resources/RSE-V2.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/resources/RSE-V2.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/resources/ex2-error-2.1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/resources/ex2-error-2.1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/resources/ex2-error-2.2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/resources/ex2-error-2.2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/resources/ex2-small.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/resources/ex2-small.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/resources/market.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/resources/market.xsd" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +145,7 @@
       <option name="presentableId" value="Default" />
       <updated>1622185602735</updated>
       <workItem from="1622185603785" duration="129008000" />
-      <workItem from="1622548573014" duration="12912000" />
+      <workItem from="1622548573014" duration="32843000" />
     </task>
     <task id="LOCAL‎00001" summary="first use of this git repository.&#10;fill users data information from xml">
       <created>1622199911701</created>
@@ -157,11 +201,34 @@
       <option name="presentableId" value="LOCAL‎00009" />
       <updated>1622548498094</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL‎00010" summary="updated user tab to have more features.">
+      <created>1622566625275</created>
+      <option name="number" value="LOCAL‎00010" />
+      <option name="presentableId" value="LOCAL‎00010" />
+      <updated>1622566625275</updated>
+    </task>
+    <task id="LOCAL‎00011" summary="updated user tab to have more features.">
+      <created>1622566644518</created>
+      <option name="number" value="LOCAL‎00011" />
+      <option name="presentableId" value="LOCAL‎00011" />
+      <updated>1622566644518</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first use of this git repository.&#10;fill users data information from xml" />
@@ -170,7 +237,8 @@
     <MESSAGE value="update" />
     <MESSAGE value="Updates:&#10;1. loading admin log successfully&#10;2. saved chosenStockSuccessfully" />
     <MESSAGE value="SingleSelectedItem by Engine's logic for:&#10;1. operating tab (user or admin)&#10;2. viewed stock" />
-    <option name="LAST_COMMIT_MESSAGE" value="SingleSelectedItem by Engine's logic for:&#10;1. operating tab (user or admin)&#10;2. viewed stock" />
+    <MESSAGE value="updated user tab to have more features." />
+    <option name="LAST_COMMIT_MESSAGE" value="updated user tab to have more features." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -179,6 +247,31 @@
           <url>file://$PROJECT_DIR$/JavaFXapp/src/menuScreen/MenuScreenController.java</url>
           <line>33</line>
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/JavaFXapp/src/usersTabPane/singleUserTab/SingleUserTabController.java</url>
+          <line>197</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java</url>
+          <line>25</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java</url>
+          <line>400</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/JavaFXapp/src/usersTabPane/singleUserTab/SingleUserTabController.java</url>
+          <line>198</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/SystemEngine/src/SystemEngine/Instruction/MKT.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="30" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

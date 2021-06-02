@@ -33,8 +33,8 @@
             <Label contentDisplay="CENTER" text="Admin, can you feel the power?" GridPane.columnSpan="2" />
             <HBox alignment="CENTER" GridPane.columnIndex="2" GridPane.columnSpan="2">
                <children>
-                  <Label text="Searched stock:" />
-                  <ComboBox fx:id="comboBoxChooseStock2" prefWidth="150.0" promptText="Choose stock here" />
+                  <Label text="Searched stockTradingSystem:" />
+                  <ComboBox fx:id="comboBoxChooseStock2" prefWidth="150.0" promptText="Choose stockTradingSystem here" />
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
                   <Button mnemonicParsing="false" onAction="#loadAdminChosenStock" text="Search!" />
                </children>

@@ -1,12 +1,8 @@
 package SystemEngine;
 
-import DTO.CMD4ReturnBundle;
-import DTO.InstructionDTO;
-import DTO.TransactionDTO;
 import SystemEngine.Instruction.Instruction;
 
 import java.io.Serializable;
-import java.rmi.activation.ActivateFailedException;
 import java.util.*;
 
 public class Stock implements Serializable {
@@ -117,25 +113,13 @@ public class Stock implements Serializable {
         return pastTransactions;
     }
 
-    public Collection<Instruction> getSaleInstructionData() {
-        return SaleInstructions;
-    }
+    public Collection<Instruction> getSaleInstructionData() { return SaleInstructions;    }
 
     public Collection<Instruction> getBuyInstructionData() {
         return BuyInstructions;
     }
 
 
-    final int SELL = 1;
-    final int BUY = 0;
-    final int NOT_FOUND = -1;
-    final int ZERO = 0;
-
-    int BufferClearerCnt = 0;
-
-    //private final String symbol;
-    private final String companyName;
-    private int stockPrice = 0, fullCycle = 0;
 
 
     private void closeFinishedInstructions(Stock stock){
@@ -152,7 +136,16 @@ public class Stock implements Serializable {
         }
     }
 
+    final int SELL = 1;
+    final int BUY = 0;
+    final int NOT_FOUND = -1;
+    final int ZERO = 0;
 
+    int BufferClearerCnt = 0;
+
+    //private final String symbol;
+    private final String companyName;
+    private int stockPrice = 0, fullCycle = 0;
 
     private Set<Instruction> BuyInstructions = new TreeSet<>();
     private Set<Instruction> SaleInstructions = new TreeSet<>();

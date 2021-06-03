@@ -85,7 +85,7 @@ public class ApplicationControl {
     }
 
     @FXML
-   public void loadFileButtonClicked(ActionEvent event) {
+   public void loadXMLFile(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select words file");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("text files", "*.xml"));
@@ -138,17 +138,6 @@ public class ApplicationControl {
 //      dddddddmponentController.getAdminController().loadAdminStocks(marketManager, latestSelectedStock, event);
     }
 
-
-
-//    private void userActionViaTextUserInformation(boolean status, ActionEvent event) {
-//
-//        reloadTabsToTabsPane(event);
-//        adminLog.add(actionCounter,true,textAreaInformingUser.getText(), getTimeMark());
-//        bodyComponentController.getAdminController().updateAdminLog();
-//        bodyComponentController.getAdminController().updateFluctuationChart(event, marketManager.getStock(latestSelectedStock));
-//        ++actionCounter;
-//    }
-
     private void userActionViaGivenString(boolean status, String operationDetails, ActionEvent event) {
         adminLog.add(actionCounter, status, operationDetails, getTimeMark());
         ++actionCounter;
@@ -173,12 +162,6 @@ public class ApplicationControl {
         textUserInformationProperty = new SimpleStringProperty("");
         adminLog = new AdminLog(this);
     }
-
-//    private void userActionViaTextUserInformation(UserAction action) {
-//        reloadTabsToTabsPane();
-//        actionCounter++;
-//        userActionLog.add(action);
-//    }
 
 
     public void initialize() {
@@ -206,6 +189,7 @@ public class ApplicationControl {
     public void newStockSearched(String stockSymbol, ActionEvent event) {
         if (stockSymbol != null) {
             textUserInformationProperty.setValue("Fetched stock: " + stockSymbol + "");
+            bodyComponentController.getAdminController().setStockDetails(marketManager.getStock(stockSymbol).getCompanyName(), marketManager.getStock(stockSymbol).getPrice());
             userActionViaGivenString(systemBootFinish, adminLog.SEARCH + " " + stockSymbol + " was successful.", event);
         }
 
@@ -338,9 +322,11 @@ public class ApplicationControl {
         adminController.setMainController(this);
 
         bodyComponentController.setAdminController(adminController);
-
         adminController.loadAdminStocks(marketManager, previouslySelectedStock, event);
 
+        if (previouslySelectedStock != null) {
+            adminController.setStockDetails(marketManager.getStock(previouslySelectedStock).getCompanyName(), marketManager.getStock(previouslySelectedStock).getPrice());
+        }
 
         bodyComponent.getTabs().add(adminTab);
 

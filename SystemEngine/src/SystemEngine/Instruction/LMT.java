@@ -1,7 +1,6 @@
 package SystemEngine.Instruction;
 
 import SystemEngine.Stock;
-import SystemEngine.StockTradingSystem;
 import SystemEngine.Transaction;
 
 import java.time.LocalDateTime;
@@ -25,7 +24,7 @@ public class LMT extends Instruction {
 
 
     @Override
-    public void setPriceAfterNoTransaction(Stock searchedStock) {
+    public void setPriceAfterNoTransaction(int searchedStock) {
 
     }
 

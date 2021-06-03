@@ -3,6 +3,8 @@ package SystemEngine;
 import SystemEngine.Instruction.Instruction;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Stock implements Serializable {
@@ -15,61 +17,21 @@ public class Stock implements Serializable {
 
 
 
-//    public CMD4ReturnBundle operate(Instruction newInstruction, Collection<Instruction> sameType, Collection<Instruction> oppositeType) throws ActivateFailedException {
-//        CMD4ReturnBundle rb = new CMD4ReturnBundle();
-//        for (Instruction oppositeInstrucion : oppositeType) {
-//            if (!newInstruction.getOperatorName().equals(oppositeInstrucion.getOperatorName())) {
-//                if (newInstruction.matchesOppositeInstruction(oppositeInstrucion)) {
-//                    Transaction tr = oppositeInstrucion.operateStock(newInstruction);
-//                    pastTransactions.push(tr);
-//                    updateStock(tr.getQuantity(), tr.getPrice(), tr.getTotalPayment());
-//               //     updateUsers(newInstruction, oppositeInstrucion, tr);
-//                    rb.add(new TransactionDTO(tr));
-//
-//                    if (oppositeInstrucion.getQuantity() == 0){
-//                        oppositeType.remove(oppositeInstrucion);
-//                    }
-//                    if (newInstruction.getQuantity() == 0) {
-//                        break;
-//                    }
-//                }
-//            }
-//        }
-//        boolean status = true;
-//        if (newInstruction.getQuantity() > 0) {
-//            newInstruction.prepareAddingRemainderToInstructionList(this);
-//            status = sameType.add(newInstruction);
-//             rb.setInsDTO(new InstructionDTO(newInstruction));
-//        }
-//        if (status == false){
-//            throw new ActivateFailedException("Error loading to instruction list! This may be caused by various technical reasons. Call a technician");
-//        }
-//        return rb;
-//    }
-
-    private void updateUsers(Instruction newInstruction, Instruction oppositeInstruction, Transaction tr) {
-
-    }
-
-
     public void updateStock(int quantity, int newPrice, int addToCycleSum){
     this.stockPrice = newPrice;
     this.fullCycle += addToCycleSum;
     }
 
+    public void setPrice(int newPrice) {
+        stockPrice = newPrice;
+    }
 
     public void simplePrint() {
-       // System.out.println("Symbol: " + symbol);
+        // System.out.println("Symbol: " + symbol);
         System.out.println("Company: " + companyName);
         System.out.println("Price: " + stockPrice);
         System.out.println("Total transactions: " + pastTransactions.size());
         System.out.println("Full Cycle: " + fullCycle + "\n");
-    }
-
-
-
-    public void setPrice(int newPrice) {
-        stockPrice = newPrice;
     }
 
     public Stock(String name, int price) throws Exception {
@@ -120,8 +82,6 @@ public class Stock implements Serializable {
     }
 
 
-
-
     private void closeFinishedInstructions(Stock stock){
 
         Iterator<Instruction> itr1 = stock.getBuyInstructionData().iterator();
@@ -143,13 +103,50 @@ public class Stock implements Serializable {
 
     int BufferClearerCnt = 0;
 
-    //private final String symbol;
+
     private final String companyName;
     private int stockPrice = 0, fullCycle = 0;
+
 
     private Set<Instruction> BuyInstructions = new TreeSet<>();
     private Set<Instruction> SaleInstructions = new TreeSet<>();
     private LinkedList<Transaction> pastTransactions = new LinkedList<>();
+    private List<TimePriceVector> priceTimeData = new ArrayList();
 
 
+
+    public void savePriceTimeVector(int price, LocalDateTime time) {
+        priceTimeData.add(new TimePriceVector(price, time.format(DateTimeFormatter.ofPattern("HH:mm:ss:SSS"))));
+    }
+
+    public List<TimePriceVector> getPriceTimeVectorList() {
+        return priceTimeData;
+    }
+
+
+    public class TimePriceVector{
+        private String time;
+        private Integer price;
+
+        public TimePriceVector(Integer price,String time) {
+            this.time = time;
+            this.price = price;
+        }
+
+        public String getTime() {
+            return time;
+        }
+
+        public void setTime(String time) {
+            this.time = time;
+        }
+
+        public Integer getPrice() {
+            return price;
+        }
+
+        public void setPrice(Integer price) {
+            this.price = price;
+        }
+    }
 }

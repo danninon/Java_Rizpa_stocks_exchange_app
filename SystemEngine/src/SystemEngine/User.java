@@ -46,15 +46,19 @@ public class User {
         }
         buyerStockPaper.idle += incQuantity;
     }
-
-    public void updateSeller(String symbol, int deduceQuantity){
+//if true remove from idle else remove from in market
+    public void updateSeller(boolean sellerIsInitiator, String symbol, int deduceQuantity){
 
         StockPaper sellerStockPaper = stocksInBook.get(symbol);
-        sellerStockPaper.atMarket = sellerStockPaper.atMarket - deduceQuantity;
-       if (sellerStockPaper.atMarket + sellerStockPaper.idle == 0) {
-           removePaper(symbol);
-       }
-
+        if (sellerIsInitiator){
+            sellerStockPaper.idle -= deduceQuantity;
+        }
+        else{
+            sellerStockPaper.atMarket -= deduceQuantity;
+        }
+        if (sellerStockPaper.atMarket + sellerStockPaper.idle == 0) {
+            removePaper(symbol);
+        }
     }
 
     public void updateUserAfterInsertingSaleInstruction(String symbol, Integer incValueToAtMarket){
@@ -63,8 +67,8 @@ public class User {
     }
 
     public class StockPaper {
-        Integer atMarket = 0;
-        Integer idle = 0;
+       private Integer atMarket = 0;
+        private Integer idle = 0;
 
         public int getTotalAmount(){return atMarket + idle; }
         public StockPaper(int atMarket, int idle) {

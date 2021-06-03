@@ -3,12 +3,16 @@ package usersTabPane.adminTab;
 import DTO.InstructionDTO;
 import DTO.StockDTO;
 import DTO.TransactionDTO;
+import SystemEngine.Stock;
 import SystemEngine.StockTradingSystem;
 import appControl.ApplicationControl;
+import appControl.AdminLog;
+import com.sun.deploy.net.proxy.BrowserProxyConfigCanonicalizer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -16,28 +20,51 @@ import java.util.List;
 
 public class AdminTabController {
 
-    public AdminTabController(){
+    public AdminTabController() {
         currentStockValue = new SimpleStringProperty();
     }
 
-    public void initialize(){
+    public void initialize() {
         comboBoxChooseStock2.promptTextProperty().bind(currentStockValue);
     }
 
-    @FXML private ComboBox<String> comboBoxChooseStock2;
-    @FXML private TableView<TransactionDTO> tableViewTransactionBook;
-    @FXML private TableColumn<TransactionDTO, Integer> tabTransactionPrice;
-    @FXML private TableColumn<TransactionDTO, Integer> tabTransactionQuantity;
-    @FXML private TableColumn<TransactionDTO, String> tabTransactionDate;
-    @FXML private TableColumn<TransactionDTO, String> tabTransactionOriginal;
-    @FXML private TableColumn<TransactionDTO, String> tabTransactionBuyer;
-    @FXML private TableColumn<TransactionDTO, String> tabTransactionSeller;
+    @FXML
+    private LineChart<Integer, String> lineChatStockPriceFluctuation;
 
-    @FXML private TableView<InstructionDTO> tableViewSaleBook;
-    @FXML private TableColumn<InstructionDTO, Integer> tabSellPrice;
-    @FXML private TableColumn<InstructionDTO, Integer> tabSellQuantity;
-    @FXML private TableColumn<InstructionDTO, String> tabSellDate;
-    @FXML private TableColumn<InstructionDTO, String> tabSellOriginal;
+    @FXML
+    BarChart barChart;
+    @FXML
+    CategoryAxis categoryAxis;
+    @FXML
+    NumberAxis numberAxis;
+
+    @FXML
+    private ComboBox<String> comboBoxChooseStock2;
+    @FXML
+    private TableView<TransactionDTO> tableViewTransactionBook;
+    @FXML
+    private TableColumn<TransactionDTO, Integer> tabTransactionPrice;
+    @FXML
+    private TableColumn<TransactionDTO, Integer> tabTransactionQuantity;
+    @FXML
+    private TableColumn<TransactionDTO, String> tabTransactionDate;
+    @FXML
+    private TableColumn<TransactionDTO, String> tabTransactionOriginal;
+    @FXML
+    private TableColumn<TransactionDTO, String> tabTransactionBuyer;
+    @FXML
+    private TableColumn<TransactionDTO, String> tabTransactionSeller;
+
+    @FXML
+    private TableView<InstructionDTO> tableViewSaleBook;
+    @FXML
+    private TableColumn<InstructionDTO, Integer> tabSellPrice;
+    @FXML
+    private TableColumn<InstructionDTO, Integer> tabSellQuantity;
+    @FXML
+    private TableColumn<InstructionDTO, String> tabSellDate;
+    @FXML
+    private TableColumn<InstructionDTO, String> tabSellOriginal;
     @FXML
     private TableColumn<InstructionDTO, String> tabSellTrader;
 
@@ -56,13 +83,14 @@ public class AdminTabController {
     private TableColumn<InstructionDTO, String> tabBuyTrader;
 
     @FXML
-    private TableView<ApplicationControl.UserAction> tableActionsHistory;
+    private TableView<AdminLog.AdminAction> tableActionsHistory;
     @FXML
-    private TableColumn<ApplicationControl.UserAction, Integer> colHistoryActionNumber;
+    private TableColumn<AdminLog.AdminAction, Integer> colHistoryActionNumber;
     @FXML
-    private TableColumn<ApplicationControl.UserAction, String> colHistoryMessage;
+    private TableColumn<AdminLog.AdminAction, String> colHistoryMessage;
     @FXML
-    private TableColumn<ApplicationControl.UserAction, String> colHistoryTime;
+    private TableColumn<AdminLog.AdminAction, String> colHistoryTime;
+
     @FXML
     void loadAdminChosenStock(ActionEvent event) {
 
@@ -74,37 +102,17 @@ public class AdminTabController {
                 else {
                     applicationControl.throwMainApplication(new Exception("Error: You'll have to choose a stock in the admin tab in order to view it's market."));
                 }
-            }
-            else{
+            } else {
                 throw new Exception("System unloaded Error: Please load the system first.");
-        }
-    }
-        catch (Exception e){
+            }
+        } catch (Exception e) {
             applicationControl.throwMainApplication(e);
         }
     }
 
 
-    @FXML
-//    void adminSearchStockListener(ActionEvent event) throws Exception {
-//try {
-//    String stockSymbol = comboBoxChooseStock2.getSelectionModel().getSelectedItem();
-//    if (applicationControl.systemBootFinish()) {
-//        if (stockSymbol != null)
-//            loadAdminStocks(applicationControl.getMarketManager(), stockSymbol, event);
-//        else {
-//            throw new Exception("Error: You'll have to choose a stock in the admin tab in order to view it's market.");
-//        }
-//    }
-//    else {
-//        throw new Exception("System unloaded Error: Please load the system first.");
-//    }
-//}
-//        catch (Exception e){
-//            applicationControl.throwMainApplication(e);
-//        }
-//    }
     private SimpleStringProperty currentStockValue;
+
     private void loadTransactionsBook(StockDTO stock) {
         tabTransactionPrice.setCellValueFactory(new PropertyValueFactory<TransactionDTO, Integer>("price"));
         tabTransactionQuantity.setCellValueFactory(new PropertyValueFactory<TransactionDTO, Integer>("quantity"));
@@ -135,10 +143,10 @@ public class AdminTabController {
     }
 
 
-    private void loadHistoryBook(List<ApplicationControl.UserAction> historyLog) {
-        colHistoryActionNumber.setCellValueFactory(new PropertyValueFactory<ApplicationControl.UserAction, Integer>("actionNum"));
-        colHistoryMessage.setCellValueFactory(new PropertyValueFactory<ApplicationControl.UserAction, String>("details"));
-        colHistoryTime.setCellValueFactory(new PropertyValueFactory<ApplicationControl.UserAction, String>("strTime"));
+    private void loadHistoryBook(List<AdminLog.AdminAction> historyLog) {
+        colHistoryActionNumber.setCellValueFactory(new PropertyValueFactory<AdminLog.AdminAction, Integer>("actionNum"));
+        colHistoryMessage.setCellValueFactory(new PropertyValueFactory<AdminLog.AdminAction, String>("details"));
+        colHistoryTime.setCellValueFactory(new PropertyValueFactory<AdminLog.AdminAction, String>("strTime"));
         tableActionsHistory.getItems().setAll(FXCollections.observableArrayList(historyLog));
     }
 
@@ -156,7 +164,7 @@ public class AdminTabController {
     public String getOpenStock() {
         String retOpenStockSymbol = null;
         SelectionModel<String> selectedStockModel = comboBoxChooseStock2.getSelectionModel();
-        if (selectedStockModel != null){
+        if (selectedStockModel != null) {
             retOpenStockSymbol = selectedStockModel.getSelectedItem();
         }
 
@@ -178,10 +186,10 @@ public class AdminTabController {
     public void loadAdminStocks(StockTradingSystem system, String currentlySelectedStock, ActionEvent event) throws Exception {
         setForm(system);
         if (currentlySelectedStock != null) {
-        StockDTO stock = system.getSafeStock(currentlySelectedStock);
+            StockDTO stock = system.getSafeStock(currentlySelectedStock);
 
             for (String symbol : comboBoxChooseStock2.getItems()) {
-                if (symbol.equals(currentlySelectedStock)){
+                if (symbol.equals(currentlySelectedStock)) {
                     comboBoxChooseStock2.setValue(currentlySelectedStock);
                     loadTransactionsBook(stock);
                     loadSaleBook(stock);
@@ -198,6 +206,28 @@ public class AdminTabController {
     }
 
     public void updateAdminLog() {
-        loadHistoryBook(applicationControl.getMyEventList());
+        loadHistoryBook(applicationControl.getAdminLog());
+    }
+
+    public void updateFluctuationChart(ActionEvent event, StockDTO stock) {
+
+        XYChart.Series set = new XYChart.Series();
+
+        List<StockDTO.TimePriceVectorDTO> items = stock.getPriceTimeDataList();
+
+        for (StockDTO.TimePriceVectorDTO item : items)
+            set.getData().add(new XYChart.Data(item.getTime(), item.getPrice()));
+
+        barChart.getData().addAll(set);
     }
 }
+//        XYChart.Series<Integer, String> series = new XYChart.Series<Integer, String>();
+//////        XYChart.Series series = new XYChart.Series();
+////
+//        for (StockDTO.TimePriceVectorDTO vector : stock.getPriceTimeDataList()){
+//            series.getData().add(new XYChart.Data<Integer, String>(vector.getPrice(), vector.getTime()));
+//        }
+//        lineChatStockPriceFluctuation.getData().addAll(series);
+//    }
+//}
+

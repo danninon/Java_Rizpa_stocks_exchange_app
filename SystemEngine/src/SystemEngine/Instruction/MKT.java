@@ -16,13 +16,13 @@ public class MKT extends LMT {
     @Override
     public void prepareAddingRemainderToInstructionList(Stock stock) {
         boolean status;
-        price = stock.getPrice();
-        if (isBuy)
-            status = stock.getBuyInstructionData().add(this);
-        else
-            status = stock.getSaleInstructionData().add(this);
+        this.price = stock.getPrice();
     }
 
+    @Override
+    public void setPriceAfterNoTransaction(int newPrice) {
+        this.price =  newPrice;
+    }
 
 
     @Override

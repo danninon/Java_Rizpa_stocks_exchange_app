@@ -4,12 +4,14 @@ import DTO.CMD4ReturnBundle;
 import DTO.InstructionDTO;
 import DTO.UserDTO;
 import SystemEngine.MarketManager;
+import SystemEngine.Stock;
 import SystemEngine.StockTradingSystem;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.chart.LineChart;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
@@ -20,6 +22,7 @@ import usersTabPane.UsersController;
 import usersTabPane.adminTab.AdminTabController;
 import usersTabPane.singleUserTab.SingleUserTabController;
 
+import javax.swing.*;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,48 +30,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ApplicationControl {
-;
 
-    @FXML
-    private TabPane bodyComponent;
 
-    @FXML
-    private AnchorPane topComponent;
-    @FXML
-    private MenuScreenController topComponentController;
+    @FXML private TabPane bodyComponent;
+    @FXML private AnchorPane topComponent;
+    @FXML private MenuScreenController topComponentController;
+    @FXML private TextArea textAreaInformingUser;
 
-    @FXML
-    private TextArea textAreaInformingUser;
 
     final String SINGLE_USER_TAB_FXML_RESOURCE = "../usersTabPane/singleUserTab/singleUserTab3.fxml";
     final String ADMIN_TAB_FXML_RESOURCE = "../usersTabPane/adminTab/admin.fxml";
-    private String currentlySelectedTabName = null;
-    private String currentSelectedStock = null;
+
     private final MarketManager marketManager;
     private Stage primaryStage;
     private MessengerArchitect messenger;
-    StringProperty activeStockInBook = null;
-    StringProperty textUserInformationProperty;
-    List<UserAction> userActionLog;
 
+    StringProperty textUserInformationProperty;
     private boolean systemBootFinish;
 
-    public boolean isXMLloadedStatus() {
-        return XMLloadedStatus;
-    }
-
     private boolean XMLloadedStatus;
-
     private int actionCounter;
-    StringProperty currentTime;
+    StringProperty currentTimeProperty;
+    StringProperty activeStockInBookProperty = null;
+    private String latestSelectedTabName = null;
+    private String latestSelectedStock = null;
+    private CMD4ReturnBundle latestBundle;
+
+    private AdminLog adminLog;
+
 
     private LocalDateTime getTimeMark() {
         return LocalDateTime.now();
     }
-
-    public List<UserAction> getMyEventList() {
-        return userActionLog;
+    public boolean isXMLloadedStatus() {
+        return XMLloadedStatus;
     }
+
 
     public boolean getXmlLoadedStatus() {
         return XMLloadedStatus;
@@ -78,66 +75,30 @@ public class ApplicationControl {
         return latestBundle;
     }
 
-    private CMD4ReturnBundle latestBundle;
+
 
     public void openAdminStock(ActionEvent event) {
-//      dddddddmponentController.getAdminController().loadAdminStocks(marketManager, currentSelectedStock, event);
+//      dddddddmponentController.getAdminController().loadAdminStocks(marketManager, latestSelectedStock, event);
     }
 
-    public class UserAction {
-        public UserAction(int actionNum, boolean status, String details, LocalDateTime time) {
-            this.actionNum = actionNum;
-            this.status = status;
-            this.details = details;
-            this.time = time;
-            this.strTime = time.format(DateTimeFormatter.ofPattern("HH:mm:ss:SSS"));
-        }
-
-        private final int actionNum;
-        private final boolean status;
-        private final String details;
-        private final String strTime;
-        private final LocalDateTime time;
 
 
+//    private void userActionViaTextUserInformation(boolean status, ActionEvent event) {
+//
+//        reloadTabsToTabsPane(event);
+//        adminLog.add(actionCounter,true,textAreaInformingUser.getText(), getTimeMark());
+//        bodyComponentController.getAdminController().updateAdminLog();
+//        bodyComponentController.getAdminController().updateFluctuationChart(event, marketManager.getStock(latestSelectedStock));
+//        ++actionCounter;
+//    }
 
-
-        public boolean isStatus() {
-            return status;
-        }
-
-        public String getDetails() {
-            return details;
-        }
-
-        public String getStrTime() {
-            return strTime;
-        }
-
-        public LocalDateTime getTime() {
-            return time;
-        }
-
-        public int getActionNum() {
-            return actionNum;
-        }
-    }
-
-    private void userActionViaTextUserInformation(boolean status, ActionEvent event) {
-
-        reloadTabsToTabsPane(event);
-        userActionLog.add(new UserAction(actionCounter, status, textUserInformationProperty.getValue(), getTimeMark()));
-        bodyComponentController.getAdminController().updateAdminLog();
+    private void userActionViaGivenString(boolean status, String operationDetails, ActionEvent event) {
+        adminLog.add(actionCounter, status, operationDetails, getTimeMark());
         ++actionCounter;
-    }
-
-    private void userActionViaGivenString(boolean status, String msg, ActionEvent event) {
-        userActionLog.add(new UserAction(actionCounter, status, msg, getTimeMark()));
-        ++actionCounter;
-
         if (status) {
             reloadTabsToTabsPane(event);
         }
+
         bodyComponentController.getAdminController().updateAdminLog();
     }
 
@@ -151,12 +112,9 @@ public class ApplicationControl {
 
         marketManager = new MarketManager();
         messenger = new MessengerArchitect();
-        currentTime = new SimpleStringProperty(timeMark.format((DateTimeFormatter.ofPattern("HH:mm:ss:SSS"))));
+        currentTimeProperty = new SimpleStringProperty(timeMark.format((DateTimeFormatter.ofPattern("HH:mm:ss:SSS"))));
         textUserInformationProperty = new SimpleStringProperty("");
-        userActionLog = new ArrayList<>();
-
-        MenuAction.setApplicationControl(this);
-        MenuAction.setMarketManager(marketManager);
+        adminLog = new AdminLog(this);
     }
 
 //    private void userActionViaTextUserInformation(UserAction action) {
@@ -180,7 +138,8 @@ public class ApplicationControl {
         String retString = systemCheck();
         retString += messenger.openingMessage();
         textUserInformationProperty.setValue(retString);
-        userActionViaTextUserInformation(systemBootFinish, null);
+
+        userActionViaGivenString(systemBootFinish, adminLog.BOOT + " was successful.", null);
 
         }
 
@@ -188,18 +147,8 @@ public class ApplicationControl {
     public void newStockSearched(String stockSymbol, ActionEvent event) {
         if (stockSymbol != null) {
             textUserInformationProperty.setValue("Fetched stock: " + stockSymbol + "");
-            userActionViaTextUserInformation(true,event);
+            userActionViaGivenString(systemBootFinish, adminLog.SEARCH + " " + stockSymbol + " was successful.", event);
         }
-        else{
-
-        }
-//        try {
-//            userActionViaTextUserInformation();
-//            userActionViaTextUserInformation()reloadTabsToTabsPane(event);
-//
-//        } catch (Exception exception) {
-//            exception.printStackTrace();
-//        }
 
     }
     private String systemCheck() {
@@ -267,7 +216,8 @@ public class ApplicationControl {
             textUserInformationProperty.setValue("File loaded successfully.");
             systemBootFinish = true;
             status = true;
-            userActionViaTextUserInformation(true, null);
+            userActionViaGivenString(true, adminLog.LOAD_XML + " was successful.", event );
+            //userActionViaTextUserInformation(true, null);
         } catch (Exception e) {
             textUserInformationProperty.setValue(e.getMessage());
             userActionViaGivenString(false, e.getMessage(), null);
@@ -280,21 +230,21 @@ public class ApplicationControl {
 
     private void reloadTabsToTabsPane(ActionEvent event) {
         try {
-             currentlySelectedTabName = null;
-             currentSelectedStock = null;
+             latestSelectedTabName = null;
+             latestSelectedStock = null;
             if (XMLloadedStatus) {
-                currentlySelectedTabName = bodyComponentController.getOpenTab();
-                currentSelectedStock = bodyComponentController.getOpenStockAtAdmin();
+                latestSelectedTabName = bodyComponentController.getOpenTab();
+                latestSelectedStock = bodyComponentController.getOpenStockAtAdmin();
             }
             bodyComponent.getTabs().clear();
-            addAdminTab(currentSelectedStock, event);
+            addAdminTab(latestSelectedStock, event);
 
-            List<SingleUserTabController> tabListControlllers = formAndAddNewUserTabs(new ArrayList<SingleUserTabController>(), currentlySelectedTabName);
+            List<SingleUserTabController> tabListControlllers = formAndAddNewUserTabs(new ArrayList<SingleUserTabController>(), latestSelectedTabName);
             bodyComponentController.setTabControllerList(tabListControlllers);
 
             if (XMLloadedStatus) {
                 for (Tab tab : bodyComponent.getTabs()) {
-                    if (tab.getText().equals(currentlySelectedTabName)) {
+                    if (tab.getText().equals(latestSelectedTabName)) {
                         bodyComponent.getSelectionModel().select(tab);
                         //bodyComponent.setSelectionModel(tab.getTabPane().getSelectionModel());
                         break;
@@ -334,6 +284,14 @@ public class ApplicationControl {
 
 
         bodyComponent.getTabs().add(adminTab);
+
+        if (getXmlLoadedStatus() == true) {
+            if (bodyComponentController.getAdminController() != null) {
+                if (bodyComponentController.getAdminController().getOpenStock() != null) {
+                    bodyComponentController.getAdminController().updateFluctuationChart(event, marketManager.getSafeStock(bodyComponentController.getAdminController().getOpenStock()));
+                }
+            }
+        }
         adminTab.setText("Admin Tab");
 
     }
@@ -399,12 +357,13 @@ public class ApplicationControl {
         try {
 
             latestBundle = marketManager.operateOnMarket1(gatherInstructionDTO, symbol);
+
             String msg = messenger.matchingActionMSG(latestBundle, buySelected);
+
             textUserInformationProperty.setValue(msg);
 
-
-            userActionViaTextUserInformation(true, event);
-            SingleUserTabController controller = bodyComponentController.getCurrentUserController(currentlySelectedTabName);
+            userActionViaGivenString(true, adminLog.TRADE + " on stock " + symbol + " successful.", event);
+            SingleUserTabController controller = bodyComponentController.getCurrentUserController(latestSelectedTabName);
 
            controller.setSearchStockLabel(symbol);
 
@@ -445,16 +404,20 @@ public class ApplicationControl {
 
     }
     final static String XML_FILE_NAME1 = "C:\\ex2-small.xml"; //C:/Users/Z490/RSE/
+
+    public List<AdminLog.AdminAction> getAdminLog() {
+        return adminLog.getMyEventList();
+    }
 }
 //public InstructionDTO(Instruction originalIns) {
 //        this.quantity = originalIns.getQuantity();
-//        this.time = originalIns.getDate();
+//        this.time = originalIns.getTime();
 //        this.price = originalIns.getPrice();
 //        this.isNew = originalIns.checkIfNew();
 //        this.isBuy = originalIns.isBuy();
 //        this.instructionType = originalIns.getClass().getSimpleName();
 //        this.operatorName = originalIns.getInvokersName();
-//        this.strTime = originalIns.getDate().format(DateTimeFormatter.ofPattern("HH:mm:ss:SSS"));
+//        this.strTime = originalIns.getTime().format(DateTimeFormatter.ofPattern("HH:mm:ss:SSS"));
 //    }
 //  public String getOperatorName(){return operatorName; }
 //    Instruction(LocalDateTime time, boolean isBuy, int price, int quantity, String operatorName) throws Exception {

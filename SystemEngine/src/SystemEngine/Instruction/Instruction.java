@@ -3,7 +3,6 @@ package SystemEngine.Instruction;
 import SystemEngine.Exceptions.NullPriceException;
 import SystemEngine.Exceptions.NullQuantityException;
 import SystemEngine.Stock;
-import SystemEngine.StockTradingSystem;
 import SystemEngine.Transaction;
 
 import java.io.Serializable;
@@ -14,7 +13,7 @@ import java.util.Objects;
 
 public abstract class Instruction implements Serializable, Comparable {
 
-    abstract public void setPriceAfterNoTransaction(Stock newPrice);
+    abstract public void setPriceAfterNoTransaction(int newPrice);
 
     public void setQuantity(int _quantity) {
         quantity = _quantity;
@@ -28,7 +27,7 @@ public abstract class Instruction implements Serializable, Comparable {
         return quantity;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDateTime getTime() {
         return time;
     }
 

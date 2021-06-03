@@ -51,56 +51,67 @@ public class MarketManager implements StockTradingSystem {
             oppositeInstructionCollection = stock.getSaleInstructionData();
         }
 
-     //   int totalGetTotalOperations = 0; //safe delete
         for (Instruction oppositeInstruction : oppositeInstructionCollection) {
             if (!newInstruction.getOperatorName().equals(oppositeInstruction.getOperatorName())) {
                 if (newInstruction.matchesOppositeInstruction(oppositeInstruction)) {
 
+
+                    //updates the transaction
                     Transaction tr = newInstruction.operateStock(oppositeInstruction);
                     stock.getTransactionList().push(tr);
                     newTransactionsMade.push(tr);
+
+                    //updates the stock
                     stock.updateStock(tr.getQuantity(), tr.getPrice(), tr.getTotalPayment());
-                  //  totalGetTotalOperations += tr.getQuantity();
                     User buyer = users.get(tr.getBuyersName());
                     User seller = users.get(tr.getSellersName());
-
                     int quantityTraded = tr.getQuantity();
 
+                    //updates the users
                     buyer.updateBuyer(searchedStockSymbol, quantityTraded);
-
-                    if (seller.equals(instructionOperator)){
-                        seller.updateSeller(searchedStockSymbol, 0); //should remove paper incase 0 remain
+                    if (seller.equals(instructionOperator))
+                    { seller.updateSeller(true, searchedStockSymbol, quantityTraded); }
+                        else
+                            { seller.updateSeller(false, searchedStockSymbol, quantityTraded); }
                     }
-                    else{
-                        seller.updateSeller(searchedStockSymbol, quantityTraded); //should remove paper incase 0 remain
-                    }
-                    //this line throws me because of removal during passing
-//                    if (oppositeInstruction.getQuantity() == 0) {
-//                        oppositeInstructionCollection.remove(oppositeInstruction);
-//                    }
+                    //finish condition
                     if (newInstruction.getQuantity() == 0) {
                         break;
                     }
                 }
             }
-        }
 
+        //saves priceTimeData
+        stock.savePriceTimeVector(stock.getPrice(), newInstruction.getTime());
+
+
+        //creating new instruction if not finished
         if (newInstruction.getQuantity() > 0) {
             if (!newInstruction.isBuy()) {
                 instructionOperator.updateUserAfterInsertingSaleInstruction(searchedStockSymbol, newInstruction.getQuantity());
             }
             sameTypeCollection.add(newInstruction);
         }
+
+        //case not transactions
         if (newTransactionsMade.size() == 0){
             newTransactionsMade = null;
-
+            newInstruction.setPriceAfterNoTransaction(stock.getPrice());
         }
-        if (newInstruction.getQuantity() ==0) {
+
+        //case no new instruction
+        if (newInstruction.getQuantity() == 0) {
             newInstruction = null;
         }
+
+        //deletes empty buy\sell instructions
         clearCache(searchedStockSymbol);
 
         return new CMD4ReturnBundle(newTransactionsMade, newInstruction);
+    }
+
+    private void update(int price) {
+
     }
 
     public void clearCache(String searchedStockSymbol) throws InterruptedException {
@@ -120,46 +131,7 @@ public class MarketManager implements StockTradingSystem {
                 itr2.remove();
         }
     }
-//    private void updateUserInstructionCase(String searchedStockSymbol, int quantity) {
-//    }
 
-
-
-
-
-
-//    private void updateUser(User operator, User buyer, User seller, Transaction tr, String symbol) {
-//        User.transact( operator,  buyer,  seller,  tr,  symbol);
-//
-//    }
-    //public CMD4ReturnBundle operateOnMarket1(Instruction newInstruction, String operatorsName, String enteredSymbol) throws Exception {
-
-//    public CMD4ReturnBundle operateOnMarket1(InstructionDTO newInstructionDTO, String enteredSymbol) throws Exception {
-//        String operatorName = newInstructionDTO.getOperatorName();
-//
-////        if (!newInstructionDTO.getIsBuy()) { //if sell command
-////           if( getUser(operatorName).getStocksInBook().get(enteredSymbol) < newInstructionDTO.getQuantity()){
-////               throw new IllegalArgumentException("The user: " + operatorName + " owns only" + getUser(operatorName).getStocksInBook().get(enteredSymbol) + "" +
-////                       "stocks. and does not have the requested(" + newInstructionDTO.getQuantity() + ") amount of these stocks.");
-////            }
-////        }
-//        Stock searchedCompany = stocks.get(enteredSymbol);
-//        Instruction newInstruction = createInstructionFromDTO(newInstructionDTO);
-//        CMD4ReturnBundle retVal;
-//        if (searchedCompany != null) {
-//            if (newInstruction.isBuy()) {
-//                retVal = searchedCompany.operate(this, newInstruction, searchedCompany.getBuyInstructionData(), searchedCompany.getSaleInstructionData());
-//            } else {
-//                retVal = searchedCompany.perate(newInstruction, searchedCompany.getSaleInstructionData(), searchedCompany.getBuyInstructionData());
-//            }
-//            updateUsers(retVal, enteredSymbol, newInstruction);
-//            return retVal;
-//        }
-//        else{
-//            throw new IllegalArgumentException("The symbol you've entered does not exists within the system!\n" + "Going back to menu...");
-//
-//        }
-//    }
     //assumes userName always exists
     //Do exception if not found
     public UserDTO getSafeUser(String operatorName) {
@@ -188,54 +160,12 @@ public class MarketManager implements StockTradingSystem {
         return createdInstruction;
     }
 
-    //this is always legal, throws b4 if not
-//    private void updateUsers(CMD4ReturnBundle bundle, String symbol, Instruction newInstruction) throws Exception {
-//        int totalQuantityOperated = 0;
-//
-//
-//        for (TransactionDTO tr : bundle.getTransactionsMade()) {
-//
-//            User buyingUser = users.get(tr.getBuyerName());
-//            User sellingUser = users.get(tr.getSellerName());
-//
-//            int quantityTraded = tr.getQuantity();
-//
-//                buyingUser.updateBuyer(symbol, quantityTraded);
-//                sellingUser.getPaper(symbol).updateAfterSold(quantityTraded, symbol); //removes the paper if sold out
-//            } else
-//                {
-//                buyingUser.getPaper(symbol).updateAfterBought(quantityTraded);
-//                sellingUser.getPaper(symbol).updateAfterSold(quantityTraded, symbol); //removes the paper if sold out
-//            }
-//        }
-//        }
-
-//                    quantityTraded = -quantityTraded; }
-//                int newQuantity = users.get(invokersName).getQuantity(symbol) + quantityTraded;
-//                users.get(invokersName).setQuantity(symbol, newQuantity);
-//
-//                User invokingUser = users.get(invokersName);
-//                if (invokingUser.getStocksInBook().get(symbol).equals(0)){
-//                    users.get(invokersName).removePaper(symbol);
-//                }
-
-//                totalQuantityOperated += quantityTraded;
-//                //delete 0 values
-//            }
-//
-//        String operatorsName = newInstruction.getInvokersName();
-
-//        users.get(operatorsName).setQuantity(symbol, users.get(operatorsName).getQuantity(symbol) + totalQuantityOperated);
-
-
-
 
     public Instruction createMatchingInstruction(String instructionType, LocalDateTime time, boolean isBuy, String symbol, int price, int quantity, String operatorName) throws Exception {
         if (instructionType.equals(caseLMT))
             return new LMT(time, isBuy, price, quantity, operatorName);
         else if (instructionType.equals(caseMKT)) {
 
-//            return setAndRetMKT(new MKT(time, isBuy, quantity), symbol); //if no found sets price to NOT_INIT(0)
             return new MKT(time, isBuy, quantity, operatorName);
         } else {
             throw new UnsupportedOperationException("You've entered " + instructionType + "Which is an unknown input to the program, please try again");
@@ -440,5 +370,8 @@ public class MarketManager implements StockTradingSystem {
     final static String XML_FILE_NAME3 = "C:\\Users\\Z490\\IdeaProjects\\RSE_PT1\\SystemEngine\\src\\resources\\ex2-error-2.2.xml"; //C:/Users/Z490/RSE/
 
 
+    public Stock getStock(String latestSelectedStock) {
+        return stocks.get(latestSelectedStock);
+    }
 }
 

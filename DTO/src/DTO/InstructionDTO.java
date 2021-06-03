@@ -8,13 +8,13 @@ import java.time.format.DateTimeFormatter;
 public class InstructionDTO implements Comparable {
     public InstructionDTO(Instruction originalIns) {
         this.quantity = originalIns.getQuantity();
-        this.time = originalIns.getDate();
+        this.time = originalIns.getTime();
         this.price = originalIns.getPrice();
         this.isNew = originalIns.checkIfNew();
         this.isBuy = originalIns.isBuy();
         this.instructionType = originalIns.getClass().getSimpleName();
         this.operatorName = originalIns.getInvokersName();
-        this.strTime = originalIns.getDate().format(DateTimeFormatter.ofPattern("HH:mm:ss:SSS"));
+        this.strTime = originalIns.getTime().format(DateTimeFormatter.ofPattern("HH:mm:ss:SSS"));
     }
     public InstructionDTO(){}
 

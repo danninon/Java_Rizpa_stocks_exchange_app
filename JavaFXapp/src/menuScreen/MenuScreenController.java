@@ -24,14 +24,15 @@ public class MenuScreenController {
     @FXML private Label labelSystemStatus;
     @FXML private Label labelFilePathLoaded;
     @FXML private HBox statusBox;
+    @FXML private Label labelCurrentCSS;
 
     StringProperty systemLoadedStatusString;
     StringProperty systemLoadedPathMSG;
-
+    StringProperty currentCSSProperty;
 
     @FXML
-    void virtualizationRequestListener(ActionEvent event) throws Exception {
-       mainController.testInputFunc(event);
+    void ChangeCSSListener(ActionEvent event) throws Exception {
+       mainController.changeCSS_Seq(event, currentCSSProperty);
 
     }
 
@@ -42,6 +43,7 @@ public class MenuScreenController {
     private void updateThis(String xmlFileName1) {
         systemLoadedPathMSG.set("Currenly loaded XML: " + XML_FILE_NAME1);
         systemLoadedStatusString.set("System's status: True");
+
     }
 
     @FXML
@@ -72,6 +74,8 @@ public class MenuScreenController {
     public MenuScreenController(){
         systemLoadedStatusString = new SimpleStringProperty("System's Status: false");
         systemLoadedPathMSG = new SimpleStringProperty( "Currently XML loaded: Uninitialised");
+        currentCSSProperty = new SimpleStringProperty("Current CSS loaded: GoldenTiger");
+
     }
 
     public void setMainController(ApplicationControl mainController) {
@@ -81,6 +85,7 @@ public class MenuScreenController {
     public void initialize() {
         labelSystemStatus.textProperty().bind(systemLoadedStatusString);
         labelFilePathLoaded.textProperty().bind(systemLoadedPathMSG);
+        labelCurrentCSS.textProperty().bind(currentCSSProperty);
         System.out.println("body init");
     }
 

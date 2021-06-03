@@ -1,43 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5ac6d1ff-9bb7-4675-ad9a-ead6051c4bb6" name="Default Changelist" comment="LMT command beta test complete&#10;&#10;Progress on MKT command">
-      <change afterPath="$PROJECT_DIR$/JavaFXapp/src/appControl/AdminLog.java" afterDir="false" />
+    <list default="true" id="5ac6d1ff-9bb7-4675-ad9a-ead6051c4bb6" name="Default Changelist" comment="added chart">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DTO/src/DTO/InstructionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/DTO/src/DTO/InstructionDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DTO/src/DTO/StockDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/DTO/src/DTO/StockDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/Components/activeUsersScreen/ActiveUsersScreenControl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/Components/activeUsersScreen/activeUsersScreen.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/Components/inputScreen/stocksBookInputScreen/StocksBookInputScreenController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/Components/inputScreen/stocksBookInputScreen/stocksBookInputScreen.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/Components/inputScreen/tradeInputScreen/TradeInputScreenController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/Components/inputScreen/tradeInputScreen/tradeInputScreen.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/Components/outputScreen/outputStocks/OutputScreenController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/Components/outputScreen/outputStocks/outputScreen.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/Components/outputScreen/outputStocks/outputScreen2.fxml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/appControl/MenuAction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/appControl/SubController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/appControl/marketAppContainer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/appControl/marketAppContainer.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/menuScreen/MenuScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/menuScreen/MenuScreenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/menuScreen/menuScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/menuScreen/menuScreen.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/AdminTabController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/AdminTabController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/admin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/admin.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Instruction/Instruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Instruction/Instruction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Instruction/LMT.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Instruction/LMT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Instruction/MKT.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Instruction/MKT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Stock.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/Stock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DTO/DTO/InstructionDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DTO/DTO/InstructionDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DTO/DTO/StockDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DTO/DTO/StockDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl$UserAction.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/MenuAction$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/MenuAction$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/MenuAction$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/MenuAction$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/MenuAction$5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/MenuAction.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/SubController$Type.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/SubController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/usersTabPane/adminTab/AdminTabController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/usersTabPane/adminTab/AdminTabController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/usersTabPane/adminTab/admin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/usersTabPane/adminTab/admin.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Instruction/Instruction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Instruction/Instruction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Instruction/LMT.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Instruction/LMT.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Instruction/MKT.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Instruction/MKT.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/MarketManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/MarketManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Stock.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/Stock.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/User$StockPaper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/User$StockPaper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationMain.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/marketAppContainer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/marketAppContainer.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/menuScreen/MenuScreenController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/menuScreen/MenuScreenController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/menuScreen/menuScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/menuScreen/menuScreen.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,6 +74,8 @@
       <recent name="SystemEngine.Instruction" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Z490\IdeaProjects\RizpaStocksExchangeV2.15\JavaFXapp\src\resource\CSS" />
+      <recent name="C:\Users\Z490\IdeaProjects\RizpaStocksExchangeV2.15\JavaFXapp\src\appControl" />
       <recent name="C:\Users\Z490\IdeaProjects\RizpaStocksExchangeV2.15\JavaFXapp\src\usersTabPane\adminTab\graphLine" />
     </key>
     <key name="MoveInnerDialog.RECENTS_KEY">
@@ -255,7 +243,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/JavaFXapp/src/menuScreen/MenuScreenController.java</url>
-          <line>33</line>
+          <line>34</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -274,13 +262,8 @@
           <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java</url>
-          <line>290</line>
-          <option name="timeStamp" value="49" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/AdminTabController.java</url>
-          <line>223</line>
+          <line>230</line>
           <option name="timeStamp" value="50" />
         </line-breakpoint>
       </breakpoints>
@@ -291,7 +274,7 @@
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/RizpaStocksExchangeV2_15$ApplicationMain.ic" NAME="ApplicationMain Coverage Results" MODIFIED="1622659704591" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/RizpaStocksExchangeV2_15$ApplicationMain.ic" NAME="ApplicationMain Coverage Results" MODIFIED="1622716390535" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>appControl.MessengerArchitect</FILTER>
     </SUITE>
   </component>

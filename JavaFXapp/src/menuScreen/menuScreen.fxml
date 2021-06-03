@@ -23,9 +23,9 @@
                     <children>
                         <HBox alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="598.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                        <Button fx:id="buttonLoadTester" mnemonicParsing="false" onAction="#virtualizationRequestListener" text="Load tester" />
+                        <Label fx:id="labelCurrentCSS" text="Current CSS Loaded:" />
+                        <Button fx:id="buttonLoadTester" mnemonicParsing="false" onAction="#ChangeCSSListener" text="Change CSS" />
                         <Label fx:id="labelFilePathLoaded" text="Current FXML loaded:" />
-                        <Button mnemonicParsing="false" text="Settings" />
                                   <Button fx:id="ButtonLoadFXML" mnemonicParsing="false" onAction="#xmlLoadingAttemptListener" text="Load new XML file" />
                             </children>
                         </HBox>

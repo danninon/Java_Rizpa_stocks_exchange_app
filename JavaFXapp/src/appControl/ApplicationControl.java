@@ -23,11 +23,15 @@ import usersTabPane.adminTab.AdminTabController;
 import usersTabPane.singleUserTab.SingleUserTabController;
 
 import javax.swing.*;
+import javax.swing.text.StyleContext;
+import javax.swing.text.html.StyleSheet;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import static javafx.application.Application.STYLESHEET_CASPIAN;
 
 public class ApplicationControl {
 
@@ -140,6 +144,8 @@ public class ApplicationControl {
         textUserInformationProperty.setValue(retString);
 
         userActionViaGivenString(systemBootFinish, adminLog.BOOT + " was successful.", null);
+
+
 
         }
 
@@ -407,6 +413,9 @@ public class ApplicationControl {
 
     public List<AdminLog.AdminAction> getAdminLog() {
         return adminLog.getMyEventList();
+    }
+
+    public void changeCSS_Seq(ActionEvent event, StringProperty currentCSSProperty) {
     }
 }
 //public InstructionDTO(Instruction originalIns) {

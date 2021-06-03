@@ -92,6 +92,13 @@ public class AdminTabController {
     private TableColumn<AdminLog.AdminAction, String> colHistoryTime;
 
     @FXML
+    private Label labelAdminCompanyName;
+
+    @FXML
+    private Label labelAdminStockPrice;
+
+
+    @FXML
     void loadAdminChosenStock(ActionEvent event) {
 
         try {

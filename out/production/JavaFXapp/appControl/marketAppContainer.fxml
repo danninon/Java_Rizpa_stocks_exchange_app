@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
@@ -35,5 +36,9 @@
          </padding>
       </VBox>
    </bottom>
+   <stylesheets>
+      <URL value="@../resource/CSS/testCSS3.css" />
+      <URL value="@../resource/CSS/testCSS2.css" />
+   </stylesheets>
 
 </BorderPane>

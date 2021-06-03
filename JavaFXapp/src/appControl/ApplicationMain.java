@@ -27,6 +27,7 @@ public class ApplicationMain extends Application {
             ApplicationControl appControl = fxmlLoader.getController();
 
             appControl.setPrimaryStage(primaryStage);
+
             Scene scene = new Scene(root, 1500, 1000);
             primaryStage.setScene(scene);
             primaryStage.show();

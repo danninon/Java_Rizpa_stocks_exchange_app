@@ -7,12 +7,15 @@ import SystemEngine.Instruction.Instruction;
 import SystemEngine.Instruction.LMT;
 import SystemEngine.Instruction.MKT;
 import SystemEngine.generated.*;
+import SystemEngine.tasks.FileLoaderTask;
+import appControl.ApplicationControl;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.function.Consumer;
 
 public class MarketManager implements StockTradingSystem {
 
@@ -197,6 +200,17 @@ public class MarketManager implements StockTradingSystem {
        return sum;
     }
 
+    @Override
+    public boolean loadXML(String xmlFileName) throws Exception {
+        File file = new File(xmlFileName);
+        InputStream inputStream = new FileInputStream(new File(xmlFileName)); //read from user
+
+        JAXBContext jc = JAXBContext.newInstance(JAXB_MARKET_PACKAGE_NAME);
+        Unmarshaller u = jc.createUnmarshaller();
+        RizpaStockExchangeDescriptor marketUnref = (RizpaStockExchangeDescriptor) u.unmarshal(inputStream);
+        return true;
+    }
+
     public int getQuantityOfStockByUser(String userName, String symbol) throws Exception {
         return users.get(userName).getPaper(symbol).getTotalAmount();
     }
@@ -228,21 +242,52 @@ public class MarketManager implements StockTradingSystem {
         }
     }
 
-    //would be nicer if this returned boolean
-    public boolean loadXML(String xmlFileName) throws Exception {
-        File file = new File(xmlFileName);
-        InputStream inputStream = new FileInputStream(new File(xmlFileName)); //read from user
+    public void loadFile(String xmlFileName, int sleepTime, Runnable onFinish, Consumer<String> exceptionHandling, ApplicationControl contoller) throws  InterruptedException
+    {
+       RizpaStockExchangeDescriptor[] marketUnref = {new RizpaStockExchangeDescriptor()};
 
-        JAXBContext jc = JAXBContext.newInstance(JAXB_MARKET_PACKAGE_NAME);
-        Unmarshaller u = jc.createUnmarshaller();
-        RizpaStockExchangeDescriptor marketUnref = (RizpaStockExchangeDescriptor) u.unmarshal(inputStream);
 
-        RseStocks companiesUnref = marketUnref.getRseStocks();
-        stocks.putAll(translateRseStocks(companiesUnref));
-        RseUsers usersUnref = marketUnref.getRseUsers();
-        users.putAll(translateRseUsers(usersUnref));
-        return true;
+        Consumer<Integer> loadFile = (x) -> {
+            try {
+                File file = new File(xmlFileName);
+                InputStream inputStream = new FileInputStream(new File(xmlFileName)); //read from user
+
+                JAXBContext jc = JAXBContext.newInstance(JAXB_MARKET_PACKAGE_NAME);
+                Unmarshaller u = jc.createUnmarshaller();
+                marketUnref[0] = (RizpaStockExchangeDescriptor) u.unmarshal(inputStream);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }};
+
+            Consumer<Integer> updateStocksList = (x) -> {
+                try {
+                    RseStocks companiesUnref = marketUnref[0].getRseStocks();
+                    stocks.putAll(translateRseStocks(companiesUnref));
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }};
+
+            Consumer<Integer> updateUsersList = (x) -> {
+                try {
+                    RseUsers usersUnref = marketUnref[0].getRseUsers();
+                    users.putAll(translateRseUsers(usersUnref));
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }};
+
+        FileLoaderTask currentRunningTask=new FileLoaderTask(xmlFileName,sleepTime,loadFile,updateStocksList,updateUsersList,exceptionHandling);
+
+        contoller.bindTaskToUIComponents(currentRunningTask,onFinish);
+
+        new Thread(currentRunningTask).start();
+
     }
+
 
     public Map<String, User> translateRseUsers(RseUsers fromStocks) throws Exception {
 

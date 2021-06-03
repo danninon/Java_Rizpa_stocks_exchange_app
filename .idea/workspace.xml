@@ -3,27 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="5ac6d1ff-9bb7-4675-ad9a-ead6051c4bb6" name="Default Changelist" comment="added chart">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/Components/activeUsersScreen/ActiveUsersScreenControl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/Components/activeUsersScreen/activeUsersScreen.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/Components/inputScreen/stocksBookInputScreen/StocksBookInputScreenController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/Components/inputScreen/stocksBookInputScreen/stocksBookInputScreen.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/Components/inputScreen/tradeInputScreen/TradeInputScreenController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/Components/inputScreen/tradeInputScreen/tradeInputScreen.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/Components/outputScreen/outputStocks/OutputScreenController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/Components/outputScreen/outputStocks/outputScreen.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/Components/outputScreen/outputStocks/outputScreen2.fxml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/appControl/marketAppContainer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/appControl/marketAppContainer.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFXapp/src/menuScreen/MenuScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/menuScreen/MenuScreenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/menuScreen/menuScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/menuScreen/menuScreen.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/AdminTabController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/AdminTabController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/admin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/admin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationMain.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/marketAppContainer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/marketAppContainer.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/menuScreen/MenuScreenController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/menuScreen/MenuScreenController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/menuScreen/menuScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/menuScreen/menuScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/MarketManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/MarketManager.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +45,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../RSE_PT1" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15017065" />
@@ -125,6 +109,8 @@
       <updated>1622185602735</updated>
       <workItem from="1622185603785" duration="129008000" />
       <workItem from="1622548573014" duration="53171000" />
+      <workItem from="1622720457628" duration="2451000" />
+      <workItem from="1622723056303" duration="3060000" />
     </task>
     <task id="LOCAL‎00001" summary="first use of this git repository.&#10;fill users data information from xml">
       <created>1622199911701</created>
@@ -210,7 +196,19 @@
       <option name="presentableId" value="LOCAL‎00014" />
       <updated>1622638292956</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL‎00015" summary="added chart">
+      <created>1622718957059</created>
+      <option name="number" value="LOCAL‎00015" />
+      <option name="presentableId" value="LOCAL‎00015" />
+      <updated>1622718957059</updated>
+    </task>
+    <task id="LOCAL‎00016" summary="added chart">
+      <created>1622719018784</created>
+      <option name="number" value="LOCAL‎00016" />
+      <option name="presentableId" value="LOCAL‎00016" />
+      <updated>1622719018784</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -226,6 +224,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first use of this git repository.&#10;fill users data information from xml" />
@@ -236,7 +235,8 @@
     <MESSAGE value="SingleSelectedItem by Engine's logic for:&#10;1. operating tab (user or admin)&#10;2. viewed stock" />
     <MESSAGE value="updated user tab to have more features." />
     <MESSAGE value="LMT command beta test complete&#10;&#10;Progress on MKT command" />
-    <option name="LAST_COMMIT_MESSAGE" value="LMT command beta test complete&#10;&#10;Progress on MKT command" />
+    <MESSAGE value="added chart" />
+    <option name="LAST_COMMIT_MESSAGE" value="added chart" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -274,7 +274,7 @@
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/RizpaStocksExchangeV2_15$ApplicationMain.ic" NAME="ApplicationMain Coverage Results" MODIFIED="1622716390535" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/RizpaStocksExchangeV2_15$ApplicationMain.ic" NAME="ApplicationMain Coverage Results" MODIFIED="1622718921351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>appControl.MessengerArchitect</FILTER>
     </SUITE>
   </component>

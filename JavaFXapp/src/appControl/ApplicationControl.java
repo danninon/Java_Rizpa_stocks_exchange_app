@@ -8,6 +8,7 @@ import SystemEngine.Stock;
 import SystemEngine.StockTradingSystem;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import menuScreen.MenuScreenController;
 import usersTabPane.UsersController;
@@ -25,11 +27,14 @@ import usersTabPane.singleUserTab.SingleUserTabController;
 import javax.swing.*;
 import javax.swing.text.StyleContext;
 import javax.swing.text.html.StyleSheet;
+import java.io.File;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 import static javafx.application.Application.STYLESHEET_CASPIAN;
 
@@ -79,7 +84,55 @@ public class ApplicationControl {
         return latestBundle;
     }
 
+    @FXML
+   public void loadFileButtonClicked(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select words file");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("text files", "*.xml"));
+        File selectedFile = fileChooser.showOpenDialog(primaryStage);
+        if (selectedFile == null) {
+            return;
+        }
 
+        String absolutePath = selectedFile.getAbsolutePath();
+
+        Consumer<String> exceptionHandling  = msg -> {
+            textUserInformationProperty.setValue(msg);
+        };
+
+        int sleepTime=2000;
+
+
+        try {
+            marketManager.loadFile(selectedFile.getPath(), sleepTime,() -> {
+                        textUserInformationProperty.setValue("System loaded.");
+                    },
+                    exceptionHandling,this);
+
+        } catch (Exception e) {
+            textUserInformationProperty.setValue(e.getMessage());
+        }
+    }
+
+    public void bindTaskToUIComponents(Task<Boolean> aTask, Runnable onFinish) {
+        textUserInformationProperty.bind(aTask.messageProperty());
+
+
+        aTask.valueProperty().addListener((observable, oldValue, newValue) -> {
+            onTaskFinished(Optional.ofNullable(onFinish),aTask.getValue()); });
+    }
+
+    public void onTaskFinished(Optional<Runnable> onFinish,boolean taskSucceeded) {
+        textUserInformationProperty.unbind();
+
+
+        if (taskSucceeded) {
+            XMLloadedStatus = true;
+            userActionViaGivenString(true,"loaded", null);
+            onFinish.ifPresent(Runnable::run);
+
+        }
+    }
 
     public void openAdminStock(ActionEvent event) {
 //      dddddddmponentController.getAdminController().loadAdminStocks(marketManager, latestSelectedStock, event);

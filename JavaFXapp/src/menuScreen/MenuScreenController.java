@@ -48,21 +48,24 @@ public class MenuScreenController {
 
     @FXML
     public void xmlLoadingAttemptListener(ActionEvent event) throws Exception {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select XML file to load it");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files", "*.xml"));
-        File selectedFile = fileChooser.showOpenDialog(mainController.getStage());
-        if (selectedFile == null){
-            return;
+//        FileChooser fileChooser = new FileChooser();
+//
+//        fileChooser.setTitle("Select XML file to load it");
+//        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files", "*.xml"));
+//        File selectedFile = fileChooser.showOpenDialog(mainController.getStage());
+//        if (selectedFile == null){
+//            return;
+//        }
+//        else {
+//            if (!labelSystemStatus.getText().equals("System's status: " + TRUE)) {
+//             if(mainController.loadXMLFile(selectedFile.getPath(), event)) {
+//                 loadXMLLocal(selectedFile);
+//             }
+//            }
+            mainController.loadFileButtonClicked(event);
         }
-        else {
-            if (!labelSystemStatus.getText().equals("System's status: " + TRUE)) {
-             if(mainController.loadXMLFile(selectedFile.getPath(), event)) {
-                 loadXMLLocal(selectedFile);
-             }
-            }
-        }
-    }
+
+
 
     private void loadXMLLocal(File selectedFile) {
         systemLoadedPathMSG.set("Currenly loaded XML: " + selectedFile.getPath());

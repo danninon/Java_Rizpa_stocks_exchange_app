@@ -4,10 +4,9 @@
     <list default="true" id="5ac6d1ff-9bb7-4675-ad9a-ead6051c4bb6" name="Default Changelist" comment="added chart">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/menuScreen/MenuScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/menuScreen/MenuScreenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/SystemEngine/src/SystemEngine/MarketManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFXapp/src/appControl/marketAppContainer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFXapp/src/appControl/marketAppContainer.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/appControl/ApplicationControl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/MarketManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SystemEngine/SystemEngine/MarketManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaFXapp/usersTabPane/adminTab/AdminTabController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFXapp/usersTabPane/adminTab/AdminTabController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +46,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15017065" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -110,7 +109,7 @@
       <workItem from="1622185603785" duration="129008000" />
       <workItem from="1622548573014" duration="53171000" />
       <workItem from="1622720457628" duration="2451000" />
-      <workItem from="1622723056303" duration="3060000" />
+      <workItem from="1622723056303" duration="8205000" />
     </task>
     <task id="LOCAL‎00001" summary="first use of this git repository.&#10;fill users data information from xml">
       <created>1622199911701</created>
@@ -208,7 +207,37 @@
       <option name="presentableId" value="LOCAL‎00016" />
       <updated>1622719018784</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL‎00017" summary="added task loader">
+      <created>1622726164767</created>
+      <option name="number" value="LOCAL‎00017" />
+      <option name="presentableId" value="LOCAL‎00017" />
+      <updated>1622726164767</updated>
+    </task>
+    <task id="LOCAL‎00018" summary="added task loader">
+      <created>1622726176828</created>
+      <option name="number" value="LOCAL‎00018" />
+      <option name="presentableId" value="LOCAL‎00018" />
+      <updated>1622726176828</updated>
+    </task>
+    <task id="LOCAL‎00019" summary="added task loader">
+      <created>1622726187506</created>
+      <option name="number" value="LOCAL‎00019" />
+      <option name="presentableId" value="LOCAL‎00019" />
+      <updated>1622726187506</updated>
+    </task>
+    <task id="LOCAL‎00020" summary="added task loader">
+      <created>1622726221224</created>
+      <option name="number" value="LOCAL‎00020" />
+      <option name="presentableId" value="LOCAL‎00020" />
+      <updated>1622726221224</updated>
+    </task>
+    <task id="LOCAL‎00021" summary="updated company and price label at admin">
+      <created>1622727739901</created>
+      <option name="number" value="LOCAL‎00021" />
+      <option name="presentableId" value="LOCAL‎00021" />
+      <updated>1622727739901</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -236,16 +265,13 @@
     <MESSAGE value="updated user tab to have more features." />
     <MESSAGE value="LMT command beta test complete&#10;&#10;Progress on MKT command" />
     <MESSAGE value="added chart" />
-    <option name="LAST_COMMIT_MESSAGE" value="added chart" />
+    <MESSAGE value="added task loader" />
+    <MESSAGE value="updated company and price label at admin" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated company and price label at admin" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/JavaFXapp/src/menuScreen/MenuScreenController.java</url>
-          <line>34</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/JavaFXapp/src/usersTabPane/singleUserTab/SingleUserTabController.java</url>
           <line>197</line>
@@ -263,8 +289,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/JavaFXapp/src/usersTabPane/adminTab/AdminTabController.java</url>
-          <line>230</line>
+          <line>208</line>
           <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/JavaFXapp/src/appControl/ApplicationControl.java</url>
+          <line>335</line>
+          <option name="timeStamp" value="62" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -274,7 +305,7 @@
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/RizpaStocksExchangeV2_15$ApplicationMain.ic" NAME="ApplicationMain Coverage Results" MODIFIED="1622718921351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/RizpaStocksExchangeV2_15$ApplicationMain.ic" NAME="ApplicationMain Coverage Results" MODIFIED="1622727241134" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>appControl.MessengerArchitect</FILTER>
     </SUITE>
   </component>

@@ -8,6 +8,7 @@ import SystemEngine.Stock;
 import SystemEngine.StockTradingSystem;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,10 +42,14 @@ import static javafx.application.Application.STYLESHEET_CASPIAN;
 public class ApplicationControl {
 
 
-    @FXML private TabPane bodyComponent;
-    @FXML private AnchorPane topComponent;
-    @FXML private MenuScreenController topComponentController;
-    @FXML private TextArea textAreaInformingUser;
+    @FXML
+    private TabPane bodyComponent;
+    @FXML
+    private AnchorPane topComponent;
+    @FXML
+    private MenuScreenController topComponentController;
+    @FXML
+    private TextArea textAreaInformingUser;
 
 
     final String SINGLE_USER_TAB_FXML_RESOURCE = "../usersTabPane/singleUserTab/singleUserTab3.fxml";
@@ -71,6 +76,7 @@ public class ApplicationControl {
     private LocalDateTime getTimeMark() {
         return LocalDateTime.now();
     }
+
     public boolean isXMLloadedStatus() {
         return XMLloadedStatus;
     }
@@ -85,7 +91,7 @@ public class ApplicationControl {
     }
 
     @FXML
-   public void loadFileButtonClicked(ActionEvent event) {
+    public void loadXMLFile(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select words file");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("text files", "*.xml"));
@@ -96,18 +102,18 @@ public class ApplicationControl {
 
         String absolutePath = selectedFile.getAbsolutePath();
 
-        Consumer<String> exceptionHandling  = msg -> {
+        Consumer<String> exceptionHandling = msg -> {
             textUserInformationProperty.setValue(msg);
         };
 
-        int sleepTime=2000;
+        int sleepTime = 2000;
 
 
         try {
-            marketManager.loadFile(selectedFile.getPath(), sleepTime,() -> {
+            marketManager.loadFile(selectedFile.getPath(), sleepTime, () -> {
                         textUserInformationProperty.setValue("System loaded.");
                     },
-                    exceptionHandling,this);
+                    exceptionHandling, this);
 
         } catch (Exception e) {
             textUserInformationProperty.setValue(e.getMessage());
@@ -119,16 +125,17 @@ public class ApplicationControl {
 
 
         aTask.valueProperty().addListener((observable, oldValue, newValue) -> {
-            onTaskFinished(Optional.ofNullable(onFinish),aTask.getValue()); });
+            onTaskFinished(Optional.ofNullable(onFinish), aTask.getValue());
+        });
     }
 
-    public void onTaskFinished(Optional<Runnable> onFinish,boolean taskSucceeded) {
+    public void onTaskFinished(Optional<Runnable> onFinish, boolean taskSucceeded) {
         textUserInformationProperty.unbind();
 
 
         if (taskSucceeded) {
             XMLloadedStatus = true;
-            userActionViaGivenString(true,"loaded", null);
+            userActionViaGivenString(true, "loaded", null);
             onFinish.ifPresent(Runnable::run);
 
         }
@@ -137,17 +144,6 @@ public class ApplicationControl {
     public void openAdminStock(ActionEvent event) {
 //      dddddddmponentController.getAdminController().loadAdminStocks(marketManager, latestSelectedStock, event);
     }
-
-
-
-//    private void userActionViaTextUserInformation(boolean status, ActionEvent event) {
-//
-//        reloadTabsToTabsPane(event);
-//        adminLog.add(actionCounter,true,textAreaInformingUser.getText(), getTimeMark());
-//        bodyComponentController.getAdminController().updateAdminLog();
-//        bodyComponentController.getAdminController().updateFluctuationChart(event, marketManager.getStock(latestSelectedStock));
-//        ++actionCounter;
-//    }
 
     private void userActionViaGivenString(boolean status, String operationDetails, ActionEvent event) {
         adminLog.add(actionCounter, status, operationDetails, getTimeMark());
@@ -174,12 +170,6 @@ public class ApplicationControl {
         adminLog = new AdminLog(this);
     }
 
-//    private void userActionViaTextUserInformation(UserAction action) {
-//        reloadTabsToTabsPane();
-//        actionCounter++;
-//        userActionLog.add(action);
-//    }
-
 
     public void initialize() {
 
@@ -199,17 +189,18 @@ public class ApplicationControl {
         userActionViaGivenString(systemBootFinish, adminLog.BOOT + " was successful.", null);
 
 
+    }
 
-        }
-
-        //assumes stockSymbol exists in the system because data was loaded from here
+    //assumes stockSymbol exists in the system because data was loaded from here
     public void newStockSearched(String stockSymbol, ActionEvent event) {
         if (stockSymbol != null) {
             textUserInformationProperty.setValue("Fetched stock: " + stockSymbol + "");
+            bodyComponentController.getAdminController().setStockDetails(marketManager.getStock(stockSymbol).getCompanyName(), marketManager.getStock(stockSymbol).getPrice());
             userActionViaGivenString(systemBootFinish, adminLog.SEARCH + " " + stockSymbol + " was successful.", event);
         }
 
     }
+
     private String systemCheck() {
         boolean status = true;
         String msg = "Validating system...";
@@ -275,7 +266,7 @@ public class ApplicationControl {
             textUserInformationProperty.setValue("File loaded successfully.");
             systemBootFinish = true;
             status = true;
-            userActionViaGivenString(true, adminLog.LOAD_XML + " was successful.", event );
+            userActionViaGivenString(true, adminLog.LOAD_XML + " was successful.", event);
             //userActionViaTextUserInformation(true, null);
         } catch (Exception e) {
             textUserInformationProperty.setValue(e.getMessage());
@@ -284,13 +275,14 @@ public class ApplicationControl {
         XMLloadedStatus = true;
         return status;
     }
+
     @FXML
     private UsersController bodyComponentController;
 
     private void reloadTabsToTabsPane(ActionEvent event) {
         try {
-             latestSelectedTabName = null;
-             latestSelectedStock = null;
+            latestSelectedTabName = null;
+            latestSelectedStock = null;
             if (XMLloadedStatus) {
                 latestSelectedTabName = bodyComponentController.getOpenTab();
                 latestSelectedStock = bodyComponentController.getOpenStockAtAdmin();
@@ -338,9 +330,11 @@ public class ApplicationControl {
         adminController.setMainController(this);
 
         bodyComponentController.setAdminController(adminController);
-
         adminController.loadAdminStocks(marketManager, previouslySelectedStock, event);
 
+        if (previouslySelectedStock != null) {
+            adminController.setStockDetails(marketManager.getStock(previouslySelectedStock).getCompanyName(), marketManager.getStock(previouslySelectedStock).getPrice());
+        }
 
         bodyComponent.getTabs().add(adminTab);
 
@@ -354,8 +348,6 @@ public class ApplicationControl {
         adminTab.setText("Admin Tab");
 
     }
-
-
 
 
     public List<SingleUserTabController> formAndAddNewUserTabs(List<SingleUserTabController> tabList, String currentlySelectedTabName) throws Exception {
@@ -392,10 +384,9 @@ public class ApplicationControl {
 //             //   savedSelectedTab = userTab;
         }
 
-      //  tabPaneUsers.setSelectionModel(savedSelectedIndex);
+        //  tabPaneUsers.setSelectionModel(savedSelectedIndex);
         return tabList;
     }
-
 
 
     public void setPrimaryStage(Stage primaryStage) {
@@ -424,21 +415,20 @@ public class ApplicationControl {
             userActionViaGivenString(true, adminLog.TRADE + " on stock " + symbol + " successful.", event);
             SingleUserTabController controller = bodyComponentController.getCurrentUserController(latestSelectedTabName);
 
-           controller.setSearchStockLabel(symbol);
+            controller.setSearchStockLabel(symbol);
 
-            if (latestBundle.getInsDTO() != null){
+            if (latestBundle.getInsDTO() != null) {
                 controller.loadInstructionTab(latestBundle.getInsDTO());
             }
 
-            if (latestBundle.getTransactionsMade() != null){
+            if (latestBundle.getTransactionsMade() != null) {
                 controller.getTranscationTable().getItems().clear();
                 controller.loadTransactionsTab(latestBundle.getTransactionsMade());
             }
 
 
-    } catch (Exception e)
-        {
-           textUserInformationProperty.setValue(e.getMessage());
+        } catch (Exception e) {
+            textUserInformationProperty.setValue(e.getMessage());
             userActionViaGivenString(false, e.getMessage(), event);
         }
         return latestBundle;
@@ -457,11 +447,11 @@ public class ApplicationControl {
     }
 
 
-
     public void testInputFunc(ActionEvent event) throws Exception {
         loadXMLFile(XML_FILE_NAME1, event);
 
     }
+
     final static String XML_FILE_NAME1 = "C:\\ex2-small.xml"; //C:/Users/Z490/RSE/
 
     public List<AdminLog.AdminAction> getAdminLog() {
@@ -469,7 +459,40 @@ public class ApplicationControl {
     }
 
     public void changeCSS_Seq(ActionEvent event, StringProperty currentCSSProperty) {
+        ++seq_counter;
+        ObservableList<String> sheets = primaryStage.getScene().getStylesheets();
+        sheets.clear();
+        String into = "Currently CCSS loaded: ";
+        if (seq_counter == MODANA){
+
+            currentCSSProperty.setValue(into+"No Style - Style");
+        }
+        else if (seq_counter == GOLDEN_TIGER ){
+            currentCSSProperty.setValue(into+"Goldien Tiger(Recommanded)");
+            sheets.add(GOLDEN_TIGER_STYLE);
+        }
+        else if (seq_counter == GREEN_LIZARD){
+            currentCSSProperty.setValue(into+"Green lizard(Nope)");
+            sheets.add(GREEN_LIZARD_STYLE);
+            seq_counter = 0;
+        }
+
+
     }
+
+    int seq_counter = 1;
+
+
+final int MODANA = 1;
+final String MODANA_STYLE = null;
+final int GOLDEN_TIGER = 2;
+final String GOLDEN_TIGER_STYLE = "resource/CSS/testCSS2.css";
+final int GREEN_LIZARD = 3;
+final String GREEN_LIZARD_STYLE = "resource/CSS/testCSS3.css";
+final int SHARP = 4;
+final String SHARP_STYLE = "resource/CSS/aerofx-master/aerofx-master/aerofx/src/main/resources/org/aerofx/win7.css";
+
+
 }
 //public InstructionDTO(Instruction originalIns) {
 //        this.quantity = originalIns.getQuantity();

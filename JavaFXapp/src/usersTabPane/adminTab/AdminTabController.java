@@ -3,11 +3,9 @@ package usersTabPane.adminTab;
 import DTO.InstructionDTO;
 import DTO.StockDTO;
 import DTO.TransactionDTO;
-import SystemEngine.Stock;
 import SystemEngine.StockTradingSystem;
 import appControl.ApplicationControl;
 import appControl.AdminLog;
-import com.sun.deploy.net.proxy.BrowserProxyConfigCanonicalizer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -20,86 +18,60 @@ import java.util.List;
 
 public class AdminTabController {
 
+
+
     public AdminTabController() {
-        currentStockValue = new SimpleStringProperty();
+
+        currentStockPriceProperty = new SimpleStringProperty();
+        currentStockSymbolProperty = new SimpleStringProperty("");
+        currentStockCompanyNameProperty = new SimpleStringProperty("");
     }
 
     public void initialize() {
-        comboBoxChooseStock2.promptTextProperty().bind(currentStockValue);
+        comboBoxChooseStock2.promptTextProperty().bind(currentStockSymbolProperty);
+        labelAdminCompanyName.textProperty().bind(currentStockCompanyNameProperty);
+        labelAdminStockPrice.textProperty().bind(currentStockPriceProperty);
+
     }
 
-    @FXML
-    private LineChart<Integer, String> lineChatStockPriceFluctuation;
+    @FXML private LineChart<Integer, String> lineChatStockPriceFluctuation;
 
-    @FXML
-    BarChart barChart;
-    @FXML
-    CategoryAxis categoryAxis;
-    @FXML
-    NumberAxis numberAxis;
+    @FXML BarChart barChart;
+    @FXML CategoryAxis categoryAxis;
+    @FXML NumberAxis numberAxis;
 
-    @FXML
-    private ComboBox<String> comboBoxChooseStock2;
-    @FXML
-    private TableView<TransactionDTO> tableViewTransactionBook;
-    @FXML
-    private TableColumn<TransactionDTO, Integer> tabTransactionPrice;
-    @FXML
-    private TableColumn<TransactionDTO, Integer> tabTransactionQuantity;
-    @FXML
-    private TableColumn<TransactionDTO, String> tabTransactionDate;
-    @FXML
-    private TableColumn<TransactionDTO, String> tabTransactionOriginal;
-    @FXML
-    private TableColumn<TransactionDTO, String> tabTransactionBuyer;
-    @FXML
-    private TableColumn<TransactionDTO, String> tabTransactionSeller;
+    @FXML private ComboBox<String> comboBoxChooseStock2;
+    @FXML private TableView<TransactionDTO> tableViewTransactionBook;
+    @FXML private TableColumn<TransactionDTO, Integer> tabTransactionPrice;
+    @FXML private TableColumn<TransactionDTO, Integer> tabTransactionQuantity;
+    @FXML private TableColumn<TransactionDTO, String> tabTransactionDate;
+    @FXML private TableColumn<TransactionDTO, String> tabTransactionOriginal;
+    @FXML private TableColumn<TransactionDTO, String> tabTransactionBuyer;
+    @FXML private TableColumn<TransactionDTO, String> tabTransactionSeller;
 
-    @FXML
-    private TableView<InstructionDTO> tableViewSaleBook;
-    @FXML
-    private TableColumn<InstructionDTO, Integer> tabSellPrice;
-    @FXML
-    private TableColumn<InstructionDTO, Integer> tabSellQuantity;
-    @FXML
-    private TableColumn<InstructionDTO, String> tabSellDate;
-    @FXML
-    private TableColumn<InstructionDTO, String> tabSellOriginal;
-    @FXML
-    private TableColumn<InstructionDTO, String> tabSellTrader;
+    @FXML private TableView<InstructionDTO> tableViewSaleBook;
+    @FXML private TableColumn<InstructionDTO, Integer> tabSellPrice;
+    @FXML private TableColumn<InstructionDTO, Integer> tabSellQuantity;
+    @FXML private TableColumn<InstructionDTO, String> tabSellDate;
+    @FXML private TableColumn<InstructionDTO, String> tabSellOriginal;
+    @FXML private TableColumn<InstructionDTO, String> tabSellTrader;
 
+    @FXML private TableView<InstructionDTO> tableViewBuyBook;
+    @FXML private TableColumn<InstructionDTO, Integer> tabBuyPrice;
+    @FXML private TableColumn<InstructionDTO, Integer> tabBuyQuantity;
+    @FXML private TableColumn<InstructionDTO, String> tabBuyDate;
+    @FXML private TableColumn<InstructionDTO, String> tabBuyOriginal;
+    @FXML private TableColumn<InstructionDTO, String> tabBuyTrader;
 
-    @FXML
-    private TableView<InstructionDTO> tableViewBuyBook;
-    @FXML
-    private TableColumn<InstructionDTO, Integer> tabBuyPrice;
-    @FXML
-    private TableColumn<InstructionDTO, Integer> tabBuyQuantity;
-    @FXML
-    private TableColumn<InstructionDTO, String> tabBuyDate;
-    @FXML
-    private TableColumn<InstructionDTO, String> tabBuyOriginal;
-    @FXML
-    private TableColumn<InstructionDTO, String> tabBuyTrader;
+    @FXML private TableView<AdminLog.AdminAction> tableActionsHistory;
+    @FXML private TableColumn<AdminLog.AdminAction, Integer> colHistoryActionNumber;
+    @FXML private TableColumn<AdminLog.AdminAction, String> colHistoryMessage;
+    @FXML private TableColumn<AdminLog.AdminAction, String> colHistoryTime;
 
-    @FXML
-    private TableView<AdminLog.AdminAction> tableActionsHistory;
-    @FXML
-    private TableColumn<AdminLog.AdminAction, Integer> colHistoryActionNumber;
-    @FXML
-    private TableColumn<AdminLog.AdminAction, String> colHistoryMessage;
-    @FXML
-    private TableColumn<AdminLog.AdminAction, String> colHistoryTime;
+    @FXML private Label labelAdminCompanyName;
+    @FXML private Label labelAdminStockPrice;
 
-    @FXML
-    private Label labelAdminCompanyName;
-
-    @FXML
-    private Label labelAdminStockPrice;
-
-
-    @FXML
-    void loadAdminChosenStock(ActionEvent event) {
+    @FXML void loadAdminChosenStock(ActionEvent event) {
 
         try {
             String stockSymbol = comboBoxChooseStock2.getSelectionModel().getSelectedItem();
@@ -116,9 +88,14 @@ public class AdminTabController {
             applicationControl.throwMainApplication(e);
         }
     }
+    private  SimpleStringProperty currentStockPriceProperty;
+    private SimpleStringProperty currentStockSymbolProperty;
+    private SimpleStringProperty currentStockCompanyNameProperty;
+    ApplicationControl applicationControl;
 
+    public void setCompanyName(String companyName) {
 
-    private SimpleStringProperty currentStockValue;
+    }
 
     private void loadTransactionsBook(StockDTO stock) {
         tabTransactionPrice.setCellValueFactory(new PropertyValueFactory<TransactionDTO, Integer>("price"));
@@ -166,7 +143,10 @@ public class AdminTabController {
         this.applicationControl = applicationControl;
     }
 
-    ApplicationControl applicationControl;
+    public void setStockDetails(String companyName, int price){
+        currentStockPriceProperty.setValue(Integer.toString(price) + " NIS");
+        currentStockCompanyNameProperty.setValue(companyName);
+}
 
     public String getOpenStock() {
         String retOpenStockSymbol = null;
@@ -178,17 +158,15 @@ public class AdminTabController {
         return retOpenStockSymbol;
     }
 
-//    public void setAdminSelectedStock(String openStock) {
-//        comboBoxChooseStock2.setSelectionModel(openStock);
-//    }
 
     public SingleSelectionModel<String> getSelectionModelStock() {
         return comboBoxChooseStock2.getSelectionModel();
     }
 
-    public void setSymbolComboBox(String previousStockSymbol) {
-        this.currentStockValue.set(previousStockSymbol);
-    }
+//    public void setSymbolComboBox(String previousStockSymbol, String previousCompanyName) {
+//        this.currentStockSymbolProperty.set(previousStockSymbol);
+//        this.currentStockCompanyNameProperty.set(previousCompanyName);
+//    }
 
     public void loadAdminStocks(StockTradingSystem system, String currentlySelectedStock, ActionEvent event) throws Exception {
         setForm(system);
